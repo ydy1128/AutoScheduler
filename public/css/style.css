@@ -3,3 +3,11 @@ body, html {
 	padding: 0;
 	font-family: 'Titillium Web', sans-serif;
 }
+
+#logo{
+	font-size: 24px;
+}
+.nav{
+	float: right;
+	font-size: 20px;
+}

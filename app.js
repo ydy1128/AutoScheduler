@@ -8,9 +8,20 @@ var bodyParser = require('body-parser');
 
 
 var app = express();
-var spawn = require('child_process').spawn('python', ['backend/hello.py']);
+// var spawn = require('child_process').spawn('python', ['backend/hello.py']);
+var PythonShell = require('python-shell');
+// PythonShell.run('my_script.py', options, function (err, results) {
+//   if (err) throw err;
+//   // results is an array consisting of messages collected during execution 
+//   console.log('results: %j', results);
+// });
 
+var pyshell = new PythonShell('backend/connect_db.py');
 
+pyshell.on('message', function (message) {
+  // received a message sent from the Python script (a simple "print" statement) 
+  console.log(message);
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
