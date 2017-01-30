@@ -1,6 +1,6 @@
-from pymongo import MongoClient
+# from pymongo import MongoClient
 
-client = MongoClient()
+# client = MongoClient()
 
-target = open('output.txt', 'w')
-target.write('hello')
+# target = open('output.txt', 'w')
+# target.write('hello')
