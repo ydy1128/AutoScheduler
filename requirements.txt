@@ -59,7 +59,6 @@ jupyter==1.0.0
 jupyter-client==4.4.0
 jupyter-console==5.0.0
 jupyter-core==4.2.0
-lazy-object-proxy==1.2.1
 llvmlite==0.13.0
 locket==0.2.0
 lxml==3.6.4
