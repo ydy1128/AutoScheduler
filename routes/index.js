@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res) {
-    // var collection = db.get('videos');
-    // collection.find({}, function(err, videos){
-    //     if (err) throw err;
-    //   	res.json(videos);
-    // });
-});
+// var data_doc = require('../public/js/dummie_data.js');
 
+/* GET home page. */
+router.get('/class', function(req, res) {
+    var db = req.db;
+    var collection = db.get('frameitdb');
+    collection.find({},{},function(e,docs){
+        console.log(docs)
+    });
+});
 module.exports = router;
