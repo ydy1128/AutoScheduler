@@ -6,7 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/frameitdb');
+var mongoose = require('mongoose');
+var class_data = require('./public/js/dummie_data.js')
+// var db = monk('localhost:27017/frameitdb');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -30,11 +32,51 @@ pyshell.on('message', function (message) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Make our db accessible to our router
-app.use(function(req,res,next){
-    req.db = db;
-    next();
-});
+
+mongoose.connect("mongodb://localhost/frameitdb");
+var db = mongoose.connection;
+
+db.once('open', function(){
+  console.log('DB Connected');
+})
+
+db.on('error', function(err){
+  console.log('DB Connection Error: ', err)
+})
+
+// var ClassSchema = new mongoose.Schema({
+//   subject : String,
+//   course : String,
+//   crn : String,
+//   section : String,
+//   credit : Number,
+//   title : String,
+//   schedule : [{
+//     days : String,
+//     start_time : String, 
+//     end_time : String, 
+//     location : String
+//   }],
+//   instructor : [String],
+//   date : { 
+//     start_date : String, 
+//     end_date : String
+//   },
+//   attribute : String,
+//   discription : String  
+// })
+// var Classes = mongoose.model('Classes', ClassSchema);
+// for (var i = 0; i < class_data.classes.ClassInfo.length; i++){
+//   var clss = new Classes(class_data.classes.ClassInfo[i]);
+//   clss.save(function(err){
+//     if(err){
+//       console.log(err);
+//     }
+//     else{
+//       console.log(clss)
+//     }
+//   })
+// }
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

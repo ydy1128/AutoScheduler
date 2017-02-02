@@ -150,3 +150,4 @@ var classdata =
 	]
 }
 
+exports.classes = classdata;
