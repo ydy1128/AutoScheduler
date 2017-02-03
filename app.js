@@ -10,9 +10,8 @@ var mongoose = require('mongoose');
 var class_data = require('./public/js/dummie_data.js')
 // var db = monk('localhost:27017/frameitdb');
 var index = require('./routes/index');
-var users = require('./routes/users');
+// var documents = require('./routes/documents');
 
-var app = express();
 var app = express();
 // var spawn = require('child_process').spawn('python', ['backend/hello.py']);
 var PythonShell = require('python-shell');
@@ -30,7 +29,54 @@ pyshell.on('message', function (message) {
 });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile); 
+app.set('view engine', 'html');
+
+
+mongoose.connect("mongodb://localhost/frameitdb");
+var db = mongoose.connection;
+
+db.once('open', function(){
+  console.log('DB Connected');
+})
+
+db.on('error', function(err){
+  console.log('DB Connection Error: ', err)
+})
+
+// var ClassSchema = new mongoose.Schema({
+//   subject : String,
+//   course : String,
+//   crn : String,
+//   section : String,
+//   credit : Number,
+//   title : String,
+//   schedule : [{
+//     days : String,
+//     start_time : String, 
+//     end_time : String, 
+//     location : String
+//   }],
+//   instructor : [String],
+//   date : { 
+//     start_date : String, 
+//     end_date : String
+//   },
+//   attribute : String,
+//   discription : String  
+// })
+// var Classes = mongoose.model('Classes', ClassSchema);
+// for (var i = 0; i < class_data.classes.ClassInfo.length; i++){
+//   var clss = new Classes(class_data.classes.ClassInfo[i]);
+//   clss.save(function(err){
+//     if(err){
+//       console.log(err);
+//     }
+//     else{
+//       console.log(clss)
+//     }
+//   })
+// }
 
 
 mongoose.connect("mongodb://localhost/frameitdb");
@@ -86,8 +132,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', index);
-app.use('/users', users);
+// app.use('/documents', documents);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
