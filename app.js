@@ -32,53 +32,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile); 
 app.set('view engine', 'html');
 
-
-mongoose.connect("mongodb://localhost/frameitdb");
-var db = mongoose.connection;
-
-db.once('open', function(){
-  console.log('DB Connected');
-})
-
-db.on('error', function(err){
-  console.log('DB Connection Error: ', err)
-})
-
-// var ClassSchema = new mongoose.Schema({
-//   subject : String,
-//   course : String,
-//   crn : String,
-//   section : String,
-//   credit : Number,
-//   title : String,
-//   schedule : [{
-//     days : String,
-//     start_time : String, 
-//     end_time : String, 
-//     location : String
-//   }],
-//   instructor : [String],
-//   date : { 
-//     start_date : String, 
-//     end_date : String
-//   },
-//   attribute : String,
-//   discription : String  
-// })
-// var Classes = mongoose.model('Classes', ClassSchema);
-// for (var i = 0; i < class_data.classes.ClassInfo.length; i++){
-//   var clss = new Classes(class_data.classes.ClassInfo[i]);
-//   clss.save(function(err){
-//     if(err){
-//       console.log(err);
-//     }
-//     else{
-//       console.log(clss)
-//     }
-//   })
-// }
-
-
 mongoose.connect("mongodb://localhost/frameitdb");
 var db = mongoose.connection;
 
@@ -155,5 +108,9 @@ app.use(function(err, req, res, next) {
 });
 // app.set('port', process.env.PORT || 9999);
 // app.listen(app.get('port'));
+
+process.on('SIGTERM', function(){
+  db.close()
+})
 
 module.exports = app;

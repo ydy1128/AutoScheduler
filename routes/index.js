@@ -23,6 +23,8 @@ module.exports = (function() {
     })
     .get('/documents', function(req, res) {
         res.render('documents');
+        console.log('view index')
+
     });
     return viewsRoute;
 })();
