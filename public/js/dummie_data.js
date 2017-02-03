@@ -1,7 +1,6 @@
 var classdata = 
 {
-	"ClassInfo"
-	[
+	"ClassInfo":[
 		{
 			"subject" : "",  
 			"course" : "",
@@ -15,7 +14,7 @@ var classdata =
 			"attribute" : "",
 			"discription" : ""	
 			//dummie
-		}
+		},
 
 		{
 			"subject" : "CSCE",  
@@ -24,13 +23,13 @@ var classdata =
 			"section" : "501",
 			"credit" : 4,
 			"title" : "PROGRAMMING I",
-			"schedule" : [{ "days" : "MWF", "start_time" : "03:00 pm", "end_time" : "03:50 pm", "location" : "HRBB 144"}
+			"schedule" : [{ "days" : "MWF", "start_time" : "03:00 pm", "end_time" : "03:50 pm", "location" : "HRBB 144"},
 						{ "days" : "MW", "start_time" : "09:10 am", "end_time" : "10:00 am", "location" :"HRBB 144"}],
 			"instructor" : ["Anandi Dutta"],
 			"date" : { "start_date" : "01/17", "end_date" : "05/09"},
 			"attribute" : "",
 			"discription" : "Basic concepts in using computation to enhance problem solving abilities; understanding how people communicate with computers, and how computing affects society; computational thinking; representation of data; analysis of program behavior; methods for identifying and fixing errors in programs; understanding abilities and limitation of programs; development and execution of programs."
-		}
+		},
 
 		{
 			"subject" : "CSCE",  
@@ -39,13 +38,13 @@ var classdata =
 			"section" : "500",
 			"credit" : 3,
 			"title" : "SOFTWARE REVERSE ENGINEERING",
-			"schedule" : [{ "days" : "MW", "start_time" : "04:10 pm", "end_time" : "05:25 pm", "location" : "THOM 107A"}
+			"schedule" : [{ "days" : "MW", "start_time" : "04:10 pm", "end_time" : "05:25 pm", "location" : "THOM 107A"},
 						{ "days" : "MW", "start_time" : "07:20 pm", "end_time" : "08:10 pm", "location" : "RDMC 111H"}],
 			"instructor" : ["Jyh Liu"],
 			"date" : { "start_date" : "01/17", "end_date" : "05/09"},
 			"attribute" : "",
 			"discription" : "Overview of the compilation mechanism to generate executable files and raw binary codes from source codes; executable file formats for an operating system to run the binary code; disassembly algorithms and control graph analysis; static and dynamic analyses; case studies on code obfuscation, codebreaking, malware analysis."
-		}
+		},
 
 		{
 			"subject" : "AERS",  
@@ -59,7 +58,7 @@ var classdata =
 			"date" : { "start_date" : "01/17", "end_date" : "05/09"},
 			"attribute" : "LIMP",
 			"discription" : "AFROTC cadets must register for Leadership Laboratory (AERS 106) as it complements this course with followership experience."	
-		}
+		},
 
 		{
 			"subject" : "CSCE",  
@@ -73,7 +72,7 @@ var classdata =
 			"date" : { "start_date" : "01/17", "end_date" : "05/09"},
 			"attribute" : "",
 			"discription" : "Overview of parallel computing technology and programming methods; includes multiprocessor architectures, programming tools, parallel performance, parallel algorithms, and applications of parallel computing. Prerequisites: CSCE 315 and junior or senior classification or approval of instructor."	
-		}
+		},
 
 		{
 			"subject" : "CSCE",  
@@ -88,7 +87,7 @@ var classdata =
 			"date" : { "start_date" : "01/17", "end_date" : "05/09"},
 			"attribute" : "",
 			"discription" : "dum dum dum dummie"	
-		}
+		},
 
 		{
 			"subject" : "CSCE",  
@@ -103,7 +102,7 @@ var classdata =
 			"date" : { "start_date" : "01/17", "end_date" : "05/09"},
 			"attribute" : "",
 			"discription" : "dum dum dum dummie duammie!"	
-		}
+		},
 
 		{
 			"subject" : "CSCE",  
@@ -118,7 +117,7 @@ var classdata =
 			"date" : { "start_date" : "01/17", "end_date" : "05/09"},
 			"attribute" : "",
 			"discription" : "dum dum dum dummie"	
-		}
+		},
 
 		{
 			"subject" : "ENGR",  
@@ -133,7 +132,7 @@ var classdata =
 			"date" : { "start_date" : "01/17", "end_date" : "05/09"},
 			"attribute" : "040 and 041 and Core Lang, Phil, Culture(KLPC) and LMTD and Univ Req-Humanities (UHUM) and Univ Req-Writing Intensive",
 			"discription" : "dum dum dum dummie"
-		}
+		},
 
 		{
 			"subject" : "JAPN",  
@@ -151,3 +150,4 @@ var classdata =
 	]
 }
 
+exports.classes = classdata;
