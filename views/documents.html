@@ -53,7 +53,7 @@
       <div id="under-top-nav" class="row">
         <div class="col-sm-12"></div>
       </div>
-      <div class="row">
+      <div ng-app="searchEngine" ng-controller="searchEngineCtrl" class="row">
         <div class="col-sm-12">
           <div class="col-sm-10">
             <div class="col-sm-4">.Subject</div>
@@ -72,6 +72,10 @@
         </div>
       </div> 
     </div>
+
+  <!-- js files -->
+  <script src="js/search_engine.js"></script>
+
 	<script>
 	$( function () {
 		$( '[data-toggle="tooltip"]' ).tooltip();
