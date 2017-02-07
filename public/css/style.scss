@@ -52,32 +52,53 @@ body{
 	#engineBox{
 		margin: 10px 20px;
 		padding: 0;
-		height: 80px;
+		min-height: 80px;
 		width: calc(100% - 40px);
 		background-color: $color-dark;
 		border-radius: 5px;
-
-		.search-section{
-			&.section-top{
-				margin: 10px 0 5px;
-			}
-			&.section-bottom{
-				margin: 5px 0 10px;
-			}
-			label{
-				display: inline-block;
-				width: 35%;
-				color: $color-lightest;
-				font-size: 15px;
-				float: left;
-			}
-			.select2{
-				display: inline-block;
-				width: 65% !important;
-				float: left;
-				.select2-selection{
-					height: 25px;
-					min-height: 25px;
+		float: left;
+		#selectionWrapper{
+			display: block;
+			float: left;
+			.search-section{
+				&.section-top{
+					margin: 10px 0 5px;
+				}
+				&.section-bottom{
+					margin: 5px 0 10px;
+				}
+				label{
+					display: inline-block;
+					width: 35%;
+					color: $color-lightest;
+					font-size: 15px;
+					float: left;
+					&.deemed{
+						color: $color-deem;
+					}
+				}
+				.select2{
+					display: inline-block;
+					width: 65% !important;
+					float: left;
+					input{
+						margin-top: 0;
+					}
+					.select2-selection{
+						height: 25px;
+						min-height: 25px;
+						&.select2-selection--single{
+							.select2-selection__rendered{
+								line-height: 24px;
+							}
+						}
+						&.select2-selection--multiple{
+							line-height: 20px;
+							li{
+								margin-top: 1px;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -92,4 +113,5 @@ body{
 			font-size: 30px;
 		}
 	}
+	
 }
