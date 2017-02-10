@@ -4,4 +4,4 @@
 
 # target = open('output.txt', 'w')
 # target.write('hello')
-print 'hello'
+print 'python connected'

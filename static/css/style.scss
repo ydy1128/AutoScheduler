@@ -50,7 +50,7 @@ body{
 
 #searchEngine{
 	#engineBox{
-		margin: 10px 20px 0;
+		margin: 10px 20px;
 		padding: 0;
 		min-height: 80px;
 		width: calc(100% - 40px);
@@ -87,20 +87,15 @@ body{
 					.select2-selection{
 						height: 25px;
 						min-height: 25px;
+						&.select2-selection--single{
+							.select2-selection__rendered{
+								line-height: 24px;
+							}
+						}
 						&.select2-selection--multiple{
 							line-height: 20px;
-							overflow: hidden;
-							ul{
-								overflow-x: scroll;
-								li{
-									margin-top: 1px;
-									float: none;
-									display: inline-block;
-									&.active{
-										background-color: $color-active;
-										color: $color-lightest;
-									}
-								}
+							li{
+								margin-top: 1px;
 							}
 						}
 					}
@@ -111,21 +106,12 @@ body{
 			height: 100%;
 			line-height: 80px;
 			padding: 0;
-			background-color: $color-vibrant;
+			background-color: $color-active;
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
 			color: $color-lightest;
 			font-size: 30px;
 		}
-
 	}
-	#SearchMessageDiv{
-		color: $color-active;
-		min-height: 25px;
-		margin-bottom: 10px;
-		p{
-			margin: 0 15px;
-			font-size: 17px;
-		}
-	}
+	
 }

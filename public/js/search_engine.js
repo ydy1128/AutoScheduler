@@ -1,121 +1,185 @@
-// controller for search engine
-// functions used: initSelect2()
-app.controller('searchEngineCtrl', function($scope, $http, passResults){
+// description:     controller for search engine
+// functions used:  initSelect2() - search_engine.js
+app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResults){
+    $scope.selected_subjects = [];
+    $scope.selected_courses = [];
+    $scope.selected_sections = [];
+    $scope.selected_crns = [];
+    $scope.selected_instructors = [];
+    $scope.selected_days = [];
+    $scope.search_message = '';
     //retrieve all classes data from db
     $http.get('/class-data')
-    .then(function(response){
-        $scope.classes = response.data;
-    })
-    // populate Course # select on subject change
-    $scope.subjectChange = function(){
-        var data_list = $scope.classes;
-        var selected_classes = [];
-        angular.forEach(data_list, function(item){
-            if(item['subject'] == $scope.selected_subject){
-                selected_classes.push(item);
-            }
-        });
-        $scope.classes_by_subject = selected_classes;
+    .then(
+        function(response){
+            $scope.classes = response.data;
+            $scope.filters = getFilters(response.data);
+        },
+        function(){
+            $scope.classes = [];
+            console.log('db connection error');
+        }
+    )
+    // description:     clears message when option is selected in any filters
+    $scope.searchChange = function(){
+        $scope.search_message = '';
     }
-
+    // description:     gives search result data to search_result controller and populates search message
+    // functions used:  filterByElements() - search_engine.js
+    //                  filterByInstructors() - search_engine.js
+    //                  filterByDays() - search_engine.js
     $scope.searchSubmit = function(){
-        var data_list = $scope.classes;
-        var selected_classes = [];
-        //both search parameters not selected - highlight both subject and crn
-        if(($scope.selected_crn == undefined || $scope.selected_crn == '') && 
-            ($scope.selected_subject == undefined || $scope.selected_subject == '')){
-            console.log('both empty')
+        var filtered_data = $scope.classes;
+        var filter_selected = false;
+        angular.element('#engineBox li').removeClass('active');
+        if($scope.selected_subjects.length > 0){
+            filter_selected = true;
+            filtered_data = filterByElements(filtered_data, $scope.selected_subjects, 'subject');
         }
-        //search by subject and course
-        else if($scope.selected_crn == undefined || $scope.selected_crn == ''){
-            console.log('search by subjectChange')
-            //subject selected but course not selectd - highlight subject
-            if($scope.selected_course == undefined || $scope.selected_course == ''){
-                console.log('course empty')
-                angular.forEach(data_list, function(item){
-                    if(item['subject'] == $scope.selected_subject){
-                        selected_classes.push(item)
-                    }
-                });
-                passResults.updateClasses(selected_classes);
-            }
-            else{
-                console.log('course empty')
-                angular.forEach(data_list, function(item){
-                    if(item['subject'] == $scope.selected_subject && item['course'] == $scope.selected_course){
-                        selected_classes.push(item)
-                    }
-                });
-                passResults.updateClasses(selected_classes);
-            }
+        if($scope.selected_courses.length > 0){
+            filter_selected = true;
+            filtered_data = filterByElements(filtered_data, $scope.selected_courses, 'course');
         }
-        //search by crn
-        else if($scope.selected_subject == undefined || $scope.selected_subject == ''){
-            console.log('search by crn')
-            angular.forEach(data_list, function(item){
-                if(item['crn'] == $scope.selected_crn){
-                    selected_classes.push(item)
-                }
-            });
-            passResults.updateClasses(selected_classes);
-        }        
+        if($scope.selected_sections.length > 0){
+            filter_selected = true;
+            filtered_data = filterByElements(filtered_data, $scope.selected_sections, 'section');
+        }
+        if($scope.selected_crns.length > 0){
+            filter_selected = true;
+            filtered_data = filterByElements(filtered_data, $scope.selected_crns, 'crn');
+        }
+        if($scope.selected_instructors.length > 0){
+            filter_selected = true;
+            filtered_data = filterByInstructors(filtered_data, $scope.selected_instructors);
+        }
+        if($scope.selected_days.length > 0){
+            filter_selected = true;
+            filtered_data = filterByDays(filtered_data, $scope.selected_days);
+        }
+
+        if(!filter_selected){
+            $scope.search_message = '* At least one filter must be selected!';
+            passResults.updateClasses([])
+        }
+        else if(filtered_data.length == 0){
+            $scope.search_message = '* No Results Found.';
+            angular.element('#engineBox li').removeClass('active');
+        }
+        else{
+            passResults.updateClasses(filtered_data)
+        }
     }
     initSelect2();
 })
-// filter unique values from dataset
-app.filter('unique', function() {
-   return function(collection, keyname) {
-      var output = [], keys = [];
-      angular.forEach(collection, function(item) {
-          var key = item[keyname];
-          if(keys.indexOf(key) === -1) {
-              keys.push(key); 
-              output.push(item);
-          }
-      });
-      return output;
-   };
-});
-
-// initiate select2 libraries
-// functions used: enableSelect(), disableSelect()
+// description:     initiate select2 libraries
 function initSelect2(){
     $(".search-section select").select2();
-    //Course ID selection is initially disabled
-    disableSelect('selectCourse');
-    $(".search-section select").change(function(){
-        var select_id = $(this).parent().attr('id');
-        switch (select_id){
-            case 'selectSubject':
-                if($(this).val() == ''){
-                    enableSelect('selectCRN');
-                    disableSelect('selectCourse');
-                }
-                else{
-                    disableSelect('selectCRN');
-                    enableSelect('selectCourse');
-                }
-                break;
-            case 'selectCRN':
-                if($(this).val() == ''){
-                    enableSelect('selectSubject');
-                }
-                else{
-                    disableSelect('selectSubject');
-                }
-        }
-
+}
+function getFilters(data){
+    var result = [];
+    angular.forEach(data, function(item){
+        var temp_obj1 = {}, temp_obj2 = {}, temp_obj3 = {};
+        temp_obj1['subject'] = item['subject'];
+        temp_obj1['course'] = item['course'];
+        temp_obj1['section'] = item['section'];
+        temp_obj1['crn'] = item['crn'];
+        angular.forEach(item['instructor'], function(ins){
+            temp_obj2 = $.extend({}, temp_obj1);
+            temp_obj2['instructor'] = ins;
+        });
+        angular.forEach(item.schedule, function(schedule){
+            var days = schedule.days;
+            angular.forEach(days, function(day){
+                temp_obj3 = $.extend({}, temp_obj2);
+                temp_obj3['day'] = day;
+                result.push(temp_obj3);
+            });
+        });
+    });
+    return result;
+}
+// description:     filters the data with selected filters (used for subject and course)
+// input:           target - the whole data
+//                  filters - applied filters in select
+//                  key - filter category (in this case subject and courses)
+// return:          temp - filtered data
+// functions used:  highlightFilters() - search_engine.js
+function filterByElements(target, filters, key){
+    var temp = [];
+    var vals = [];
+    var diff_vals = [];
+    angular.forEach(target, function(item){
+        angular.forEach(filters, function(filter){
+            if(item[key] == filter){
+                var temp_obj = $.extend({}, item);
+                temp.push(temp_obj)
+                vals.push(filter);
+            }
+        })
     })
+    highlightFilters(filters, vals, key);
+    return temp;
 }
-// enables a select in search engine
-// id_str - string of select id div
-function enableSelect(id_str){
-    $('#'+id_str+' select').attr('disabled', false);
-    $('#'+id_str+' label').removeClass('deemed');
+// description:     filters the data with selected filters (used for instructor)
+// input:           target - the whole data
+//                  filters - applied filters in select
+// return:          temp - filtered data
+// functions used:  highlightFilters() - search_engine.js
+function filterByInstructors(target, filters){
+    var temp = []
+    var vals = [];
+    angular.forEach(target, function(item){
+        var instructors = item['instructor'];
+        angular.forEach(filters, function(filter){
+            if(instructors.indexOf(filter) != -1){
+                var temp_obj = $.extend({}, item);
+                temp.push(temp_obj)
+                vals.push(filter);
+            }
+        })
+    })
+    highlightFilters(filters, vals, 'instructor');
+    return temp;
 }
-// disables a select in search engine
-// id_str - string of select id div
-function disableSelect(id_str){
-    $('#'+id_str+' select').attr('disabled', true);
-    $('#'+id_str+' label').addClass('deemed');
+// description:     filters the data with selected filters (used for day)
+// input:           target - the whole data
+//                  filters - applied filters in select
+// return:          temp - filtered data
+// functions used:  highlightFilters() - search_engine.js
+function filterByDays(target, filters){
+    var temp = []
+    var vals = [];
+    angular.forEach(target, function(item){
+        var schedules = item['schedule'];
+        angular.forEach(filters, function(filter){
+            angular.forEach(schedules, function(schedule){
+                if(schedule.days.includes(filter)){
+                    var temp_obj = $.extend({}, item);
+                    temp.push(temp_obj)
+                    vals.push(filter);
+                }
+            })
+        })
+    })
+    highlightFilters(filters, vals, 'day');
+    return temp;
+}
+// description:     highlight unapplied filters
+// input:           filters - applied filters in select
+//                  vals - applied filters
+//                  key - filter category (subject, course, instructor, or day)
+// return:          temp - filtered data
+// functions used:  highlightFilters() - search_engine.js
+function highlightFilters(filters, vals, key){
+    var diff_vals = filters.filter(function(x) { return vals.indexOf(x) < 0 });
+    var $scope = angular.element('#searchEngine').scope();
+    angular.forEach(angular.element('#select'+key+' li'), function(value, key){
+        var check = angular.element(value).text().substr(1);
+        if(diff_vals.indexOf(check) != -1){
+            angular.element(value).addClass('active');
+        }
+    })
+    if(diff_vals.length > 0){
+        $scope.search_message = '* Selected filters has not been applied or could not produce any results.';
+    }
 }

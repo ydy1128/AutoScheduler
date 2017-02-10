@@ -43,7 +43,7 @@ body {
   background-size: cover; }
 
 #searchEngine #engineBox {
-  margin: 10px 20px 0;
+  margin: 10px 20px;
   padding: 0;
   min-height: 80px;
   width: calc(100% - 40px);
@@ -74,18 +74,12 @@ body {
       #searchEngine #engineBox #selectionWrapper .search-section .select2 .select2-selection {
         height: 25px;
         min-height: 25px; }
+        #searchEngine #engineBox #selectionWrapper .search-section .select2 .select2-selection.select2-selection--single .select2-selection__rendered {
+          line-height: 24px; }
         #searchEngine #engineBox #selectionWrapper .search-section .select2 .select2-selection.select2-selection--multiple {
-          line-height: 20px;
-          overflow: hidden; }
-          #searchEngine #engineBox #selectionWrapper .search-section .select2 .select2-selection.select2-selection--multiple ul {
-            overflow-x: scroll; }
-            #searchEngine #engineBox #selectionWrapper .search-section .select2 .select2-selection.select2-selection--multiple ul li {
-              margin-top: 1px;
-              float: none;
-              display: inline-block; }
-              #searchEngine #engineBox #selectionWrapper .search-section .select2 .select2-selection.select2-selection--multiple ul li.active {
-                background-color: #d64d61;
-                color: #ffffff; }
+          line-height: 20px; }
+          #searchEngine #engineBox #selectionWrapper .search-section .select2 .select2-selection.select2-selection--multiple li {
+            margin-top: 1px; }
   #searchEngine #engineBox .section-btn {
     height: 100%;
     line-height: 80px;
@@ -95,12 +89,5 @@ body {
     border-bottom-left-radius: 0;
     color: #ffffff;
     font-size: 30px; }
-#searchEngine #SearchMessageDiv {
-  color: #d64d61;
-  min-height: 25px;
-  margin-bottom: 10px; }
-  #searchEngine #SearchMessageDiv p {
-    margin: 0 15px;
-    font-size: 17px; }
 
 /*# sourceMappingURL=style.css.map */

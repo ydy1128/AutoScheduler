@@ -33,49 +33,53 @@
   <div id="searchEngine" ng-controller="searchEngineCtrl" class="row">
     <div id="engineBox" class="col-md-12">
       <div id="selectionWrapper" class="col-md-10 col-xs-12">
-        <div id="selectSubject" class="search-section section-top col-md-4 col-xs-12">
+        <div id="selectsubject" class="search-section section-top col-md-6 col-xs-12">
           <label>Subject: </label>
-          <select ng-change="subjectChange()" ng-model="selected_subject">
-            <option ng-repeat="x in classes | unique: 'subject' | orderBy: 'subject'" value="{{ x.subject }}">{{ x.subject }}</option>
+          <select ng-model="selected_subjects" ng-change="searchChange()" multiple>
+            <option ng-repeat="x in filters | unique: 'subject' | orderBy: 'subject'" value="{{ x.subject }}">{{ x.subject }}</option>
           </select>
         </div>
-        <div id="selectCourse" class="search-section section-top col-md-4 col-xs-12">
+        <div id="selectcourse" class="search-section section-top col-md-6 col-xs-12">
           <label>Course #: </label>
-          <select ng-model="selected_course">
-            <option ng-repeat="x in classes_by_subject | unique: 'course'">{{ x.course }}</option>
+          <select ng-model="selected_courses" ng-change="searchChange()" multiple>
+            <option ng-repeat="x in filters | unique: 'course'">{{ x.course }}</option>
           </select>
         </div>
-        <div id="selectCRN" class="search-section section-top col-md-4 col-xs-12">
+<!--         <div id="selectsection" class="search-section section-bottom col-md-6 col-xs-12">
+          <label>Section: </label>
+          <select ng-model="selected_sections" ng-change="updateFilter('section', selected_sections)" multiple>
+            <option ng-repeat="x in filters | unique: 'section' | orderBy: 'section'" value="{{ x.section }}">{{ x.section }}</option>
+          </select>
+        </div> -->
+<!--         <div id="selectcrn" class="search-section section-top col-md-6 col-xs-12">
           <label>CRN: </label>
-          <select ng-model="selected_crn">
-            <option ng-repeat="x in classes | orderBy: 'crn'" value="{{ x.crn }}">{{ x.crn }}</option>
+          <select ng-model="selected_crns" ng-change="updateFilter('crn', selected_crns)" multiple>
+            <option ng-repeat="x in filters | unique: 'crn' | orderBy: 'crn'" value="{{ x.crn }}">{{ x.crn }}</option>
+          </select>
+        </div> -->
+        <div id="selectinstructor" class="search-section section-bottom col-md-6 col-xs-12">
+          <label>Instructor: </label>
+          <select ng-model="selected_instructors" ng-change="searchChange()" multiple>
+            <option ng-repeat="x in filters | unique: 'instructor' | orderBy: 'instructor'" value="{{ x.instructor }}">{{ x.instructor }}</option>
           </select>
         </div>
-        <div class="search-section section-bottom col-md-1 col-xs-12">
-          <label>Filters: </label>
-        </div>
-        <div class="col-md-11">
-          <div class="search-section section-bottom col-md-4 col-xs-12">
-            <label>Sections: </label>
-            <select class="selectpicker" multiple></select>
-          </div>
-          <div class="search-section section-bottom col-md-4 col-xs-12">
-            <label>Instructors: </label>
-            <select class="selectpicker" multiple></select>
-          </div>
-          <div class="search-section section-bottom col-md-4 col-xs-12">
-            <label>Days: </label>
-            <select class="selectpicker" multiple></select>
-          </div>
+        <div id="selectday" class="search-section section-bottom col-md-6 col-xs-12">
+          <label>Days: </label>
+          <select ng-model="selected_days" ng-change="searchChange()" multiple>
+            <option ng-repeat="x in filters | unique: 'day'" value="{{ x.day }}">{{ x.day }}</option>
+          </select>
         </div>
       </div>
       <div class="btn section-btn col-md-2 col-xs-12" ng-click="searchSubmit()">Search</div>
+    </div>
+    <div id="SearchMessageDiv" class="col-md-12">
+      <p class="col-md-10" ng-model="search_message">{{ search_message }}</p>
     </div>
   </div> 
   <div class="row">
     <div id="searchResults" ng-controller="searchResultsCtrl">
       <ul id="tempData">
-        <li ng-repeat="x in filteredClasses">{{ x.subject }}, {{ x.course }}, {{ x.section }} {{ x.instructor }}</li>
+        <li ng-repeat="x in filteredClasses">{{ x.subject }}, {{ x.course }}, {{ x.section }}, {{ x.crn }}, {{ x.instructor }} <span ng-repeat="y in x.schedule">, {{ y.days }}</span></li>
       </div>
     </div>
   </div>
