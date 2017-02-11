@@ -45,18 +45,6 @@
             <option ng-repeat="x in filters | unique: 'course'">{{ x.course }}</option>
           </select>
         </div>
-<!--         <div id="selectsection" class="search-section section-bottom col-md-6 col-xs-12">
-          <label>Section: </label>
-          <select ng-model="selected_sections" ng-change="updateFilter('section', selected_sections)" multiple>
-            <option ng-repeat="x in filters | unique: 'section' | orderBy: 'section'" value="{{ x.section }}">{{ x.section }}</option>
-          </select>
-        </div> -->
-<!--         <div id="selectcrn" class="search-section section-top col-md-6 col-xs-12">
-          <label>CRN: </label>
-          <select ng-model="selected_crns" ng-change="updateFilter('crn', selected_crns)" multiple>
-            <option ng-repeat="x in filters | unique: 'crn' | orderBy: 'crn'" value="{{ x.crn }}">{{ x.crn }}</option>
-          </select>
-        </div> -->
         <div id="selectinstructor" class="search-section section-bottom col-md-6 col-xs-12">
           <label>Instructor: </label>
           <select ng-model="selected_instructors" ng-change="searchChange()" multiple>

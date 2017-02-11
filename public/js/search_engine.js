@@ -3,8 +3,6 @@
 app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResults){
     $scope.selected_subjects = [];
     $scope.selected_courses = [];
-    $scope.selected_sections = [];
-    $scope.selected_crns = [];
     $scope.selected_instructors = [];
     $scope.selected_days = [];
     $scope.search_message = '';
@@ -40,14 +38,6 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
             filter_selected = true;
             filtered_data = filterByElements(filtered_data, $scope.selected_courses, 'course');
         }
-        if($scope.selected_sections.length > 0){
-            filter_selected = true;
-            filtered_data = filterByElements(filtered_data, $scope.selected_sections, 'section');
-        }
-        if($scope.selected_crns.length > 0){
-            filter_selected = true;
-            filtered_data = filterByElements(filtered_data, $scope.selected_crns, 'crn');
-        }
         if($scope.selected_instructors.length > 0){
             filter_selected = true;
             filtered_data = filterByInstructors(filtered_data, $scope.selected_instructors);
@@ -71,18 +61,19 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
     }
     initSelect2();
 })
-// description:     initiate select2 libraries
+// description:     initiate select2 library
 function initSelect2(){
     $(".search-section select").select2();
 }
+// description:     get all filters (subject, course, instructor, day)
+// input:           data - the whole data
+// return:          temp - filter titles
 function getFilters(data){
     var result = [];
     angular.forEach(data, function(item){
         var temp_obj1 = {}, temp_obj2 = {}, temp_obj3 = {};
         temp_obj1['subject'] = item['subject'];
         temp_obj1['course'] = item['course'];
-        temp_obj1['section'] = item['section'];
-        temp_obj1['crn'] = item['crn'];
         angular.forEach(item['instructor'], function(ins){
             temp_obj2 = $.extend({}, temp_obj1);
             temp_obj2['instructor'] = ins;
@@ -172,7 +163,8 @@ function filterByDays(target, filters){
 // functions used:  highlightFilters() - search_engine.js
 function highlightFilters(filters, vals, key){
     var diff_vals = filters.filter(function(x) { return vals.indexOf(x) < 0 });
-    var $scope = angular.element('#searchEngine').scope();
+    var controller = document.querySelector('[ng-controller=searchEngineCtrl]');
+    var $scope = angular.element(controller).scope();
     angular.forEach(angular.element('#select'+key+' li'), function(value, key){
         var check = angular.element(value).text().substr(1);
         if(diff_vals.indexOf(check) != -1){
@@ -180,6 +172,6 @@ function highlightFilters(filters, vals, key){
         }
     })
     if(diff_vals.length > 0){
-        $scope.search_message = '* Selected filters has not been applied or could not produce any results.';
+        $scope.search_message = '* Selected filters has not been applied.';
     }
 }
