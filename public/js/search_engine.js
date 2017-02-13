@@ -61,6 +61,11 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
     }
     initSelect2();
 })
+.directive('searchEngine', function(){
+    return{
+        templateUrl: '../templates/search_engine.html'
+    }
+})
 // description:     initiate select2 library
 function initSelect2(){
     $(".search-section select").select2();
@@ -108,7 +113,7 @@ function filterByElements(target, filters, key){
             }
         })
     })
-    highlightFilters(filters, vals, key);
+    // highlightFilters(filters, vals, key);
     return temp;
 }
 // description:     filters the data with selected filters (used for instructor)
@@ -129,7 +134,7 @@ function filterByInstructors(target, filters){
             }
         })
     })
-    highlightFilters(filters, vals, 'instructor');
+    // highlightFilters(filters, vals, 'instructor');
     return temp;
 }
 // description:     filters the data with selected filters (used for day)
@@ -152,12 +157,12 @@ function filterByDays(target, filters){
             })
         })
     })
-    highlightFilters(filters, vals, 'day');
+    // highlightFilters(filters, vals, 'day');
     return temp;
 }
 // description:     highlight unapplied filters
 // input:           filters - applied filters in select
-//                  vals - applied filters
+//                  vals - applied function() {}ilters
 //                  key - filter category (subject, course, instructor, or day)
 // return:          temp - filtered data
 // functions used:  highlightFilters() - search_engine.js

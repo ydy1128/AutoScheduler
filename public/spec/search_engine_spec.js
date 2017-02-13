@@ -1,6 +1,8 @@
 describe('searchEngineCtrl', function(){
+	var $controller, $rootScope, $compile, $elements, $templateRequest, template;
+
 	beforeEach(angular.mock.module('FrameItApp'));
-	var $controller, $http, $httpBackend;
+	beforeEach(angular.mock.module('ui.router'));
 
 	beforeEach(angular.mock.inject(function($injector){
 		$controller = $injector.get('$controller');
@@ -8,8 +10,11 @@ describe('searchEngineCtrl', function(){
 		$httpBackend = $injector.get('$httpBackend');
 		$rootScope = $injector.get('$rootScope');
 		$compile = $injector.get('$compile');
+		$templateRequest = $injector.get('$templateRequest');
+		$templateRequest('../templates/search_engine.html').then(function(html){
+			template = angular.element(html);
+		})
 	}))
-
 
 	describe('$scope.filters', function(){
 		it('- contains "CSCE" check', function(){
@@ -41,22 +46,21 @@ describe('searchEngineCtrl', function(){
 		    $scope.searchSubmit();
 			expect($scope.search_message).toBe('* At least one filter must be selected!');
 		})
-		// it('- no result found check', function(){
-		// 	//loads dummy data
-		//     // angular.element('body').append('<div id="searchEngine" ng-controller="searchEngineCtrl"></div>');
-		// 	$scope.classes = classdata['ClassInfo']
-  //           $scope.filters = getFilters(classdata['ClassInfo']);
+		it('- no result found check', function(){
+			//loads dummy data
+			$scope.classes = classdata['ClassInfo']
+            $scope.filters = getFilters(classdata['ClassInfo']);
 
-		//     $scope.selected_subjects = ['CSCE'];
-		//     $scope.selected_courses = ['482'];
-		//     $scope.selected_instructors = [];
-		//     $scope.selected_days = [];
-		//     $scope.search_message = '';
+		    $scope.selected_subjects = ['CSCE'];
+		    $scope.selected_courses = ['482'];
+		    $scope.selected_instructors = [];
+		    $scope.selected_days = [];
+		    $scope.search_message = '';
+		    $elements = $compile(template)($scope)
 
+		    $scope.searchSubmit();
 
-		//     $scope.searchSubmit();
-
-		// 	expect($scope.search_message).toBe('* No Results Found.');
-		// })
+			expect($scope.search_message).toBe('* No Results Found.');
+		})
 	})
 })
