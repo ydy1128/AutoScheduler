@@ -1,66 +1,63 @@
 describe('searchEngineCtrl', function(){
-	var $controller, $rootScope, $compile, $elements, $templateRequest, template;
+	let scope, http, httpBackend, createController, controller;
 
-	beforeEach(angular.mock.module('FrameItApp'));
-	beforeEach(angular.mock.module('ui.router'));
-
-	beforeEach(angular.mock.inject(function($injector){
-		$controller = $injector.get('$controller');
-		$http = $injector.get('$http');
-		$httpBackend = $injector.get('$httpBackend');
-		$rootScope = $injector.get('$rootScope');
-		$compile = $injector.get('$compile');
-		$templateRequest = $injector.get('$templateRequest');
-		$templateRequest('../templates/search_engine.html').then(function(html){
-			template = angular.element(html);
+	beforeEach(function(){
+		module('FrameItApp')
+		inject(function($rootScope, $http, $httpBackend, $controller){
+			httpBackend = $httpBackend;
+			http = $http;
+			scope = $rootScope.$new();
+			createController = function(){
+				return $controller('searchEngineCtrl', {
+					'$scope': scope
+				})
+			}
 		})
-	}))
+		controller = createController();
+	    http.get('/class-data')
+	    .then(
+	        function(response){
+	            scope.classes = response.data;
+	            scope.filters = getFilters(response.data);
+	        },
+	        function(){
+	            scope.classes = [];
+	            // console.log('db connection error');
+	        }
+	    )
+		httpBackend
+	    .expect('GET', '/class-data')
+	    .respond(200, classdata.ClassInfo)
+	    expect(httpBackend.flush).not.toThrow();
+	})
 
-	describe('$scope.filters', function(){
-		it('- contains "CSCE" check', function(){
-			$scope = {};
-			var controller = $controller('searchEngineCtrl', { $scope: $scope });
-			//loads dummy data
-			$scope.classes = classdata['ClassInfo']
-            $scope.filters = getFilters(classdata['ClassInfo']);
-
-			expect($scope.filters.map(function(e) { return e.subject; }).indexOf('CSCE')).not.toBe(-1);
+	describe('$http', function(){
+		it('the data response should not be empty', function(){
+			expect(scope.classes).not.toEqual([]);
+		})
+		it('the data response should contain "CSCE" subject', function(){
+			let array = [];
+			angular.forEach(scope.classes, function(elem){
+				array.push(elem.subject);
+			})
+			expect(array.indexOf('CSCE')).not.toEqual(-1);
 		})
 	})
-	describe('$scope.searchSUmbit()', function(){
-		beforeEach(function() {
-			$scope = {};
-			controller = $controller('searchEngineCtrl', { $scope: $scope });
-		});
-		it('- empty filter check', function(){
-			//loads dummy data
-			$scope.classes = classdata['ClassInfo']
-            $scope.filters = getFilters(classdata['ClassInfo']);
-
-		    $scope.selected_subjects = [];
-		    $scope.selected_courses = [];
-		    $scope.selected_instructors = [];
-		    $scope.selected_days = [];
-		    $scope.search_message = '';
-
-		    $scope.searchSubmit();
-			expect($scope.search_message).toBe('* At least one filter must be selected!');
+	describe('select options and search message', function(){
+		it('search message should be empty', function(){
+			scope.selected_subjects = ['CSCE'];
+			scope.searchSubmit();
+			expect(scope.search_message).toEqual('');
 		})
-		it('- no result found check', function(){
-			//loads dummy data
-			$scope.classes = classdata['ClassInfo']
-            $scope.filters = getFilters(classdata['ClassInfo']);
-
-		    $scope.selected_subjects = ['CSCE'];
-		    $scope.selected_courses = ['482'];
-		    $scope.selected_instructors = [];
-		    $scope.selected_days = [];
-		    $scope.search_message = '';
-		    $elements = $compile(template)($scope)
-
-		    $scope.searchSubmit();
-
-			expect($scope.search_message).toBe('* No Results Found.');
+		it('empty filter message should be triggered', function(){
+			scope.searchSubmit();
+			expect(scope.search_message).toEqual('* At least one filter must be selected!');
+		})
+		it('empty filter message should be triggered', function(){
+			scope.selected_subjects = ['CSCE'];
+			scope.selected_courses = ['110', '482'];
+			scope.searchSubmit();
+			expect(scope.search_message).toEqual('* Selected filters has not been applied.');
 		})
 	})
 })

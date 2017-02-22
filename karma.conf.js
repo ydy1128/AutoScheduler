@@ -13,34 +13,6 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
 
-    // list of files / patterns to load in the browser
-    files: [
-        //jquery
-        './public/lib/jquery-3.1.1.min.js',
-        //bootstrap
-        './public/lib/bootstrap.min.js',
-        './public/lib/select2.min.js',
-
-        //angular
-        './public/lib/angular.min.js',
-        './public/lib/angular-ui-router.js',
-        './public/lib/angular-mocks.js',
-
-        //templates
-        './public/templates/documents.html',
-
-        //js files
-        './public/js/dummy_data.js',
-        './public/js/app.js', 
-        './public/js/search_engine.js', 
-        './public/js/search_result.js', 
-
-        //specs
-        './public/spec/search_engine_spec.js',
-
-    ],
-
-
     // list of files to exclude
     exclude: [
     ],
@@ -49,12 +21,32 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        './public/templates/documents.html': ['ng-html2js'],
+        '**/*.html': ['ng-html2js'],
     },
     ngHTML2JsPreprocessor:{
         moduleName: 'templates'
     },
+    // list of files / patterns to load in the browser
+    files: [
+        //jquery
+        './public/lib/jquery-3.1.1.min.js',
+        //bootstrap
+        './public/lib/bootstrap.min.js',
+        './public/lib/select2.min.js',
+        //angular
+        './public/lib/angular.min.js',
+        './public/lib/angular-mocks.js',
 
+        './public/lib/angular-ui-router.js',
+        //specs
+        './public/spec/*.js',
+        //templates
+        // './public/index.html',
+        './public/templates/*.html',
+        //js files
+        './public/js/*.js',
+
+    ],
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
