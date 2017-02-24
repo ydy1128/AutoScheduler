@@ -66,38 +66,22 @@
 
   </div>
   <div class="row">
-    <div id="searchResults" class="search-result col-md-3 col-sm-4">
-      <div class="col-md-12">
+    <div id="searchResults" class="search-result col-lg-3 col-md-3 col-sm-4" ng-controller="searchResultsCtrl">
+        <!-- <div id="dummy"></div> -->
         <div class="col-md-12">
           <label>Results: </label>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-5">
           <label>Sort by: </label>
         </div>
-        <div id="resultSubject" class="col-md-3">
-          <label>Subject <span class="caret"></span></label>
+        <div id="sortSelect" class="col-md-7">
+          <select ng-model="sort_by" ng-change="sortClasses(sort_by)" ng-options="item as item.value for item in sort_options track by item.id">
+
+          </select>        
         </div>
-        <div id="resultNumber" class="col-md-3">
-          <label>Course # <span class="caret"></span></label>
+        <div class="result-items">
+          <div result_item class="result-item col-md-12" ng-repeat="x in filteredClasses"></div>
         </div>
-        <div id="resultSection" class="col-md-3">
-          <label>Section <span class="caret"></span></label>
-        </div>
-        <div class="col-md-1">
-        </div>
-        <div class="result_material col-md-10">
-          <div class="material-name col-md-8">
-            <label>CSCE-110-SEC </label>
-          </div>
-          <div class="material-days col-md-4">
-            <label>ICON </label>
-          </div> 
-        </div>
-        <div class="col-md-1">
-        </div>
-      </div>
-        <ul id="tempData">
-        <li ng-repeat="x in filteredClasses">{{ x.subject }}, {{ x.course }}, {{ x.section }}, {{ x.crn }}, {{ x.instructor }} <span ng-repeat="y in x.schedule">, {{ y.days }}</span></li>
       </div>
     </div>
   </div>

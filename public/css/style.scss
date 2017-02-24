@@ -19,18 +19,18 @@ body{
 /*===============================Nav bar================================*/
 .navbar{
 	background-color: $color-darkest;
-		#logo{
-			font-size: 24px;
-		}
-		#logo .caret{
-			border-left: 7px solid transparent;
-		    border-right: 7px solid transparent;
-		    border-top: 7px solid;
-		}
-		.nav{
-			float: right;
-			font-size: 20px;
-		}
+	#logo{
+		font-size: 24px;
+	}
+	#logo .caret{
+		border-left: 7px solid transparent;
+	    border-right: 7px solid transparent;
+	    border-top: 7px solid;
+	}
+	.nav{
+		float: right;
+		font-size: 20px;
+	}
 }
 
 #underTopNav{
@@ -127,5 +127,11 @@ body{
 			margin: 0 15px;
 			font-size: 17px;
 		}
+	}
+}
+
+#searchResults{
+	.select2{
+		width: 100% !important;
 	}
 }
