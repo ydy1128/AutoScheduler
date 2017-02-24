@@ -1,6 +1,6 @@
 app.controller('searchResultsCtrl', function($scope, $http, passResults){
 	$scope.filteredClasses = passResults.getClasses();
-    $scope.sort_options = [{id: 'SUbject', value:'Subject'}, {id:'Course', value: 'Course #'}, {id: 'Section', value: 'Section'}];
+    $scope.sort_options = [{id: 'Subject', value:'Subject'}, {id:'Course', value: 'Course #'}, {id: 'Section', value: 'Section'}];
 	$scope.$on('data_shared', function(){
 		$scope.filteredClasses = passResults.getClasses();
         $scope.sort_by = '0';
@@ -14,6 +14,7 @@ app.controller('searchResultsCtrl', function($scope, $http, passResults){
         });
     };
     $scope.sortClasses = function(sort_by){
+        console.log(sort_by.id)
         switch (sort_by.id){
             case 'Subject':
                 $scope.subjectSort()
