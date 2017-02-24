@@ -1,0 +1,10 @@
+<!-- <div class="result-item col-md-12"> -->
+    <div class="item-name col-md-8">
+		<label>{{ x.subject }}-{{ x.course }}-{{ x.section }}</label>
+    </div>
+    <div class="item-days col-md-4">
+		<label>
+			<i ng-repeat="y in x.schedule | unique: 'day'">{{ y.days }}</i>
+		</label>
+    </div> 
+<!-- </div> -->

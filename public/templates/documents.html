@@ -67,7 +67,7 @@
   </div>
   <div class="row">
     <div id="searchResults" class="search-result col-lg-3 col-md-3 col-sm-4" ng-controller="searchResultsCtrl">
-      <!-- <div class="col-md-12"> -->
+        <!-- <div id="dummy"></div> -->
         <div class="col-md-12">
           <label>Results: </label>
         </div>
@@ -75,20 +75,12 @@
           <label>Sort by: </label>
         </div>
         <div id="sortSelect" class="col-md-7">
-          <select ng-model="sort_by" ng-change="">
-            <option></option>
-            <option>Subject</option>
-            <option>Course #</option>
-            <option>Section</option>
+          <select ng-model="sort_by" ng-change="sortClasses(sort_by)" ng-options="item as item.value for item in sort_options track by item.id">
+
           </select>        
         </div>
-        <div class="result_material col-md-12" ng-repeat="x in filteredClasses">
-          <div class="material-name col-md-8">
-            <label>{{ x.subject }}-{{ x.course }}-{{ x.section }}</label>
-          </div>
-          <div class="material-days col-md-4">
-            <label><i ng-repeat="y in x.schedule | unique: 'day'">{{ y.days }}</i></label>
-          </div> 
+        <div class="result-items">
+          <div result_item class="result-item col-md-12" ng-repeat="x in filteredClasses"></div>
         </div>
       </div>
     </div>

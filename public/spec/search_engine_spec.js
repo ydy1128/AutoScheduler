@@ -22,7 +22,6 @@ describe('searchEngineCtrl', function(){
 	        },
 	        function(){
 	            scope.classes = [];
-	            // console.log('db connection error');
 	        }
 	    )
 		httpBackend
