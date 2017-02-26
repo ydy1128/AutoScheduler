@@ -66,6 +66,7 @@
 
   </div>
   <div class="row">
+    <div id="dummy"></div>
     <div id="searchResults" ng-controller="searchResultsCtrl">
       <ul id="tempData">
         <li ng-repeat="x in filteredClasses">{{ x.subject }}, {{ x.course }}, {{ x.section }}, {{ x.crn }}, {{ x.instructor }} <span ng-repeat="y in x.schedule">, {{ y.days }}</span></li>
