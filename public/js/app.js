@@ -25,21 +25,42 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 // description:     app service for exchanging data between search_engine and search_results
 app.factory('passResults', function($rootScope){
-  var list = [];
+  var class_list = [];
+  // var filter_list
   // description:     updates data in shared section and refreshes search_results controller
   // functions used:  $broadcast('data_shared') - search_results.js
   function updateClasses(cls){
-    list = cls;
+    class_list = cls;
     $rootScope.$broadcast('data_shared');
   }
   // description:     returns updated data
   // return:          list - current data list
   function getClasses(){
-      return list;
+      return class_list;
   }
   return{ 
       updateClasses: updateClasses,
       getClasses: getClasses
+  }
+})
+// description:     app service for exchanging data between search_engine and search_results
+app.factory('navigator', function($rootScope){
+  var current_nav = '';
+  // var filter_list
+  // description:     updates data in shared section and refreshes search_results controller
+  // functions used:  $broadcast('data_shared') - search_results.js
+  function navigate(nav){
+    current_nav = nav;
+    $rootScope.$broadcast('navigate_menu');
+  }
+  // description:     returns updated data
+  // return:          list - current data list
+  function getCurrNav(){
+    return current_nav;
+  }
+  return{ 
+      navigate: navigate,
+      getCurrNav: getCurrNav
   }
 })
 // description:   filter unique values from dataset (to be used in template)

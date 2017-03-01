@@ -11,6 +11,10 @@ body{
 	height: 100%;
 	box-sizing: border-box;
 	color: $color-darkest;
+	// background-color: $color-back;
+}
+a{
+	cursor: pointer;
 }
 .container-fluid, .row{
 	margin: 0;
@@ -19,22 +23,59 @@ body{
 /*===============================Nav bar================================*/
 .navbar{
 	background-color: $color-darkest;
-	#logo{
-		font-size: 24px;
-	}
-	#logo .caret{
-		border-left: 7px solid transparent;
-	    border-right: 7px solid transparent;
-	    border-top: 7px solid;
-	}
-	.nav{
-		float: right;
-		font-size: 20px;
+	margin-bottom: 0;
+	height: 50px;
+	border-bottom: none;
+	#nav-contents{
+		padding: 0 40px;
+		#logo{
+			font-size: 24px;
+		}
+		#logo .caret{
+			border-left: 7px solid transparent;
+		    border-right: 7px solid transparent;
+		    border-top: 7px solid;
+		}
+		.nav{
+			float: right;
+			font-size: 20px;
+		}
 	}
 }
+#side-nav{
+	float: left;
+	background-color:$color-main;
+	height: calc(100% - 50px);
+	display: inline-block;
+	width: 60px;
 
+	li{
+		height: 60px;
+		margin: 0;
+		a{
+			height: 60px;
+			line-height: 60px;
+			padding: 0;
+			text-align: center;
+			color: white;
+			font-size: 25px;
+			margin: 0;
+			&:hover{
+				background-color: $color-back;
+				color: $color-vibrant;
+				i{
+					color: $color-vibrant;
+				}
+			}
+			&.active{
+				background-color: $color-back;
+				color: $color-darkest;
+			}
+		}
+	}
+}
 #underTopNav{
-	height: 53px;
+	height: 50px;
 	width: 100%;
 }
 #wrapper{
@@ -48,90 +89,141 @@ body{
 	background-size: cover;
 }
 
-#searchEngine{
-	#engineBox{
-		margin: 10px 20px 0;
-		padding: 0;
-		min-height: 80px;
-		width: calc(100% - 40px);
-		background-color: $color-dark;
-		border-radius: 5px;
-		float: left;
-		#selectionWrapper{
-			display: block;
-			float: left;
-			.search-section{
-				&.section-top{
-					margin: 10px 0 5px;
-				}
-				&.section-bottom{
-					margin: 5px 0 10px;
-				}
-				label{
-					display: inline-block;
-					width: 35%;
-					color: $color-lightest;
-					font-size: 15px;
-					float: left;
-					&.deemed{
-						color: $color-deem;
-					}
-				}
-				.select2{
-					display: inline-block;
-					width: 65% !important;
-					float: left;
-					input{
-						margin-top: 0;
-					}
-					.select2-selection{
-						height: 25px;
-						min-height: 25px;
-						&.select2-selection--multiple{
-							line-height: 20px;
-							overflow: hidden;
-							ul{
-								overflow-x: scroll;
-								li{
-									margin-top: 1px;
-									float: none;
-									display: inline-block;
-									&.active{
-										background-color: $color-active;
-										color: $color-lightest;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+#contents{
+	float: left;
+	display: inline-block;
+	width: calc(100% - 60px);
+	height: calc(100% - 50px);
+
+}
+
+#sideContents{
+	height: 100%;
+	background-color: $color-back;
+}
+// #searchEngine{
+// 	height: 127px;
+// 	#engineBox{
+// 		margin: 10px 20px 0;
+// 		padding: 0;
+// 		min-height: 80px;
+// 		width: calc(100% - 40px);
+// 		background-color: $color-dark;
+// 		border-radius: 5px;
+// 		float: left;
+// 		#selectionWrapper{
+// 			display: block;
+// 			float: left;
+// 			.search-section{
+// 				&.section-top{
+// 					margin: 10px 0 5px;
+// 				}
+// 				&.section-bottom{
+// 					margin: 5px 0 10px;
+// 				}
+// 				label{
+// 					display: inline-block;
+// 					width: 35%;
+// 					color: $color-lightest;
+// 					font-size: 15px;
+// 					float: left;
+// 					&.deemed{
+// 						color: $color-deem;
+// 					}
+// 				}
+// 				.select2{
+// 					display: inline-block;
+// 					width: 65% !important;
+// 					float: left;
+// 					input{
+// 						margin-top: 0;
+// 					}
+// 					.select2-selection{
+// 						height: 25px;
+// 						min-height: 25px;
+// 						&.select2-selection--multiple{
+// 							line-height: 20px;
+// 							overflow: hidden;
+// 							ul{
+// 								overflow-x: scroll;
+// 								li{
+// 									margin-top: 1px;
+// 									float: none;
+// 									display: inline-block;
+// 									&.active{
+// 										background-color: $color-active;
+// 										color: $color-lightest;
+// 									}
+// 								}
+// 							}
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
 		.section-btn{
-			height: 100%;
-			line-height: 80px;
+			width: calc(100% - 20px);
+			height: 35px;
+			line-height: 35px;
+			margin: 20px 10px 5px;
 			padding: 0;
 			background-color: $color-vibrant;
-			border-top-left-radius: 0;
-			border-bottom-left-radius: 0;
+			border-radius: 5px;
 			color: $color-lightest;
-			font-size: 30px;
+			font-size: 16px;
 		}
 
-	}
+// 	}
 	#SearchMessageDiv{
 		color: $color-active;
 		min-height: 25px;
 		margin-bottom: 10px;
-		p{
-			margin: 0 15px;
-			font-size: 17px;
-		}
+		font-size: 14px;
+		text-align: center;
 	}
-}
 
-#searchResults{
-	.select2{
-		width: 100% !important;
+	#searchResults{
+		height: 100%;
+		.select2{
+			width: 100% !important;
+		}
+
+	}
+.scroller {
+    // white-space: pre-line;
+    // overflow-y: hidden;
+    position: relative;
+}
+.result-items{
+	height: calc(100% - 170px);
+	margin-top: 150px;
+	background-color: #E7E7F0;
+	border-radius: 5px;
+	overflow-y: auto;
+	.result-item{
+		position: static;
+		padding: 2.5px 0;
+		margin: 5px 10px;
+		border-radius: 10px;
+		background: $color-vibrant;
+		// background: #0079FF;
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#B4D178), to($color-vibrant));
+		background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#B4D178), to($color-vibrant));
+		background: -moz-linear-gradient(center top, #B4D178, $color-vibrant);
+		color: white;
+		div{
+			padding: 0 0 0 10px;
+		}
+		.fa{
+			font-size: 15px;
+			&.fa-caret-up{
+				display: none;
+			}
+		}
+		.item-contents{
+			display: none;
+			background-color: white;
+			height: 150px;
+		}
 	}
 }

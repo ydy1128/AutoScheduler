@@ -1,0 +1,36 @@
+<div class="col-md-12">
+	<h2>{{ title }}</h2>
+</div>
+<hr class="col-md-10" />
+<div id="searchEngine" ng-controller="searchEngineCtrl" class="row">
+	<div id="selectsubject" class="search-section section-top col-md-12">
+		<label>Subject: </label>
+			<select class="col-md-12" ng-model="selected_subjects" ng-change="searchChange()" multiple>
+				<option ng-repeat="x in filters | unique: 'subject' | orderBy: 'subject'" value="{{ x.subject }}">{{ x.subject }}</option>
+			</select>
+	</div>
+	<div id="selectcourse" class="search-section section-top col-md-12">
+		<label>Course #: </label>
+		<select class="col-md-12" ng-model="selected_courses" ng-change="searchChange()" multiple>
+		    <option ng-repeat="x in filters | unique: 'course'">{{ x.course }}</option>
+		</select>
+	</div>
+	<div id="selectinstructor" class="search-section section-bottom col-md-12">
+		<label>Instructor: </label>
+		<select class="col-md-12" ng-model="selected_instructors" ng-change="searchChange()" multiple>
+		    <option ng-repeat="x in filters | unique: 'instructor' | orderBy: 'instructor'" value="{{ x.instructor }}">{{ x.instructor }}</option>
+		</select>
+	</div>
+	<div id="selectday" class="search-section section-bottom col-md-12">
+		<label>Days: </label>
+		<select class="col-md-12" ng-model="selected_days" ng-change="searchChange()" multiple>
+		    <option ng-repeat="x in filters | unique: 'day'" value="{{ x.day }}">{{ x.day }}</option>
+		</select>
+	</div>
+	<div id="searchButton" class="btn section-btn col-md-12" ng-click="searchSubmit()">
+		Search
+	</div>
+	<div id="SearchMessageDiv" class="col-md-12"">
+		{{ search_message }}
+	</div>
+</div>

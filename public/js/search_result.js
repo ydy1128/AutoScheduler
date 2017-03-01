@@ -6,7 +6,6 @@ app.controller('searchResultsCtrl', function($scope, $http, passResults){
         $scope.sort_by = '0';
         // $('#dummy').text(JSON.stringify($scope.filteredClasses))
 	});
-
     // description:     initiate select2 library
     $scope.initSelect2 = function(){
         angular.element("#sortSelect select").select2({
@@ -14,13 +13,12 @@ app.controller('searchResultsCtrl', function($scope, $http, passResults){
         });
     };
     $scope.sortClasses = function(sort_by){
-        console.log(sort_by.id)
         switch (sort_by.id){
             case 'Subject':
-                $scope.subjectSort()
+                $scope.subjectSort();
                 break;
             case 'Course':
-                $scope.courseSort()
+                $scope.courseSort();
                 break;
             case 'Section':
                 $scope.sectionSort();
@@ -81,6 +79,33 @@ app.directive('resultItem', function(){
         // scope: true,
         restrict: 'AE',
         // replace: 'true',
-        templateUrl: '../templates/result_item.html'
+        templateUrl: '../templates/result_item.html',
+        link: function(scope, element, attrs){
+            angular.element(element).find('.item-top').bind('click', function(){
+                // angular.element('.nav-stacked li a').removeClass('active')
+                // element.find('a').addClass('active');
+                console.log('clicked');
+                toggleContents(element)
+            })
+        }
     }
 })
+
+function toggleContents(elem){
+    if(angular.element(elem).hasClass('active')){
+        angular.element(elem).find('.fa-caret-up').hide();
+        angular.element(elem).find('.fa-caret-down').show();
+        angular.element(elem).find('.item-contents').slideUp(500);
+        angular.element(elem).css({'broder-bottom-left-radius':'5px', 'broder-bottom-right-radius':'5px'});
+        angular.element(elem).removeClass('active');
+    }
+    else{
+        angular.element(elem).find('.fa-caret-down').hide();
+        angular.element(elem).find('.fa-caret-up').show();
+        angular.element(elem).find('.item-contents').slideDown(500);
+        angular.element(elem).css({'broder-bottom-left-radius':'0px', 'broder-bottom-right-radius':'0px'});
+
+        angular.element(elem).addClass('active');
+
+    }
+}

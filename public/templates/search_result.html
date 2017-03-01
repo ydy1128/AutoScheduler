@@ -1,0 +1,21 @@
+<div class="col-md-12">
+  <h2>{{ title }}</h2>
+</div>
+<hr class="col-md-10" />
+<div id="searchResults" class="search-result row" ng-controller="searchResultsCtrl">
+  <!-- <div id="resultDiv" class="col-md-12"> -->
+    <div class="col-md-5">
+      <label>Sort by: </label>
+    </div>
+    <div id="sortSelect" class="col-md-7 col-xs-7">
+      <select ng-model="sort_by" ng-change="sortClasses(sort_by)" ng-options="item as item.value for item in sort_options track by item.id">
+
+      </select>        
+    </div>
+    <div scrollbar id="scrollbar" class="result-items">
+      <!-- <perfect-scrollbar>       -->
+        <div result_item class="result-item row" ng-repeat="x in filteredClasses"></div>
+      <!-- </perfect-scrollbar> -->
+    </div>
+  <!-- </div> -->
+</div>
