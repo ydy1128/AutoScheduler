@@ -8,5 +8,10 @@
 	</div>
 </div>
 <div class="item-contents col-md-12">
-	<div ng-repeat="y in x.instructor">{{y}}</div>
+
+	<div class="col-md-12">
+		<div class="col-md-6"></div>
+		<div ng-click="addCurrentClass(x.subject+'-'+x.course+'-'+x.section)" class="add-btn col-md-5 btn btn-default">Add</div>
+		<div class="col-md-1">
+	</div>
 </div>

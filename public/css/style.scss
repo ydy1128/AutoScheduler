@@ -182,13 +182,13 @@ a{
 		text-align: center;
 	}
 
-	#searchResults{
-		height: 100%;
-		.select2{
-			width: 100% !important;
-		}
-
+#searchResults, #selectedResults{
+	height: 100%;
+	.select2{
+		width: 100% !important;
 	}
+
+}
 .scroller {
     // white-space: pre-line;
     // overflow-y: hidden;
@@ -224,6 +224,13 @@ a{
 			display: none;
 			background-color: white;
 			height: 150px;
+
+			.add-btn{
+				// height: 40px;
+				background-color: $color-active;
+				color: $color-lightest;
+				padding: 5px 10px;
+			}
 		}
 	}
 	.scrollbar-dynamic {

@@ -19,7 +19,7 @@ app.controller('sideMenuCtrl', function($scope, navigator){
 				$scope.title = 'Result';
 				break;
 			case 'selected':
-				$scope.template = "../templates/worksheets.html";
+				$scope.template = "../templates/selected_result.html";
 				$scope.title = 'Selected';
 				break;
 			case 'setting':

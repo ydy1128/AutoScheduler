@@ -1,4 +1,4 @@
-app.controller('searchResultsCtrl', function($scope, $http, passResults){
+app.controller('searchResultsCtrl', function($scope, passResults, selectResults, navigator){
 	$scope.filteredClasses = passResults.getClasses();
     $scope.sort_options = [{id: 'Subject', value:'Subject'}, {id:'Course', value: 'Course #'}, {id: 'Section', value: 'Section'}];
 	$scope.$on('data_shared', function(){
@@ -72,10 +72,21 @@ app.controller('searchResultsCtrl', function($scope, $http, passResults){
             return x;
         });
     };
-
+    $scope.addCurrentClass = function(key){
+        angular.forEach($scope.filteredClasses, function(cls, i){
+            var match_key = cls.subject+'-'+cls.course+'-'+cls.section;
+            // console.log(key, match_key)
+            if(match_key == key){
+                console.log($scope.filteredClasses[i])
+                selectResults.addClass($scope.filteredClasses[i]);
+                navigator.navigate('selected');
+            }
+        })
+        
+    }
     $scope.initSelect2();
 })
-app.directive('resultItem', function(){
+app.directive('resultItem', function(selectResults, navigator){
     return{
         // scope: true,
         restrict: 'AE',

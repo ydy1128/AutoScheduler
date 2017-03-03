@@ -104,9 +104,9 @@ a {
   font-size: 14px;
   text-align: center; }
 
-#searchResults {
+#searchResults, #selectedResults {
   height: 100%; }
-  #searchResults .select2 {
+  #searchResults .select2, #selectedResults .select2 {
     width: 100% !important; }
 
 .scroller {
@@ -138,6 +138,10 @@ a {
       display: none;
       background-color: white;
       height: 150px; }
+      .result-items .result-item .item-contents .add-btn {
+        background-color: #d64d61;
+        color: #ffffff;
+        padding: 5px 10px; }
   .result-items .scrollbar-dynamic {
     max-height: 300px;
     overflow: auto; }
