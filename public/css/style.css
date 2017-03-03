@@ -138,5 +138,8 @@ a {
       display: none;
       background-color: white;
       height: 150px; }
+  .result-items .scrollbar-dynamic {
+    max-height: 300px;
+    overflow: auto; }
 
 /*# sourceMappingURL=style.css.map */

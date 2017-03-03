@@ -12,7 +12,7 @@
 
       </select>        
     </div>
-    <div scrollbar id="scrollbar" class="result-items">
+    <div  ng-scrollable="{scrollX:'none',scrollY:'right'}" class="result-items">
       <!-- <perfect-scrollbar>       -->
         <div result_item class="result-item row" ng-repeat="x in filteredClasses"></div>
       <!-- </perfect-scrollbar> -->

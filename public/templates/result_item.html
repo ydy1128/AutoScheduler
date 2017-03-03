@@ -1,17 +1,12 @@
 <div class="item-top">
-	<div class="item-name col-md-7">
+	<div class="item-name col-md-9">
 		<label>{{ x.subject }}-{{ x.course }}-{{ x.section }}</label>
 	</div>
-	<div class="item-days col-md-3">
-		<label>
-			<i ng-repeat="y in x.schedule | unique: 'day'">{{ y.days }}</i>
-		</label>
-	</div> 
-	<div class="item-expander col-md-2">
+	<div class="item-expander col-md-3">
 		<i class="fa fa-caret-down" aria-hidden="true"></i>
 		<i class="fa fa-caret-up" aria-hidden="true"></i>
 	</div>
 </div>
 <div class="item-contents col-md-12">
-	
+	<div ng-repeat="y in x.instructor">{{y}}</div>
 </div>

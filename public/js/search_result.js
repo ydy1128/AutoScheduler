@@ -11,6 +11,7 @@ app.controller('searchResultsCtrl', function($scope, $http, passResults){
         angular.element("#sortSelect select").select2({
         	minimumResultsForSearch: -1
         });
+
     };
     $scope.sortClasses = function(sort_by){
         switch (sort_by.id){
@@ -81,11 +82,27 @@ app.directive('resultItem', function(){
         // replace: 'true',
         templateUrl: '../templates/result_item.html',
         link: function(scope, element, attrs){
-            angular.element(element).find('.item-top').bind('click', function(){
-                // angular.element('.nav-stacked li a').removeClass('active')
-                // element.find('a').addClass('active');
-                console.log('clicked');
-                toggleContents(element)
+            angular.element(element).find('.item-top').bind('click', function(){             
+                if(angular.element(element).hasClass('active')){
+                    angular.element(element).find('.fa-caret-up').hide();
+                    angular.element(element).find('.fa-caret-down').show();
+                    angular.element(element).find('.item-contents').slideUp(500, function(){
+                        scope.$emit('content.changed');
+                    });
+                    angular.element(element).css({'broder-bottom-left-radius':'5px', 'broder-bottom-right-radius':'5px'});
+                    angular.element(element).removeClass('active');
+                }
+                else{
+                    angular.element(element).find('.fa-caret-down').hide();
+                    angular.element(element).find('.fa-caret-up').show();
+                    angular.element(element).find('.item-contents').slideDown(500, function(){
+                        scope.$emit('content.changed');
+                    });
+                    angular.element(element).css({'broder-bottom-left-radius':'0px', 'broder-bottom-right-radius':'0px'});
+
+                    angular.element(element).addClass('active');
+
+                }
             })
         }
     }

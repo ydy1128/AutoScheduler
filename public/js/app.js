@@ -1,4 +1,4 @@
-var app = angular.module('FrameItApp',['ui.router'])
+var app = angular.module('FrameItApp',['ui.router', 'ngScrollable'])
 
 // description:     app configuration for routing
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -16,7 +16,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   });
   $locationProvider.html5Mode(true);
 })
-
 // description:     controller for the whole app
 // commented out:   commented because the outside app does not need a controller yet
 // app.controller('FrameItAppCtrl', function($scope){
