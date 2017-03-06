@@ -97,9 +97,9 @@ a {
   color: #ffffff;
   font-size: 16px; }
 
-#SearchMessageDiv {
+.message-div {
   color: #d64d61;
-  min-height: 25px;
+  height: 25px;
   margin-bottom: 10px;
   font-size: 14px;
   text-align: center; }
@@ -113,7 +113,7 @@ a {
   position: relative; }
 
 .result-items {
-  height: calc(100% - 170px);
+  height: calc(100% - 200px);
   margin-top: 150px;
   background-color: #E7E7F0;
   border-radius: 5px;
@@ -124,9 +124,9 @@ a {
     margin: 5px 10px;
     border-radius: 10px;
     background: #82b21e;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#B4D178), to(#82b21e));
-    background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#B4D178), to(#82b21e));
-    background: -moz-linear-gradient(center top, #B4D178, #82b21e);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ecf0f1), to(#bdc3c7));
+    background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#ecf0f1), to(#bdc3c7));
+    background: -moz-linear-gradient(center top, #ecf0f1, #bdc3c7);
     color: white; }
     .result-items .result-item div {
       padding: 0 0 0 10px; }
@@ -137,11 +137,24 @@ a {
     .result-items .result-item .item-contents {
       display: none;
       background-color: white;
-      height: 150px; }
+      height: auto;
+      color: #21213C; }
+      .result-items .result-item .item-contents h5 {
+        margin: 5px 10px 5px 10px;
+        font-weight: 600; }
+      .result-items .result-item .item-contents label {
+        font-size: 14px;
+        font-weight: 300;
+        margin: 0px 10px 5px 10px; }
+      .result-items .result-item .item-contents ul {
+        font-size: 12px;
+        margin: 0px 10px 5px 10px;
+        padding-left: 20px; }
       .result-items .result-item .item-contents .add-btn {
         background-color: #d64d61;
         color: #ffffff;
-        padding: 5px 10px; }
+        padding: 5px 10px;
+        margin: 10px 0; }
   .result-items .scrollbar-dynamic {
     max-height: 300px;
     overflow: auto; }

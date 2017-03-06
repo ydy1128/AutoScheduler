@@ -1,7 +1,9 @@
 app.controller('searchResultsCtrl', function($scope, passResults, selectResults, navigator){
 	$scope.filteredClasses = passResults.getClasses();
     $scope.sort_options = [{id: 'Subject', value:'Subject'}, {id:'Course', value: 'Course #'}, {id: 'Section', value: 'Section'}];
-	$scope.$on('data_shared', function(){
+	$scope.button_type = 'Add';
+    $scope.add_message = '';
+    $scope.$on('data_shared', function(){
 		$scope.filteredClasses = passResults.getClasses();
         $scope.sort_by = '0';
         // $('#dummy').text(JSON.stringify($scope.filteredClasses))
@@ -72,27 +74,37 @@ app.controller('searchResultsCtrl', function($scope, passResults, selectResults,
             return x;
         });
     };
-    $scope.addCurrentClass = function(key){
-        angular.forEach($scope.filteredClasses, function(cls, i){
-            var match_key = cls.subject+'-'+cls.course+'-'+cls.section;
-            // console.log(key, match_key)
-            if(match_key == key){
-                console.log($scope.filteredClasses[i])
-                selectResults.addClass($scope.filteredClasses[i]);
-                navigator.navigate('selected');
-            }
-        })
-        
+    $scope.updateCurrentClass = function(key, action){
+        console.log(action)
+        if(action == 'Add'){
+            $scope.add_messag = '';
+            angular.forEach($scope.filteredClasses, function(cls, i){
+                var match_key = cls.subject+'-'+cls.course+'-'+cls.section;
+                if(match_key == key){
+                    var msg = selectResults.addClass($scope.filteredClasses[i]);
+                    if(msg == 0){
+                        navigator.navigate('selected');
+                    }
+                    else{
+                        $scope.add_message = "* The course already exists in your schedule.";
+                    }
+                }
+            })
+        }
     }
     $scope.initSelect2();
 })
-app.directive('resultItem', function(selectResults, navigator){
+app.directive('resultItem', function(selectResults, navigator, colorSelector){
     return{
-        // scope: true,
-        restrict: 'AE',
-        // replace: 'true',
+
+        restrict: 'EA',
+        scope: {
+            current: '=',
+            btn: '=',
+            update: '&'
+        },
         templateUrl: '../templates/result_item.html',
-        link: function(scope, element, attrs){
+        link: function(scope,element, attrs){
             angular.element(element).find('.item-top').bind('click', function(){             
                 if(angular.element(element).hasClass('active')){
                     angular.element(element).find('.fa-caret-up').hide();
@@ -110,30 +122,28 @@ app.directive('resultItem', function(selectResults, navigator){
                         scope.$emit('content.changed');
                     });
                     angular.element(element).css({'broder-bottom-left-radius':'0px', 'broder-bottom-right-radius':'0px'});
-
                     angular.element(element).addClass('active');
-
                 }
+            }),
+            element.css('background', function(){
+                console.log(scope.current.subject)
+                var str = '-webkit-gradient(linear, 0% 0%, 0% 100%, from(';
+                str += colorSelector.getColor(scope.current.subject)[0];
+                str += '), to('+colorSelector.getColor(scope.current.subject)[1]+'))';
+                return str;
+            }),
+            element.css('background', function(){
+                var str = '-webkit-linear-gradient(0% 0%, 0% 100%, from(';
+                str += colorSelector.getColor(scope.current.subject)[0];
+                str += '), to('+colorSelector.getColor(scope.current.subject)[1]+'))';
+                return str;
+            }),
+            element.css('background', function(){
+                var str = '-moz-linear-gradient(center top,';
+                str += colorSelector.getColor(scope.current.subject)[0];
+                str += ','+colorSelector.getColor(scope.current.subject)[1]+')';
+                return str;
             })
         }
     }
-})
-
-function toggleContents(elem){
-    if(angular.element(elem).hasClass('active')){
-        angular.element(elem).find('.fa-caret-up').hide();
-        angular.element(elem).find('.fa-caret-down').show();
-        angular.element(elem).find('.item-contents').slideUp(500);
-        angular.element(elem).css({'broder-bottom-left-radius':'5px', 'broder-bottom-right-radius':'5px'});
-        angular.element(elem).removeClass('active');
-    }
-    else{
-        angular.element(elem).find('.fa-caret-down').hide();
-        angular.element(elem).find('.fa-caret-up').show();
-        angular.element(elem).find('.item-contents').slideDown(500);
-        angular.element(elem).css({'broder-bottom-left-radius':'0px', 'broder-bottom-right-radius':'0px'});
-
-        angular.element(elem).addClass('active');
-
-    }
-}
+});
