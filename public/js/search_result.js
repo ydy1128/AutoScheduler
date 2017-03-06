@@ -92,6 +92,10 @@ app.controller('searchResultsCtrl', function($scope, passResults, selectResults,
             })
         }
     }
+    $scope.clearMessage = function(){
+        console.log('called')
+        $scope.add_message = '';
+    }
     $scope.initSelect2();
 })
 app.directive('resultItem', function(selectResults, navigator, colorSelector){
@@ -101,10 +105,12 @@ app.directive('resultItem', function(selectResults, navigator, colorSelector){
         scope: {
             current: '=',
             btn: '=',
+            clear: '&',
             update: '&'
         },
         templateUrl: '../templates/result_item.html',
         link: function(scope,element, attrs){
+            scope.add_message = '';
             angular.element(element).find('.item-top').bind('click', function(){             
                 if(angular.element(element).hasClass('active')){
                     angular.element(element).find('.fa-caret-up').hide();

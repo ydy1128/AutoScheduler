@@ -13,7 +13,7 @@
       </select>        
     </div>
     <div  ng-scrollable="{scrollX:'none',scrollY:'right'}" class="result-items">
-        <div result_item class="result-item row" ng-repeat="x in filteredClasses" current="x" btn="button_type" update="updateCurrentClass(x.subject+'-'+x.course+'-'+x.section, button_type)"></div>
+        <div result_item class="result-item row" ng-repeat="x in filteredClasses" current="x" btn="button_type" update="updateCurrentClass(x.subject+'-'+x.course+'-'+x.section, button_type)" clear="clearMessage()"></div>
     </div>
     <div class="message-div col-md-12">
       {{ add_message }}
