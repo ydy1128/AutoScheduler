@@ -74,7 +74,7 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
         }
         if($scope.selected_days.length > 0){
             filter_selected = true;
-            filtered_data = $scope.filterByElements(filtered_data, $scope.selected_day, 'day');
+            filtered_data = $scope.filterByElements(filtered_data, $scope.selected_days, 'day');
         }
 
         if(!filter_selected){
@@ -84,10 +84,13 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
         else if(filtered_data.length == 0){
             $scope.search_message = '* No Results Found.';
             angular.element('#engineBox li').removeClass('active');
+            passResults.updateClasses([])
+
         }
         else{
             passResults.updateClasses(filtered_data);
             navigator.navigate('result');
+            // angular.element('#dummy').text(JSON.stringify(filtered_data))
         }
     }
 
@@ -138,6 +141,8 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
                 })
             })
         }
+        console.log(key);
+        console.log(filters)
         $scope.highlightFilters(filters, vals, key);
         return temp;
     }
@@ -149,7 +154,6 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
     // functions used:  highlightFilters() - search_engine.js
     $scope.highlightFilters = function(filters, vals, key){
         var diff_vals = filters.filter(function(x) { return vals.indexOf(x) < 0 });
-        var controller = document.querySelector('[ng-controller=searchEngineCtrl]');
         angular.forEach(angular.element('#select'+key+' li'), function(value, key){
             var check = angular.element(value).text().substr(1);
             if(diff_vals.indexOf(check) != -1){
