@@ -66,10 +66,22 @@
 
   </div>
   <div class="row">
-    <div id="dummy"></div>
-    <div id="searchResults" ng-controller="searchResultsCtrl">
-      <ul id="tempData">
-        <li ng-repeat="x in filteredClasses">{{ x.subject }}, {{ x.course }}, {{ x.section }}, {{ x.crn }}, {{ x.instructor }} <span ng-repeat="y in x.schedule">, {{ y.days }}</span></li>
+    <div id="searchResults" class="search-result col-lg-3 col-md-3 col-sm-4" ng-controller="searchResultsCtrl">
+        <!-- <div id="dummy"></div> -->
+        <div class="col-md-12">
+          <label>Results: </label>
+        </div>
+        <div class="col-md-5">
+          <label>Sort by: </label>
+        </div>
+        <div id="sortSelect" class="col-md-7">
+          <select ng-model="sort_by" ng-change="sortClasses(sort_by)" ng-options="item as item.value for item in sort_options track by item.id">
+
+          </select>        
+        </div>
+        <div class="result-items">
+          <div result_item class="result-item col-md-12" ng-repeat="x in filteredClasses"></div>
+        </div>
       </div>
     </div>
   </div>
