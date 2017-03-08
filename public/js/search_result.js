@@ -81,6 +81,7 @@ app.controller('searchResultsCtrl', function($scope, passResults, selectResults,
             angular.forEach($scope.filteredClasses, function(cls, i){
                 var match_key = cls.subject+'-'+cls.course+'-'+cls.section;
                 if(match_key == key){
+                    // run if all errorchecking pass
                     var msg = selectResults.addClass($scope.filteredClasses[i]);
                     if(msg == 0){
                         navigator.navigate('selected');
@@ -88,6 +89,7 @@ app.controller('searchResultsCtrl', function($scope, passResults, selectResults,
                     else{
                         $scope.add_message = "* The course already exists in your schedule.";
                     }
+                    //-------------------------------
                 }
             })
         }
@@ -98,6 +100,7 @@ app.controller('searchResultsCtrl', function($scope, passResults, selectResults,
     }
     $scope.initSelect2();
 })
+
 app.directive('resultItem', function(selectResults, navigator, colorSelector){
     return{
 
@@ -109,7 +112,7 @@ app.directive('resultItem', function(selectResults, navigator, colorSelector){
             update: '&'
         },
         templateUrl: '../templates/result_item.html',
-        link: function(scope,element, attrs){
+        link: function(scope, element, attrs){
             scope.add_message = '';
             angular.element(element).find('.item-top').bind('click', function(){             
                 if(angular.element(element).hasClass('active')){
