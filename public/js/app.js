@@ -13,6 +13,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   .state('documents', {
     url: '/documents',
     templateUrl: 'templates/documents.html'     
+  })
+  // description:     routing for admin page
+  .state('admin', {
+    url: '/admin',
+    templateUrl: 'templates/admin.html'     
   });
   $locationProvider.html5Mode(true);
 })

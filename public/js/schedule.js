@@ -60,7 +60,11 @@ app.controller('scheduleCtrl', function($scope, $rootScope, selectResults){
 	}
 	$scope.initSchedule();
 })
-
+app.directive('schedule', function(){
+	return{
+		templateUrl: '../templates/schedule.html'
+	}
+})
 app.directive('scheduleItem', function(colorSelector){
     return{
     	scope:{
