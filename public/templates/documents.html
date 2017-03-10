@@ -41,5 +41,44 @@
     <div id="sideContents" class="col-md-3" ng-include="template">
 
     </div>
+    <div id="scheduleDiv" class="col-md-9" ng-controller="scheduleCtrl">
+      <div id="scheduleTitle"><h2>Schedule 1</h2></div>
+      <div id="scheduler" class="row">
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-10">
+            <table id="scheduleHead">
+              <tr>
+                <td ng-repeat="x in titles">{{ x }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="scheduleBody">
+          <div class="row">
+            <div class="col-md-2">
+              <table id="scheduleTime">
+                <tr ng-repeat="x in times track by $index">
+                  <td>{{ x }}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-10">
+              <table id="scheduleContents">
+                <tr ng-repeat="x in height_array track by $index">
+                  <td ng-repeat="y in width_array track by $index"></td>
+                </tr>
+                <div id="scheduleItemsDiv">
+                  <div schedule_item class="schedule-item" ng-repeat="x in sessions" current="x">
+          
+                  </div>
+                </div>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
