@@ -1,9 +1,24 @@
-app.controller('sideMenuCtrl', function($scope, navigator){
+app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication, $location){
 	$scope.title = 'Worksheets';
 	$scope.template = "../templates/worksheets.html";
 	$scope.$on('navigate_menu', function(){
 		$scope.updateTemplate(navigator.getCurrNav());
 	});
+	$scope.user = {};
+
+    $http.get('/api/profile', {
+      headers: {
+        Authorization: 'Bearer '+ authentication.getToken()
+      }
+    })
+    .then(
+        function(data){
+            // console.log(data)
+        },
+        function(){
+            console.log('error');
+        }
+    )
 	$scope.updateTemplate = function(value){
 		switch(value){
 			case 'worksheets':

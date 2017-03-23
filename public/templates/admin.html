@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a id="logo" class="navbar-brand dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" href="#">FrameIt - Admin</a>
+          <a id="logo" class="navbar-brand dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" href="/admin">FrameIt - Admin</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -20,16 +20,16 @@
     </div>
   </div>
 </div>
-<div id="wrapper" class="container-fluid">
+<div id="wrapper" class="container-fluid" ng-controller="adminCtrl">
   <div class="row main">
     <div class="col-md-9 admin">
       
     </div>
-    <div id="adminLogin" class="col-md-3 admin">
+    <form id="adminLogin" class="col-md-3 admin" ng-submit="onSubmit()">
       <h2>FrameIt Admin</h2>
-      <input type="text" placeholder="ID" />
-      <input type="text" placeholder="Password" />
-      <div class="btn btn-default">Login</div>
+      <input type="text" placeholder="ID" ng-model="credentials.email"/>
+      <input type="password" placeholder="Password" ng-model="credentials.password"/>
+      <button type="submit" class="btn btn-default">Login</button>
     </div>
-  </div>
+  </form>
 </div>

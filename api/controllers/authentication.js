@@ -1,6 +1,7 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Admin = mongoose.model('Admin');
 
 var sendJSONresponse = function(res, status, content) {
   res.status(status);
@@ -8,25 +9,19 @@ var sendJSONresponse = function(res, status, content) {
 };
 
 module.exports.register = function(req, res) {
-
-  // if(!req.body.name || !req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
-
   var user = new User();
 
-  user.name = req.body.name;
+  user.first_name = req.body.first_name;
+  user.last_name = req.body.last_name;
   user.email = req.body.email;
-
+  user.classification = req.body.classification;
   user.setPassword(req.body.password);
 
   user.save(function(err) {
     var token;
     token = user.generateJwt();
     res.status(200);
+    console.log(token)
     res.json({
       "token" : token
     });
@@ -35,14 +30,6 @@ module.exports.register = function(req, res) {
 };
 
 module.exports.login = function(req, res) {
-
-  // if(!req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
-
   passport.authenticate('local', function(err, user, info){
     var token;
 
@@ -51,7 +38,6 @@ module.exports.login = function(req, res) {
       res.status(404).json(err);
       return;
     }
-
     // If a user is found
     if(user){
       token = user.generateJwt();
@@ -61,6 +47,50 @@ module.exports.login = function(req, res) {
       });
     } else {
       // If user is not found
+      res.status(401).json(info);
+    }
+  })(req, res);
+
+};
+
+
+module.exports.adminregister = function(req, res) {
+  var admin = new Admin();
+
+  admin.email = req.body.email;
+  admin.setPassword(req.body.password);
+
+  admin.save(function(err) {
+    var token;
+    token = admin.generateJwt();
+    res.status(200);
+    console.log(token)
+    res.json({
+      "token" : token
+    });
+  });
+
+};
+
+module.exports.adminlogin = function(req, res) {
+  passport.authenticate('local', function(err, admin, info){
+    var token;
+    console.log(78, admin)
+    // admin.email.replace('=$&.#=admin', '');
+    // If Passport throws/catches an error
+    if (err) {
+      res.status(404).json(err);
+      return;
+    }
+    // If a admin is found
+    if(admin){
+      token = admin.generateJwt();
+      res.status(200);
+      res.json({
+        "token" : token
+      });
+    } else {
+      // If admin is not found
       res.status(401).json(info);
     }
   })(req, res);

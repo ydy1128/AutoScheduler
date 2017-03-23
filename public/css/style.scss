@@ -302,3 +302,42 @@ a{
 		}
 	}
 }
+
+.screen-block-10{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: #000000;
+	opacity: .7;
+	z-index: 10;
+}
+
+.floating-form{
+	position: absolute;
+	width: 40%;
+	left: 30%;
+	background-color: $color-lightest;
+	border-radius: 5px;
+	z-index: 20;
+	padding: 0 20px;
+	&#registerForm{
+		top: 20%;
+	}
+	&#loginForm{
+		top: 35%;
+	}
+
+	h3{
+		padding-bottom: 10px;
+	}
+	.form-control{
+		height: 40px;
+		line-height: 40px;
+		margin: 5px 0;
+	}
+	.btn{
+		margin: 5px 0 20px 0;
+	}
+}
