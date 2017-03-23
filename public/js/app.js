@@ -14,6 +14,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     url: '/documents',
     templateUrl: 'templates/documents.html'     
   })
+  .state('register', {
+    url: '/register',
+    templateUrl: 'templates/register.html'
+  })
   // description:     routing for admin page
   .state('admin', {
     url: '/admin',

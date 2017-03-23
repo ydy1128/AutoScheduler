@@ -5,6 +5,7 @@ var morgan          = require('morgan');
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
 var PythonShell 	= require('python-shell');
+var passport 		= require('passport');
 
 var app             = express();
 
@@ -34,7 +35,17 @@ db.on('error', function(err){
 });
 
 // Routes------------------------------------------------------
-var routes = require('./routes/routes')(app);
+// var routes = require('./routes/routes')(app);
+var routes = require('./routes/routes');
+var api_routes = require('./api/routes/index');
+
+app.use('/api', api_routes);
+app.use('/', routes);
+
+// Auth------------------------------------------------------
+require('./api/config/passport');
+app.use(passport.initialize());
+
 
 // Port-------------------------------------------------------
 app.listen(port);
