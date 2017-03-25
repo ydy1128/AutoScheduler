@@ -1,0 +1,13 @@
+<div id="accountDiv" class="col-md-9" ng-controller="accountCtrl">
+	<h1>{{ schedule_title }}</h1>
+	<form class="form-group col-md-8" ng-submit="accountSubmit()">
+		<label >Friat Name</label>
+		<input class="form-control" type="text" ng-model="user.first_name"/>
+		<label >Last Name</label>
+		<input class="form-control" type="text" ng-model="user.last_name"/>
+		<label >Email</label>
+		<input class="form-control" type="text" ng-model="user.email"/>
+		<hr class="col-md-12" />
+		<button type="submit" class="btn btn-default">Submit</button>
+	</form>
+</div>

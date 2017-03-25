@@ -178,77 +178,98 @@ a {
     max-height: 300px;
     overflow: auto; }
 
-#scheduleDiv {
-  height: 100%;
-  padding: 0;
-  box-sizing: border-box; }
-  #scheduleDiv #scheduleTitle {
-    height: 50px;
-    background-color: #82b21e; }
-    #scheduleDiv #scheduleTitle h2 {
+#mainContents {
+  height: 100%; }
+  #mainContents #scheduleDiv {
+    height: 100%;
+    padding: 0;
+    box-sizing: border-box; }
+    #mainContents #scheduleDiv #scheduleTitle {
       height: 50px;
-      padding-top: 8px;
-      margin: 0;
-      text-align: center;
-      color: #ffffff; }
-  #scheduleDiv #scheduler {
-    height: calc(100% - 50px); }
-    #scheduleDiv #scheduler div {
-      padding: 0; }
-    #scheduleDiv #scheduler #scheduleHead {
-      width: 100%;
-      height: 40px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: 600;
-      color: #696969; }
-      #scheduleDiv #scheduler #scheduleHead td {
-        width: 20%;
-        padding: 5px 0;
-        border-bottom: 1px solid #d3d3d3;
-        border-left: 1px solid #d3d3d3;
-        background-color: #f1f1f1; }
-    #scheduleDiv #scheduler #scheduleBody {
-      overflow-x: hidden;
-      height: calc(100% - 40px); }
-      #scheduleDiv #scheduler #scheduleBody .row {
-        overflow-y: scroll;
-        height: 100%;
-        width: calc(100% + 16px); }
-      #scheduleDiv #scheduler #scheduleBody #scheduleTime {
+      background-color: #82b21e; }
+      #mainContents #scheduleDiv #scheduleTitle h2 {
+        height: 50px;
+        padding-top: 8px;
+        margin: 0;
+        text-align: center;
+        color: #ffffff; }
+    #mainContents #scheduleDiv #scheduler {
+      height: calc(100% - 50px); }
+      #mainContents #scheduleDiv #scheduler div {
+        padding: 0; }
+      #mainContents #scheduleDiv #scheduler #scheduleHead {
         width: 100%;
-        text-align: left;
-        font-size: 16px;
+        height: 40px;
+        text-align: center;
+        font-size: 20px;
         font-weight: 600;
         color: #696969; }
-        #scheduleDiv #scheduler #scheduleBody #scheduleTime tr:first-child {
-          border-top: 1px solid #d3d3d3; }
-        #scheduleDiv #scheduler #scheduleBody #scheduleTime td {
-          width: 100%;
-          height: 30px;
-          padding: 0px 10px 0px;
-          border-bottom: 1px solid #d3d3d3;
-          border-right: 1px solid #d3d3d3;
-          background-color: #f1f1f1; }
-      #scheduleDiv #scheduler #scheduleBody #scheduleContents {
-        width: 100%; }
-        #scheduleDiv #scheduler #scheduleBody #scheduleContents td {
+        #mainContents #scheduleDiv #scheduler #scheduleHead td {
           width: 20%;
-          height: 30px;
-          margin-left: 2px;
+          padding: 5px 0;
           border-bottom: 1px solid #d3d3d3;
-          border-right: 1px solid #d3d3d3; }
-      #scheduleDiv #scheduler #scheduleBody #scheduleItemsDiv {
-        position: absolute;
-        width: 100%;
-        height: 100%; }
-        #scheduleDiv #scheduler #scheduleBody #scheduleItemsDiv .schedule-item {
+          border-left: 1px solid #d3d3d3;
+          background-color: #f1f1f1; }
+      #mainContents #scheduleDiv #scheduler #scheduleBody {
+        overflow-x: hidden;
+        height: calc(100% - 40px); }
+        #mainContents #scheduleDiv #scheduler #scheduleBody .row {
+          overflow-y: scroll;
+          height: 100%;
+          width: calc(100% + 16px); }
+        #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleTime {
+          width: 100%;
+          text-align: left;
+          font-size: 16px;
+          font-weight: 600;
+          color: #696969; }
+          #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleTime tr:first-child {
+            border-top: 1px solid #d3d3d3; }
+          #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleTime td {
+            width: 100%;
+            height: 30px;
+            padding: 0px 10px 0px;
+            border-bottom: 1px solid #d3d3d3;
+            border-right: 1px solid #d3d3d3;
+            background-color: #f1f1f1; }
+        #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleContents {
+          width: 100%; }
+          #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleContents td {
+            width: 20%;
+            height: 30px;
+            margin-left: 2px;
+            border-bottom: 1px solid #d3d3d3;
+            border-right: 1px solid #d3d3d3; }
+        #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleItemsDiv {
           position: absolute;
-          width: calc(20% - .4%);
-          text-align: center;
-          color: #ffffff;
-          border-radius: 5px;
-          cursor: pointer; }
+          width: 100%;
+          height: 100%; }
+          #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleItemsDiv .schedule-item {
+            position: absolute;
+            width: calc(20% - .4%);
+            text-align: center;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer; }
+
+#settingMenu ul {
+  list-style: none;
+  font-size: 18px;
+  padding: 0; }
+  #settingMenu ul li {
+    border-bottom: 2px solid #21213C;
+    padding: 10px 15px;
+    cursor: pointer; }
+    #settingMenu ul li .fa-chevron-right {
+      display: none;
+      float: right;
+      padding: 5px 10px 0 0; }
+    #settingMenu ul li:first-child .fa-chevron-right {
+      display: block; }
+    #settingMenu ul li:hover {
+      color: #82b21e; }
+    #settingMenu ul li.active .fa-chevron-right {
+      display: block; }
 
 .screen-block-10 {
   position: absolute;
@@ -280,5 +301,10 @@ a {
     margin: 5px 0; }
   .floating-form .btn {
     margin: 5px 0 20px 0; }
+
+#notiDiv div.check-div {
+  margin-top: 10px; }
+  #notiDiv div.check-div label {
+    padding-top: 10px; }
 
 /*# sourceMappingURL=style.css.map */

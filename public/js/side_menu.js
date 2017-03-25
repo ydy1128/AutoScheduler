@@ -1,6 +1,8 @@
 app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication, $location){
 	$scope.title = 'Worksheets';
+	$scope.schedule_title = 'Account Setting';
 	$scope.template = "../templates/worksheets.html";
+	$scope.schedule_template = "../templates/schedule.html";
 	$scope.$on('navigate_menu', function(){
 		$scope.updateTemplate(navigator.getCurrNav());
 	});
@@ -23,6 +25,7 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication
 		switch(value){
 			case 'worksheets':
 				$scope.template = "../templates/worksheets.html";
+				$scope.schedule_template = "../templates/schedule.html";
 				$scope.title = 'Worksheets';
 				break;
 			case 'search':
@@ -38,8 +41,33 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication
 				$scope.title = 'Schedule';
 				break;
 			case 'setting':
-				$scope.template = "../templates/worksheets.html";
+				$scope.template = "../templates/setting.html";
+				$scope.schedule_template = "../templates/account.html";
+
 				$scope.title = 'Settings';
+				break;
+		}
+	}
+	$scope.updateScheduleTemplate = function(value){
+		value = value.toLowerCase();
+		console.log(value)
+
+		switch(value){
+			case 'schedule':
+				$scope.schedule_template = "../templates/schedule.html";
+				$scope.schedule_title = 'Schedule 1';
+				break;
+			case 'account':
+				$scope.schedule_template = "../templates/account.html";
+				$scope.schedule_title = 'Account Setting';
+				break;
+			case 'password':
+				$scope.schedule_template = "../templates/password.html";
+				$scope.schedule_title = 'Password Setting';
+				break;
+			case 'notification':
+				$scope.schedule_template = "../templates/notification.html";
+				$scope.schedule_title = 'Notification Setting';
 				break;
 		}
 	}

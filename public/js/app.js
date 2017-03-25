@@ -39,6 +39,9 @@ app.run(function($rootScope, $location, authentication, adminAuthentication){
     if ($location.path() === '/documents' && !authentication.isLoggedIn()) {
       $location.path('/login');
     }
+    if ($location.path() === '/account' && !authentication.isLoggedIn()) {
+      $location.path('/login');
+    }
     if ($location.path() === '/login' && authentication.isLoggedIn()) {
       $location.path('/documents');
     }
