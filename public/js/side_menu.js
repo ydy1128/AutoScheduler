@@ -6,21 +6,6 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication
 	$scope.$on('navigate_menu', function(){
 		$scope.updateTemplate(navigator.getCurrNav());
 	});
-	$scope.user = {};
-
-    $http.get('/api/profile', {
-      headers: {
-        Authorization: 'Bearer '+ authentication.getToken()
-      }
-    })
-    .then(
-        function(data){
-            // console.log(data)
-        },
-        function(){
-            console.log('error');
-        }
-    )
 	$scope.updateTemplate = function(value){
 		switch(value){
 			case 'worksheets':
@@ -50,8 +35,6 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication
 	}
 	$scope.updateScheduleTemplate = function(value){
 		value = value.toLowerCase();
-		console.log(value)
-
 		switch(value){
 			case 'schedule':
 				$scope.schedule_template = "../templates/schedule.html";

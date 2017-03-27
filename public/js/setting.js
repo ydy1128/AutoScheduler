@@ -1,19 +1,6 @@
 app.controller('settingCtrl', function($scope, userData){
 	$scope.user = {};
 	$scope.menu_list = ['Account', 'Password', 'Notification']
-	$scope.init = function(){
-		userData.getProfile()
-		.then(function(response){
-			console.log(response.data)
-			$scope.user = response.data;
-		},
-		function(){
-			console.log('Unknown User Error')
-		})
-
-	}
-	$scope.init()
-
 });
 app.directive('settingList', function(navigator){
 	return{

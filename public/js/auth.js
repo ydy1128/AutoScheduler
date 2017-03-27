@@ -4,6 +4,7 @@ app.service('authentication', function($http, $window, $location){
   };
 
   var getToken = function () {
+    // console.log($window.localStorage['mean-token'])
     return $window.localStorage['mean-token'];
   };
 
@@ -169,9 +170,12 @@ app.service('userData', function($http, authentication){
       }
     });
   };
-
+  var updateNoti = function(id, user){
+      $http.put('/api/user' + id, user);
+  }
   return {
-    getProfile : getProfile
+    getProfile : getProfile,
+    updateNoti : updateNoti
   };
 })
 

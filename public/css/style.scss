@@ -123,6 +123,9 @@ a{
 #sideContents{
 	height: 100%;
 	background-color: $color-back;
+	.message-div{
+		text-align: center;
+	}
 }
 
 .section-btn{
@@ -142,7 +145,6 @@ a{
 	height: 25px;
 	margin-bottom: 10px;
 	font-size: 14px;
-	text-align: center;
 }
 
 #searchResults, #selectedResults{

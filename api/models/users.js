@@ -20,6 +20,21 @@ var userSchema = new mongoose.Schema({
     type:String,
     required: true
   },
+  schedules: [
+    [{
+      subject : String,
+      course : String, 
+      section : String
+    }]
+  ],
+  preferences: {
+    noti1: {
+      type: Boolean
+    },
+    noti2: {
+      type: Boolean
+    }
+  },
   hash: String,
   salt: String
 });
