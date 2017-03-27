@@ -15,14 +15,17 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication
 				break;
 			case 'search':
 				$scope.template = "../templates/search_engine.html";
+				$scope.schedule_template = "../templates/schedule.html";
 				$scope.title = 'Search';
 				break;
 			case 'result':
 				$scope.template = "../templates/search_result.html";
+				$scope.schedule_template = "../templates/schedule.html";
 				$scope.title = 'Result';
 				break;
 			case 'selected':
 				$scope.template = "../templates/selected_result.html";
+				$scope.schedule_template = "../templates/schedule.html";
 				$scope.title = 'Schedule';
 				break;
 			case 'setting':
