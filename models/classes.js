@@ -18,9 +18,7 @@ var ClassSchema = new Schema({
   date : { 
     start_date : String, 
     end_date : String
-  },
-  attribute : String,
-  discription : String  
+  }
 })
 
 module.exports = mongoose.model('classes', ClassSchema);

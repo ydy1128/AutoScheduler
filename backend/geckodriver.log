@@ -2158,3 +2158,24 @@ kbuildsycoca4 running...
 (firefox:23014): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
 
 (firefox:23014): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+1490743090606	geckodriver	INFO	Listening on 127.0.0.1:43618
+1490743091693	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.8R4sHkeovbtB
+1490743091693	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1490743091696	geckodriver::marionette	INFO	Connecting to Marionette on localhost:38816
+
+(firefox:9782): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1490743093519	Marionette	INFO	Listening on port 38816
+1490743094768	Marionette	INFO	startBrowser 3e5aa212-28e8-41ca-b175-11600a1fe259
+
+(firefox:9782): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:9782): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:9782): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:9782): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:9782): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:9782): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
