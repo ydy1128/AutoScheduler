@@ -1,0 +1,24 @@
+@import 'vars';
+@media (max-width: 768px) {
+	.nav{
+		float: none;
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 992px){
+	#searchEngine{
+		height: auto;
+		#engineBox{
+			.section-btn{
+				border-top-left-radius: 0;
+				border-top-right-radius: 0;
+				border-bottom-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+			}
+		}
+	}
+	#scheduleDiv{
+		height: auto;
+	}
+}

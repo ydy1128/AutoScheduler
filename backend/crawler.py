@@ -5,12 +5,11 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import json
-from pymongo import MongoClient
+import time
 
 f = open('output', 'w')
 classes = []
-j = open('classes.json', 'w')
-client = MongoClient('localhost', 27017)
+j = open('../routes/classes.json', 'w')
 
 capabilities = webdriver.DesiredCapabilities().FIREFOX
 capabilities['acceptSslCerts'] = True
@@ -35,6 +34,7 @@ optionsList = []
 for option in options:
     optionsList.append(option.get_attribute("value"))
 
+
 for option in optionsList:
     print option
 
@@ -47,6 +47,7 @@ for option in optionsList:
         WebDriverWait(driver, 30).until(EC.title_is('Class Schedule Listing'))
     except TimeoutException:
         print "Loading took too much time!"
+    time.sleep(1)
 
     html = driver.page_source
     soup = BeautifulSoup(html, "html.parser")
@@ -57,8 +58,11 @@ for option in optionsList:
     courses = []
     sections = []
     class_data = {}
+    
     for item in titles:
+        print(item)
         items = str(item.find('a').get_text()).split(' - ')
+
         if (items[1].isdigit()):
             class_names.append(items[0])
             crns.append(items[1])
@@ -152,8 +156,10 @@ for option in optionsList:
             schedule.append(sch_dict)
         class_data['schedule'] = schedule
         classes.append(class_data)
-        #print(class_data)
+        print(class_data)
         f.write(json.dumps(class_data))
+
+    print(len(titles))
 
     driver.back()
     
