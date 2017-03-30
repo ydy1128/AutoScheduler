@@ -1,4 +1,4 @@
-app.controller('loginCtrl', function($scope, $location, authentication){
+app.controller('loginCtrl', function($scope, $rootScope, $location, authentication){
     $scope.credentials = {
       email : "",
       password : ""

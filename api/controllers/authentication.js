@@ -15,6 +15,12 @@ module.exports.register = function(req, res) {
   user.last_name = req.body.last_name;
   user.email = req.body.email;
   user.classification = req.body.classification;
+  user.schedules = [];
+  user.preferences = {
+    noti1: true,
+    noti2: true
+  };
+
   user.setPassword(req.body.password);
 
   user.save(function(err) {
