@@ -61,21 +61,37 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
         var filter_selected = false;
         console.log($scope.selected_worksheet)
         angular.element('#engineBox li').removeClass('active');
+	var filter_cond = "";
         if($scope.selected_subjects.length > 0){
             filter_selected = true;
-            filtered_data = $scope.filterByElements(filtered_data, $scope.selected_subjects, 'subject');
+	    filter_cond += $scope.selected_subjects[0];
+            for (var i = 1; i < $scope.selected_subjects.length; i++){
+		filter_cond += "&&" + $scope.selected_subjects[i];
+	    }
         }
+	filter_cond += "^";
         if($scope.selected_courses.length > 0){
             filter_selected = true;
-            filtered_data = $scope.filterByElements(filtered_data, $scope.selected_courses, 'course');
+	    filter_cond += $scope.selected_courses[0];
+            for (var i = 1; i < $scope.selected_courses.length; i++){
+		filter_cond += "&&" + $scope.selected_courses[i];
+	    }
         }
+	filter_cond += "^";
         if($scope.selected_instructors.length > 0){
             filter_selected = true;
-            filtered_data = $scope.filterByElements(filtered_data, $scope.selected_instructors, 'instructor');
+	    filter_cond += $scope.selected_instructors[0];
+            for (var i = 1; i < $scope.selected_instructors.length; i++){
+		filter_cond += "&&" + $scope.selected_instructors[i];
+	    }
         }
+	filter_cond += "^";
         if($scope.selected_days.length > 0){
             filter_selected = true;
-            filtered_data = $scope.filterByElements(filtered_data, $scope.selected_days, 'day');
+	    filter_cond += $scope.selected_days[0];
+            for (var i = 1; i < $scope.selected_days.length; i++){
+		filter_cond += "&&" + $scope.selected_days[i];
+	    }
         }
 
         if(!filter_selected){
@@ -86,13 +102,24 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
             $scope.search_message = '* No Results Found.';
             angular.element('#engineBox li').removeClass('active');
             passResults.updateClasses([])
-
         }
         else{
-            //:CSCE-112-person1&&person2&&person3-M&&W
             passResults.updateClasses(filtered_data);
             navigator.navigate('result');
             // angular.element('#dummy').text(JSON.stringify(filtered_data))
+    	    $http.get('/search-course'+filter_cond)
+    		.then(
+    		    function(response){
+        			$scope.classes = response.data;
+                    passResults.updateClasses(response.data);
+                    navigator.navigate('result');
+        			$scope.initSelect2();
+    		    },
+    		    function(){
+        			$scope.classes = [];
+        			console.log('db connection error');
+    		    }
+    		)
         }
     }
 
