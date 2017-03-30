@@ -6,7 +6,7 @@ var fs          = require('fs');
 var path        = require('path');
 
 router.post('/create-classdb', function(req, res){
-     var local = fs.readFileSync(
+    var local = fs.readFileSync(
 	path.join(__dirname, '../backend/classes.json'), 'utf8');
 	   
     var courses = JSON.parse(local, (key, value) => {
@@ -36,28 +36,49 @@ router.post('/create-classdb', function(req, res){
 		console.log(err);
 	});
     }
-})
+});
 
 router.get('/class-data', function(req, res){
-
+    
     var query = Classes.find({});
     
     query.exec(function(err, cls){
+	console.log(cls);
 	if(err)
 	    res.send(err);
 	else
 	    res.json(cls);
     })
-})
-// app.get('/clas-data/:subject', function(req, res){
-// 	var query = Classes.find({subject: req.params.subject});
-// 	query.exec(function(err, cls){
-// 		if(err)
-// 			res.send(err);
-// 		else
-// 			res.json(cls);
-// 	})
-// })
+});
+
+//CSCE^112^person1&&person2^M&&W
+//CSCE
+router.get('/search-course:conditions', function(req, res){
+    console.log(req.params.conditions);
+    var cond = req.params.conditions.split("^");
+    var subjects = cond[0].split("&&");
+    var courses = cond[1].split("&&");
+    var instructors = cond[2].split("&&");
+    var days = cond[3].split("&&");
+    console.log(subjects);
+    console.log(courses);
+    console.log(instructors);
+    console.log(days);
+    
+    var query = Classes.find({});//.where('subject').in(subjects);
+    if (subjects[0] != '') query = query.where('subject').in(subjects);
+    if (courses[0] != '') query = query.where('course').in(courses);
+    if (instructors[0] != '') query = query.where('instructor').in(instructors);
+    if (days[0] != '') query = query.where('day').in(days);
+    query.exec(function(err, cls){
+	console.log(cls);
+ 	if(err)
+ 	    res.send(err);
+ 	else
+ 	    res.json(cls);
+    })
+});
+
 router.all('/*', function(req, res, next) {
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('index.html', { root: __dirname + '/../public' });
