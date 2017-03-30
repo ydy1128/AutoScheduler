@@ -59,6 +59,7 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
     $scope.searchSubmit = function(){
         var filtered_data = $scope.classes;
         var filter_selected = false;
+        console.log($scope.selected_worksheet)
         angular.element('#engineBox li').removeClass('active');
 	var filter_cond = "";
         if($scope.selected_subjects.length > 0){
@@ -103,8 +104,8 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
             passResults.updateClasses([])
         }
         else{
-            // passResults.updateClasses(filtered_data);
-            // navigator.navigate('result');
+            passResults.updateClasses(filtered_data);
+            navigator.navigate('result');
             // angular.element('#dummy').text(JSON.stringify(filtered_data))
     	    $http.get('/search-course'+filter_cond)
     		.then(
