@@ -1,0 +1,38 @@
+<div class="item-top">
+	<div class="item-name col-md-9" ng-click="clear()">
+		<label>{{ current.subject }}-{{ current.course }}-{{ current.section }}</label>
+	</div>
+	<div class="item-expander col-md-3">
+		<i class="fa fa-caret-down" aria-hidden="true"></i>
+		<i class="fa fa-caret-up" aria-hidden="true"></i>
+	</div>
+</div>
+<div class="item-contents col-md-12">
+	<div class="class-title col-md-12">
+		<h5>{{ current.title}}</h5>
+	</div>
+	<div class="class-credit col-md-12">
+		<label>{{ current.credit }} credit(s)</label>
+	</div>
+	<div class="class-subtitle col-md-12">
+		<label>Instructor(s)</label>
+		<ul>
+			<li ng-repeat="y in current.instructor">
+				{{y}}
+			</li>
+		</ul>
+	</div>
+	<div class="class-subtitle col-md-12">
+		<label>Schedule</label>
+		<ul>
+			<li ng-repeat="y in current.schedule">
+				{{y.days}} ({{y.type}}): <br /> {{y.start_time}} - {{y.end_time}}
+			</li>
+		</ul>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-6"></div>
+		<div ng-click="update()" class="add-btn col-md-5 btn btn-default">{{ btn }}</div>
+		<div class="col-md-1">
+	</div>
+</div>
