@@ -39,7 +39,6 @@ router.post('/create-classdb', function(req, res){
 });
 
 router.get('/class-data', function(req, res){
-    
     var query = Classes.find({});
     
     query.exec(function(err, cls){
@@ -79,6 +78,19 @@ router.get('/search-course:conditions', function(req, res){
     })
 });
 
+router.get('/update-schedule:key', function(req, res){
+	var keys = req.params.key.split('-');
+	var subject = keys[0];
+	var course = keys[1];
+	var section = keys[2];
+	var query = Classes.find({subject: subject, course: course, section: section});
+	query.exec(function(err, cls){
+		if(err)
+			res.send(err);
+		else
+			res.json(cls);
+	})
+})
 router.all('/*', function(req, res, next) {
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('index.html', { root: __dirname + '/../public' });

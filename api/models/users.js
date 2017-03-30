@@ -20,6 +20,24 @@ var userSchema = new mongoose.Schema({
     type:String,
     required: true
   },
+  schedules: [
+    {
+      name: String,
+      courses: [{
+        subject: String,
+        course: String,
+        section: String
+      }]
+    }
+  ],
+  preferences: {
+    noti1: {
+      type: Boolean
+    },
+    noti2: {
+      type: Boolean
+    }
+  },
   hash: String,
   salt: String
 });
@@ -43,7 +61,6 @@ userSchema.methods.generateJwt = function() {
     email: this.email,
     first_name: this.first_name,
     last_name: this.last_name,
-    classification: this.classification,
     exp: parseInt(expiry.getTime() / 1000),
   }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };

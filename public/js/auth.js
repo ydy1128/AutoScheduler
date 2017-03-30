@@ -4,6 +4,7 @@ app.service('authentication', function($http, $window, $location){
   };
 
   var getToken = function () {
+    // console.log($window.localStorage['mean-token'])
     return $window.localStorage['mean-token'];
   };
 
@@ -169,9 +170,18 @@ app.service('userData', function($http, authentication){
       }
     });
   };
-
+  var updateUser = function(id, user){
+    console.log('updateUser called')
+    if(id != undefined){
+      $http.put('/api/user' + id, user);
+    }
+    else{
+      console.log('user not found')
+    }
+  }
   return {
-    getProfile : getProfile
+    getProfile : getProfile,
+    updateUser : updateUser
   };
 })
 

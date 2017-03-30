@@ -16,7 +16,6 @@
             <ul class="nav navbar-nav">
                 <li><a id="assign" href="#assign">Assign</a></li>
                 <li><a id="export" href="#export">Export</a></li>
-                <li><a id="export" href="#account">Account</a></li>
                 <li><a id="account" ng-click="logout()">Logout</a></li>
             </ul>
         </div>
@@ -41,7 +40,9 @@
     <div id="sideContents" class="col-md-3" ng-include="template">
 
     </div>
-    <div schedule id="scheduleDiv" class="col-md-9" ng-controller="scheduleCtrl">
+    <div id="mainContents" ng-include="schedule_template">
+      
     </div>
+
   </div>
 </div>

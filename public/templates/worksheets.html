@@ -2,3 +2,13 @@
 	<h2>{{ title }}</h2>
 </div>
 <hr class="col-md-10" />
+<div id="worksheets" class="search-result row">
+	<div id="addButton" class="col-md-5 btn worksheet-btn" ng-click="addWorksheet()">Add</div>
+
+	<div  ng-scrollable="{scrollX:'none',scrollY:'right'}" class="result-items">
+		<div worksheet_item class="worksheet-item result-item row" ng-repeat="x in worksheets"></div>
+	</div>
+	<div class="message-div col-md-12">
+		{{ add_message }}
+	</div>
+</div> 
