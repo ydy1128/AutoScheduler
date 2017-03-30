@@ -106,18 +106,19 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
             // passResults.updateClasses(filtered_data);
             // navigator.navigate('result');
             // angular.element('#dummy').text(JSON.stringify(filtered_data))
-	    $http.get('/search-course'+filter_cond)
-		.then(
-		    function(response){
-			$scope.classes = response.data;
-			$scope.filters = $scope.getFilters(response.data);
-			$scope.initSelect2();
-		    },
-		    function(){
-			$scope.classes = [];
-			console.log('db connection error');
-		    }
-		)
+    	    $http.get('/search-course'+filter_cond)
+    		.then(
+    		    function(response){
+        			$scope.classes = response.data;
+                    passResults.updateClasses(response.data);
+                    navigator.navigate('result');
+        			$scope.initSelect2();
+    		    },
+    		    function(){
+        			$scope.classes = [];
+        			console.log('db connection error');
+    		    }
+    		)
         }
     }
 
