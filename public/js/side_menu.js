@@ -1,6 +1,8 @@
-app.controller('sideMenuCtrl', function($scope, navigator){
+app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication, $location){
 	$scope.title = 'Worksheets';
+	$scope.schedule_title = 'Account Setting';
 	$scope.template = "../templates/worksheets.html";
+	$scope.schedule_template = "../templates/schedule.html";
 	$scope.$on('navigate_menu', function(){
 		$scope.updateTemplate(navigator.getCurrNav());
 	});
@@ -8,23 +10,50 @@ app.controller('sideMenuCtrl', function($scope, navigator){
 		switch(value){
 			case 'worksheets':
 				$scope.template = "../templates/worksheets.html";
+				$scope.schedule_template = "../templates/schedule.html";
 				$scope.title = 'Worksheets';
 				break;
 			case 'search':
 				$scope.template = "../templates/search_engine.html";
+				$scope.schedule_template = "../templates/schedule.html";
 				$scope.title = 'Search';
 				break;
 			case 'result':
 				$scope.template = "../templates/search_result.html";
+				$scope.schedule_template = "../templates/schedule.html";
 				$scope.title = 'Result';
 				break;
 			case 'selected':
 				$scope.template = "../templates/selected_result.html";
+				$scope.schedule_template = "../templates/schedule.html";
 				$scope.title = 'Schedule';
 				break;
 			case 'setting':
-				$scope.template = "../templates/worksheets.html";
+				$scope.template = "../templates/setting.html";
+				$scope.schedule_template = "../templates/account.html";
+
 				$scope.title = 'Settings';
+				break;
+		}
+	}
+	$scope.updateScheduleTemplate = function(value){
+		value = value.toLowerCase();
+		switch(value){
+			case 'schedule':
+				$scope.schedule_template = "../templates/schedule.html";
+				$scope.schedule_title = 'Schedule 1';
+				break;
+			case 'account':
+				$scope.schedule_template = "../templates/account.html";
+				$scope.schedule_title = 'Account Setting';
+				break;
+			case 'password':
+				$scope.schedule_template = "../templates/password.html";
+				$scope.schedule_title = 'Password Setting';
+				break;
+			case 'notification':
+				$scope.schedule_template = "../templates/notification.html";
+				$scope.schedule_title = 'Notification Setting';
 				break;
 		}
 	}
