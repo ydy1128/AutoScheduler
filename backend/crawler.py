@@ -140,7 +140,7 @@ for option in optionsList:
         schedule = []
         for elem in item[7]:
             sch_dict = {}
-            sch_dict['days'] = elem[2]
+            sch_dict['days'] = [d for d in elem[2]]
             if elem[1] != 'TBA':
                 sch_dict['start_time'] = elem[1].split(' - ')[0]
                 sch_dict['end_time'] = elem[1].split(' - ')[1]
@@ -152,7 +152,7 @@ for option in optionsList:
             schedule.append(sch_dict)
         class_data['schedule'] = schedule
         classes.append(class_data)
-        #print(class_data)
+        print(class_data)
         f.write(json.dumps(class_data))
 
     driver.back()
