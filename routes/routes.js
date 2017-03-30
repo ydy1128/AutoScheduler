@@ -12,6 +12,20 @@ router.get('/class-data', function(req, res){
 			res.json(cls);
 	})
 })
+
+router.get('/update-schedule:key', function(req, res){
+	var keys = req.params.key.split('-');
+	var subject = keys[0];
+	var course = keys[1];
+	var section = keys[2];
+	var query = Classes.find({subject: subject, course: course, section: section});
+	query.exec(function(err, cls){
+		if(err)
+			res.send(err);
+		else
+			res.json(cls);
+	})
+})
 // app.get('/clas-data/:subject', function(req, res){
 // 	var query = Classes.find({subject: req.params.subject});
 // 	query.exec(function(err, cls){

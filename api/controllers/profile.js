@@ -18,20 +18,15 @@ module.exports.profileRead = function(req, res) {
 };
 
 module.exports.profileUpdate = function(req, res) {
-
-    User.update(
-      {_id: req.body._id},
-      req.body
-    )
-    .exec(function(err, user) {
-      if (err){
-        console.log(err)
-      }
-      // else{
-      //   res.status(200);
-      // }
-    });
-
+  User.update(
+    {_id: req.body._id},
+    req.body
+  )
+  .exec(function(err, user) {
+    if (err){
+      console.log(err)
+    }
+  });
 };
 
 module.exports.adminprofileRead = function(req, res) {

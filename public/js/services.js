@@ -21,28 +21,72 @@ app.factory('passResults', function($rootScope){
 })
 
 // description:     app service for exchanging data between search_results and selected_results
-app.factory('selectResults', function($rootScope){
+app.factory('selectResults', function($rootScope, $http, userData){
   var class_list = [];
+  var current_schedule = '';
   // description:     add class to the shared service
   // functions used:  $broadcast('class_added')
-  function addClass(cls){
+  function addClass(cls, silent=false){
     var key = cls.subject+'-'+cls.course+'-'+cls.section;
-    if(class_list.length == 0){
-      class_list.push(cls);
-      $rootScope.$broadcast('class_updated');
-      return 0;
+    if(current_schedule == ''){
+      console.log('schedule not selected');
+      return -1;
     }
     else{
-      var insert = classExists(key, cls);
-      if(insert){
-        return 1;
-      }
-      else{
+      if(class_list.length == 0){
         class_list.push(cls);
         $rootScope.$broadcast('class_updated');
-        return 0
+        if(!silent){
+          userData.getProfile()
+          .then(function(response){
+            let user = response.data;
+            for(let i = 0; i < user.schedules.length; i++){
+              if(user.schedules[i].name == current_schedule){
+                index = i;
+                break;
+              }
+            }
+              user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section})
+              console.log(user._id)
+              userData.updateUser(user._id, user)
+          }, function(){
+            console.log('Unknown user error.')
+          })
+        }
+        return 0;
       }
-    }   
+      else{
+        let insert = classExists(key, cls);
+        if(insert){
+          return 1;
+        }
+        else{
+          class_list.push(cls);
+          $rootScope.$broadcast('class_updated');
+          if(!silent){
+            userData.getProfile()
+            .then(function(response){
+              console.log(response.data)
+              var user = response.data;
+              for(let i = 0; i < user.schedules.length; i++){
+                if(user.schedules[i].name == current_schedule){
+                  index = i;
+                  break;
+                }
+              }
+              
+              user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section})
+              console.log(response.data._id)
+              userData.updateUser(response.data._id, user)
+
+            }, function(){
+              console.log('Unknown user error.')
+            })
+          }
+          return 0
+        }
+      }   
+    }
   }
   function classExists(key, cls){
     for(var i = 0; i < class_list.length; i++){
@@ -65,6 +109,31 @@ app.factory('selectResults', function($rootScope){
     else{
       class_list.splice(index);
       $rootScope.$broadcast('class_updated');
+      userData.getProfile()
+      .then(function(response){
+        console.log(response.data)
+        let user = response.data;
+        let remove_index = -1;
+        for(let i = 0; i < user.schedules.length; i++){
+          if(user.schedules[i].name == current_schedule){
+            index = i;
+            break;
+          }
+        }
+        for(let i = 0; i < user.schedules[index].courses.length; i++){
+          let curr_course = user.schedules[index].courses[i]
+          let key = curr = cls.subject + '-' + cls.course + '-' + cls.section;
+          let match_key = cls.subject + '-' + cls.course + '-' + cls.section;
+          if(key == match_key){
+            remove_index = i;
+            break;
+          }
+        }
+        user.schedules[index].courses.splice(remove_index, 1)
+        userData.updateUser(user._id, user)
+      }, function(){
+        console.log('Unknown user error.')
+      })
       return 0;
     }
     // $rootScope.$broadcast('class_removed');
@@ -74,10 +143,49 @@ app.factory('selectResults', function($rootScope){
   function getClasses(){
       return class_list;
   }
+  function selectSchedule(name){
+    class_list = [];
+      $rootScope.$broadcast('class_updated');
+
+    userData.getProfile()
+    .then(function(response){
+      var user = response.data;
+      var exists = false;
+      var index = -1;
+      for(var i = 0; i < user.schedules.length; i++){
+        if(user.schedules[i].name == name){
+          exists = true;
+          index = i;
+        }
+      }
+      if(exists){
+        current_schedule = name;
+        for(var i = 0; i < user.schedules[index].courses.length; i++){
+          var current = user.schedules[index].courses[i];
+          var key = current.subject + '-' + current.course + '-' + current.section;
+          $http.get('/update-schedule'+key)
+          .then(function(response){
+            // console.log(response.data[0])
+            // class_list.push(key)
+            addClass(response.data[0], true)
+          }, function(){
+
+          })
+        }
+      }
+      else{
+        console.log('Error: Schedule Does not Exist.');
+      }
+    },
+    function(){
+      console.log('Unknown User Error.');
+    })
+  }
   return{ 
       addClass: addClass,
       removeClass: removeClass,
-      getClasses: getClasses
+      getClasses: getClasses,
+      selectSchedule: selectSchedule
   }
 })
 // description:     app service for navigating between the side menu
