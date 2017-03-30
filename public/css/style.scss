@@ -147,7 +147,7 @@ a{
 	font-size: 14px;
 }
 
-#searchResults, #selectedResults{
+#searchResults, #selectedResults, #worksheets{
 	height: 100%;
 	.select2{
 		width: 100% !important;
@@ -183,6 +183,13 @@ a{
 				display: none;
 			}
 		}
+		.fa-minus-circle, .fa-external-link-square{
+			font-size: 20px;
+			display: none;
+			&.fa-minus-circle{
+				color: $color-active;
+			}
+		}
 		.item-contents{
 			display: none;
 			background-color: white;
@@ -215,7 +222,6 @@ a{
 	    overflow: auto;
 	}
 }
-
 #mainContents{
 	height: 100%;
 	#scheduleDiv{
@@ -305,6 +311,12 @@ a{
 				}
 			}
 		}
+		.null-title{
+			color: $color-deem;
+			text-align: center;
+			height: 60px;
+			margin-top: calc(45% - 30px);
+		}
 	}
 }
 #settingMenu{
@@ -335,6 +347,17 @@ a{
 				}
 			}
 		}
+	}
+}
+
+.worksheet-btn{
+	background-color: $color-active;
+	color: $color-lightest;
+	&#addButton{
+		background-color: $color-vibrant;
+	}
+	&:hover{
+		color: $color-lightest;
 	}
 }
 

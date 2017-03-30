@@ -124,9 +124,9 @@ a {
   margin-bottom: 10px;
   font-size: 14px; }
 
-#searchResults, #selectedResults {
+#searchResults, #selectedResults, #worksheets {
   height: 100%; }
-  #searchResults .select2, #selectedResults .select2 {
+  #searchResults .select2, #selectedResults .select2, #worksheets .select2 {
     width: 100% !important; }
 
 .scroller {
@@ -154,6 +154,11 @@ a {
       font-size: 15px; }
       .result-items .result-item .fa.fa-caret-up {
         display: none; }
+    .result-items .result-item .fa-minus-circle, .result-items .result-item .fa-external-link-square {
+      font-size: 20px;
+      display: none; }
+      .result-items .result-item .fa-minus-circle.fa-minus-circle, .result-items .result-item .fa-external-link-square.fa-minus-circle {
+        color: #d64d61; }
     .result-items .result-item .item-contents {
       display: none;
       background-color: white;
@@ -252,6 +257,11 @@ a {
             color: #ffffff;
             border-radius: 5px;
             cursor: pointer; }
+    #mainContents #scheduleDiv .null-title {
+      color: #9d9d9d;
+      text-align: center;
+      height: 60px;
+      margin-top: calc(45% - 30px); }
 
 #settingMenu ul {
   list-style: none;
@@ -271,6 +281,14 @@ a {
       color: #82b21e; }
     #settingMenu ul li.active .fa-chevron-right {
       display: block; }
+
+.worksheet-btn {
+  background-color: #d64d61;
+  color: #ffffff; }
+  .worksheet-btn#addButton {
+    background-color: #82b21e; }
+  .worksheet-btn:hover {
+    color: #ffffff; }
 
 .screen-block-10 {
   position: absolute;

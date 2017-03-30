@@ -170,12 +170,18 @@ app.service('userData', function($http, authentication){
       }
     });
   };
-  var updateNoti = function(id, user){
+  var updateUser = function(id, user){
+    console.log('updateUser called')
+    if(id != undefined){
       $http.put('/api/user' + id, user);
+    }
+    else{
+      console.log('user not found')
+    }
   }
   return {
     getProfile : getProfile,
-    updateNoti : updateNoti
+    updateUser : updateUser
   };
 })
 

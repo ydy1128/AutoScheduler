@@ -1,37 +1,97 @@
-app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication, $location){
+app.controller('sideMenuCtrl', function($scope, $http, navigator, $location, selectResults, userData){
 	$scope.title = 'Worksheets';
 	$scope.schedule_title = 'Account Setting';
 	$scope.template = "../templates/worksheets.html";
-	$scope.schedule_template = "../templates/schedule.html";
+	$scope.schedule_template = "../templates/empty_schedule.html";
+	$scope.selected_worksheet = '';
+	$scope.worksheets = [];
+    $scope.worksheet_message = '';
+    $scope.worksheet_counter = 0;
+    $scope.user = {};
+
+	userData.getProfile()
+	.then(
+		function(response){
+			$scope.user = response.data;
+			let temp_sheets = [];
+
+			for(let i = 0; i < $scope.user.schedules.length; i++){
+				temp_sheets.push(parseInt($scope.user.schedules[i].name.split(' ')[1]))
+				$scope.worksheets.push($scope.user.schedules[i].name)
+			}
+			if(temp_sheets.length > 0){
+				$scope.worksheet_counter = Math.max.apply(null, temp_sheets);
+			}
+		},
+		function(err){
+			console.log('unknown user error: '+err)
+		}
+	)
+
 	$scope.$on('navigate_menu', function(){
 		$scope.updateTemplate(navigator.getCurrNav());
 	});
+
+	$scope.addWorksheet = function(){
+		$scope.worksheet_counter++;
+		var new_name = 'Schedule ' + $scope.worksheet_counter;
+		var new_schedule = {'name': new_name, 'courses': []};
+		$scope.worksheets.push(new_name);
+		$scope.user.schedules.push(new_schedule)
+		userData.updateUser($scope.user._id, $scope.user)
+		$scope.selected_worksheet = new_name;
+		$scope.schedule_template = "../templates/schedule.html";
+		selectResults.selectSchedule(new_name)
+	}
 	$scope.updateTemplate = function(value){
 		switch(value){
 			case 'worksheets':
 				$scope.template = "../templates/worksheets.html";
-				$scope.schedule_template = "../templates/schedule.html";
+				if($scope.selected_worksheet == ''){
+					$scope.schedule_template = "../templates/empty_schedule.html";
+				}	
+				else{
+					$scope.schedule_template = "../templates/schedule.html";
+				}
+
 				$scope.title = 'Worksheets';
 				break;
 			case 'search':
 				$scope.template = "../templates/search_engine.html";
-				$scope.schedule_template = "../templates/schedule.html";
+				if($scope.selected_worksheet == ''){
+					$scope.schedule_template = "../templates/empty_schedule.html";
+				}	
+				else{
+					$scope.schedule_template = "../templates/schedule.html";
+				}
+
 				$scope.title = 'Search';
 				break;
 			case 'result':
 				$scope.template = "../templates/search_result.html";
-				$scope.schedule_template = "../templates/schedule.html";
+				if($scope.selected_worksheet == ''){
+					$scope.schedule_template = "../templates/empty_schedule.html";
+				}	
+				else{
+					$scope.schedule_template = "../templates/schedule.html";
+				}
+
 				$scope.title = 'Result';
 				break;
 			case 'selected':
 				$scope.template = "../templates/selected_result.html";
-				$scope.schedule_template = "../templates/schedule.html";
+				if($scope.selected_worksheet == ''){
+					$scope.schedule_template = "../templates/empty_schedule.html";
+				}	
+				else{
+					$scope.schedule_template = "../templates/schedule.html";
+				}
+
 				$scope.title = 'Schedule';
 				break;
 			case 'setting':
 				$scope.template = "../templates/setting.html";
 				$scope.schedule_template = "../templates/account.html";
-
 				$scope.title = 'Settings';
 				break;
 		}
@@ -41,7 +101,6 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication
 		switch(value){
 			case 'schedule':
 				$scope.schedule_template = "../templates/schedule.html";
-				$scope.schedule_title = 'Schedule 1';
 				break;
 			case 'account':
 				$scope.schedule_template = "../templates/account.html";
@@ -56,6 +115,30 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, authentication
 				$scope.schedule_title = 'Notification Setting';
 				break;
 		}
+	}
+	$scope.removeWorksheet = function(item){
+		let remove_index = $scope.worksheets.indexOf(item);
+		let db_remove_index = -1;
+		for(let i = 0; i < $scope.user.schedules.length; i++){
+			if($scope.user.schedules[i].name == item){
+				db_remove_index = i;
+				break;
+			}
+		}
+		// console.log(db_remove_index)
+
+		$scope.worksheets.splice(remove_index, 1);
+		$scope.user.schedules.splice(db_remove_index, 1);
+
+		// $scope.user.schedules.push(new_schedule)
+		userData.updateUser($scope.user._id, $scope.user)
+		$scope.schedule_template = "../templates/empty_schedule.html";
+	}
+	$scope.loadWorksheet = function(item){
+		let remove_index = $scope.worksheets.indexOf(item);
+		$scope.selected_worksheet = item;
+		$scope.updateScheduleTemplate('schedule');
+		selectResults.selectSchedule(item);
 	}
 });
 app.directive('sheetMenu', function(navigator){
@@ -143,3 +226,23 @@ app.directive('settingMenu', function(navigator){
 		}
 	}
 })
+
+
+app.directive('worksheetItem', function(selectResults, navigator, colorSelector){
+    return{
+        restrict: 'EA',
+        templateUrl: '../templates/worksheet_item.html',
+        link: function(scope, element, attrs){
+        	angular.element(element).bind('click', function(){
+	        	if(angular.element(element).hasClass('active')){
+	        		angular.element(element).find('.fa').fadeOut(300);
+	        		angular.element(element).removeClass('active')
+	        	}
+	        	else{
+	        		angular.element(element).find('.fa').fadeIn(300);
+	        		angular.element(element).addClass('active')
+	        	}
+        	})
+        }
+    }
+});

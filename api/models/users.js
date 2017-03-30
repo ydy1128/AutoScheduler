@@ -21,11 +21,14 @@ var userSchema = new mongoose.Schema({
     required: true
   },
   schedules: [
-    [{
-      subject : String,
-      course : String, 
-      section : String
-    }]
+    {
+      name: String,
+      courses: [{
+        subject: String,
+        course: String,
+        section: String
+      }]
+    }
   ],
   preferences: {
     noti1: {

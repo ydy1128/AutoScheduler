@@ -19,7 +19,7 @@ app.controller('accountCtrl', function($scope, userData){
 		})
 	}
 	$scope.accountSubmit = function(){
-		userData.updateNoti($scope.user._id, $scope.user);
+		userData.updateUser($scope.user._id, $scope.user);
 		$scope.account_message = 'Account Updated.';
 	}
 	$scope.init();
@@ -34,11 +34,11 @@ app.directive('notiChecks', function(userData){
 				switch(angular.element(element).find(':checkbox').attr('id')){
 					case 'noti1':
 						scope.user.preferences.noti1 = angular.element(element).find('a:first-child').hasClass('active')
-						userData.updateNoti(scope.user._id, scope.user);
+						userData.updateUser(scope.user._id, scope.user);
 						break;
 					case 'noti2':
 						scope.user.preferences.noti2 = angular.element(element).find('a:first-child').hasClass('active')
-						userData.updateNoti(scope.user._id, scope.user);
+						userData.updateUser(scope.user._id, scope.user);
 						break;
 				}
 			})

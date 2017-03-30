@@ -86,10 +86,12 @@ app.controller('searchResultsCtrl', function($scope, passResults, selectResults,
                     if(msg == 0){
                         navigator.navigate('selected');
                     }
+                    else if(msg == -1){
+                        $scope.add_message = '* Please select a schedule first.';
+                    }
                     else{
                         $scope.add_message = "* The course already exists in your schedule.";
                     }
-                    //-------------------------------
                 }
             })
         }
