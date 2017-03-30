@@ -1,6 +1,6 @@
 // description:     controller for search engine
 // functions used:  initSelect2() - search_engine.js
-app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResults){
+app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResults, navigator){
     $scope.selected_subjects = [];
     $scope.selected_courses = [];
     $scope.selected_instructors = [];
@@ -88,8 +88,9 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
 
         }
         else{
+            passResults.updateClasses(filtered_data);
+            navigator.navigate('result');
             // angular.element('#dummy').text(JSON.stringify(filtered_data))
-            passResults.updateClasses(filtered_data)
         }
     }
 

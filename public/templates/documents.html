@@ -2,8 +2,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
+      <div id="nav-contents" class="col-md-12">
         <div class="navbar-header dropdown">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="sr-only">Toggle navigation</span>
@@ -11,7 +10,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a id="logo" class="navbar-brand dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" href="#">FrameIt <span class="caret"></span></a>
+            <a id="logo" class="navbar-brand dropdown-toggle" id="dropdownMenu1" aria-haspopup="true" href="/">FrameIt</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -22,67 +21,25 @@
             </ul>
         </div>
       </div>
-      <div class="col-md-1"></div>
     </div>
   </div>
 </div>
-<div id="wrapper" class="container-fluid">
+<div id="wrapper" class="container-fluid" ng-controller="sideMenuCtrl">
   <div id="underTopNav" class="row">
     <div class="col-md-12"></div>
   </div>
-  <div id="searchEngine" ng-controller="searchEngineCtrl" class="row">
-    <div id="engineBox" class="col-md-12">
-      <div id="selectionWrapper" class="col-md-10 col-xs-12">
-        <div id="selectsubject" class="search-section section-top col-md-6 col-xs-12">
-          <label>Subject: </label>
-          <select ng-model="selected_subjects" ng-change="searchChange()" multiple>
-            <option ng-repeat="x in filters | unique: 'subject' | orderBy: 'subject'" value="{{ x.subject }}">{{ x.subject }}</option>
-          </select>
-        </div>
-        <div id="selectcourse" class="search-section section-top col-md-6 col-xs-12">
-          <label>Course #: </label>
-          <select ng-model="selected_courses" ng-change="searchChange()" multiple>
-            <option ng-repeat="x in filters | unique: 'course'">{{ x.course }}</option>
-          </select>
-        </div>
-        <div id="selectinstructor" class="search-section section-bottom col-md-6 col-xs-12">
-          <label>Instructor: </label>
-          <select ng-model="selected_instructors" ng-change="searchChange()" multiple>
-            <option ng-repeat="x in filters | unique: 'instructor' | orderBy: 'instructor'" value="{{ x.instructor }}">{{ x.instructor }}</option>
-          </select>
-        </div>
-        <div id="selectday" class="search-section section-bottom col-md-6 col-xs-12">
-          <label>Days: </label>
-          <select ng-model="selected_days" ng-change="searchChange()" multiple>
-            <option ng-repeat="x in filters | unique: 'day'" value="{{ x.day }}">{{ x.day }}</option>
-          </select>
-        </div>
-      </div>
-      <div id="searchButton" class="btn section-btn col-md-2 col-xs-12" ng-click="searchSubmit()">Search</div>
-    </div>
-    <div id="SearchMessageDiv" class="col-md-12">
-      <p class="col-md-10" ng-model="search_message">{{ search_message }}</p>
-    </div>
-
+  <div id="side-nav">
+    <ul class="nav nav-stacked span2">
+      <li id="sheet_menu" sheet_menu></li>
+      <li id="search_menu" search_menu></li>
+      <li id="result_menu" result_menu></li>
+      <li id="selected_menu" selected_menu></li>
+      <li id="setting_menu" setting_menu></li>
+    </ul>
   </div>
-  <div class="row">
-    <div id="searchResults" class="search-result col-lg-3 col-md-3 col-sm-4" ng-controller="searchResultsCtrl">
-        <!-- <div id="dummy"></div> -->
-        <div class="col-md-12">
-          <label>Results: </label>
-        </div>
-        <div class="col-md-5">
-          <label>Sort by: </label>
-        </div>
-        <div id="sortSelect" class="col-md-7">
-          <select ng-model="sort_by" ng-change="sortClasses(sort_by)" ng-options="item as item.value for item in sort_options track by item.id">
+  <div id="contents" class="row">
+    <div id="sideContents" class="col-md-3" ng-include="template">
 
-          </select>        
-        </div>
-        <div class="result-items">
-          <div result_item class="result-item col-md-12" ng-repeat="x in filteredClasses"></div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

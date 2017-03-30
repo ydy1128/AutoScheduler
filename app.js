@@ -20,17 +20,17 @@ app.use(methodOverride());
 // Python Backend------------------------------------------------------
 var pyshell = new PythonShell('backend/connect_db.py');
 pyshell.on('message', function (message) {
-  console.log(message);
+	console.log(message);
 }); 
 
 // DB------------------------------------------------------
 mongoose.connect("mongodb://localhost/frameitdb");
 var db = mongoose.connection;
 db.once('open', function(){
-console.log('DB Connected');
+	console.log('DB Connected');
 });
 db.on('error', function(err){
-  console.log('DB Connection Error: ', err)
+	console.log('DB Connection Error: ', err)
 });
 
 // Routes------------------------------------------------------
