@@ -13,3 +13,15 @@ app.controller('adminCtrl', function($scope, $location, adminAuthentication){
     };
 
 });
+app.controller('adminHomeCtrl', function($scope, $http){
+    $scope.getClassesInJSON = function () {
+      $http.post('/create-classdb').
+      then(function(){
+        console.log('success')
+      },
+      function(){
+
+      })
+    };
+
+});
