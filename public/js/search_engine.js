@@ -7,47 +7,12 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
     $scope.selected_days = [];
     $scope.search_message = '';
     //retrieve all classes data from db
-    $http.get('/class-data')
-    .then(
-        function(response){
-            $scope.classes = response.data;
-            $scope.filters = $scope.getFilters(response.data);
-            $scope.initSelect2();
-        },
-        function(){
-            $scope.classes = [];
-            console.log('db connection error');
-        }
-    )
 
     // description:     initiate select2 library
     $scope.initSelect2 = function(){
         $(".search-section select").select2();
     }
-    // description:     get all filters (subject, course, instructor, day)
-    // input:           data - the whole data
-    // return:          temp - filter titles
-    $scope.getFilters = function(data){
-        var result = [];
-        angular.forEach(data, function(item){
-            var temp_obj1 = {}, temp_obj2 = {}, temp_obj3 = {};
-            temp_obj1['subject'] = item['subject'];
-            temp_obj1['course'] = item['course'];
-            angular.forEach(item['instructor'], function(ins){
-                temp_obj2 = $.extend({}, temp_obj1);
-                temp_obj2['instructor'] = ins;
-            });
-            angular.forEach(item.schedule, function(schedule){
-                var days = schedule.days;
-                angular.forEach(days, function(day){
-                    temp_obj3 = $.extend({}, temp_obj2);
-                    temp_obj3['day'] = day;
-                    result.push(temp_obj3);
-                });
-            });
-        });
-        return result;
-    }
+
     // description:     clears message when option is selected in any filters
     $scope.searchChange = function(){
         $scope.search_message = '';
@@ -61,15 +26,14 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
         var filter_selected = false;
         console.log($scope.selected_worksheet)
         angular.element('#engineBox li').removeClass('active');
-        console.log('searchSubmit start')
-        console.log('filtering')
-    var filter_cond = "";
+
+        var filter_cond = "";
         if($scope.selected_subjects.length > 0){
             filter_selected = true;
-        filter_cond += $scope.selected_subjects[0];
+            filter_cond += $scope.selected_subjects[0];
             for (var i = 1; i < $scope.selected_subjects.length; i++){
-        filter_cond += "&&" + $scope.selected_subjects[i];
-        }
+                filter_cond += "&&" + $scope.selected_subjects[i];
+            }
         }
     filter_cond += "^";
         if($scope.selected_courses.length > 0){
@@ -197,6 +161,8 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
             $scope.search_message = '* Selected filters has not been applied.';
         }
     }
+
+    $scope.initSelect2();
 })
 
 

@@ -1,0 +1,117 @@
+<div id="worksheets" class="row side-contents active">
+	<div class="col-md-12">
+		<h2>{{ title }}</h2>
+	</div>
+	<hr class="col-md-10" />
+	<div id="worksheets" class="search-result row">
+		<div id="addButton" class="col-md-5 btn worksheet-btn" ng-click="addWorksheet()">Add</div>
+
+		<div  ng-scrollable="{scrollX:'none',scrollY:'right'}" class="result-items">
+			<div worksheet_item class="worksheet-item result-item row" ng-repeat="x in worksheets"></div>
+		</div>
+		<div class="message-div col-md-12">
+			{{ add_message }}
+		</div>
+	</div> 
+</div>
+
+
+<div id="search" class="side-contents">
+	<div class="col-md-12">
+		<h2>{{ title }}</h2>
+	</div>
+	<hr class="col-md-10" />
+	<div id="searchEngine" ng-controller="searchEngineCtrl" class="row">
+		<div id="selectsubject" class="search-section section-top col-md-12">
+			<label>Subject: </label>
+				<select class="col-md-12" ng-model="selected_subjects" ng-change="searchChange()" multiple>
+					<option ng-repeat="x in filters.subject | orderBy: 'toString()'" value="{{ x }}">{{ x }}</option>
+				</select>
+		</div>
+		<div id="selectcourse" class="search-section section-top col-md-12">
+			<label>Course #: </label>
+			<select class="col-md-12" ng-model="selected_courses" ng-change="searchChange()" multiple>
+			    <option ng-repeat="x in filters.course | orderBy: 'toString()'">{{ x }}</option>
+			</select>
+		</div>
+		<div id="selectinstructor" class="search-section section-bottom col-md-12">
+			<label>Instructor: </label>
+			<select class="col-md-12" ng-model="selected_instructors" ng-change="searchChange()" multiple>
+			    <option ng-repeat="x in filters.instructor" value="{{ x }}">{{ x }}</option>
+			</select>
+		</div>
+		<div id="selectday" class="search-section section-bottom col-md-12">
+			<label>Days: </label>
+			<select class="col-md-12" ng-model="selected_days" ng-change="searchChange()" multiple>
+			    <option ng-repeat="x in filters.days" value="{{ x }}">{{ x }}</option>
+			</select>
+		</div>
+		<div id="searchButton" class="btn section-btn col-md-12" ng-click="searchSubmit()">
+			Search
+		</div>
+		<div id="SearchMessageDiv" class="message-div" class="col-md-12"">
+			{{ search_message }}
+		</div>
+	</div>
+
+</div>
+
+
+<div id="result" class="row side-contents">
+	<div class="col-md-12">
+	  <h2>{{ title }}</h2>
+	</div>
+	<hr class="col-md-10" />
+	<div id="searchResults" class="search-result row" ng-controller="searchResultsCtrl">
+	  <div class="col-md-5">
+	    <label>Sort by: </label>
+	  </div>
+	  <div id="sortSelect" class="col-md-7 col-xs-7">
+	    <select ng-model="sort_by" ng-change="sortClasses(sort_by)" ng-options="item as item.value for item in sort_options track by item.id">
+
+	    </select>        
+	  </div>
+	  <div  ng-scrollable="{scrollX:'none',scrollY:'right'}" class="result-items">
+	      <div result_item class="result-item row" ng-repeat="x in filteredClasses" current="x" btn="button_type" update="updateCurrentClass(x.subject+'-'+x.course+'-'+x.section, button_type)" clear="clearMessage()"></div>
+	  </div>
+	  <div class="message-div col-md-12">
+	    {{ add_message }}
+	  </div>
+	</div>
+</div>
+
+
+<div id="selected" class="row side-contents">
+	<div class="col-md-12">
+	  <h2>{{ title }}</h2>
+	</div>
+	<hr class="col-md-10" />
+	<div id="selectedResults" class="search-result row" ng-controller="selectedResultsCtrl">
+	  <div class="col-md-5">
+	    <label>Sort by: </label>
+	  </div>
+	  <div id="sortSelect2" class="col-md-7 col-xs-7">
+	    <select ng-model="sort_by" ng-change="sortClasses(sort_by)" ng-options="item as item.value for item in sort_options track by item.id">
+
+	    </select>        
+	  </div>
+	  <div  ng-scrollable="{scrollX:'none',scrollY:'right'}" class="result-items">
+	    <div result_item class="result-item row" ng-repeat="x in selectedClasses" current="x" btn="button_type" update="updateCurrentClass(x.subject+'-'+x.course+'-'+x.section, button_type)"></div>
+	  </div>
+	</div>
+</div>
+
+
+<div id="settings" class="row side-contents">
+	<div class="col-md-12">
+		<h2>{{ title }}</h2>
+	</div>
+	<hr class="col-md-10" />
+	<div id="settingMenu" ng-controller="settingCtrl" class="row">
+		<ul class="col-md-12">
+			<li class="col-md-12" ng-repeat="x in menu_list" setting_list ng-click="updateScheduleTemplate(x)">
+				
+			</li>
+		</ul>
+	</div>
+</div>

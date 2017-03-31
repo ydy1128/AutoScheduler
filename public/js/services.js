@@ -6,11 +6,11 @@ app.factory('passResults', function($rootScope){
   // description:     updates data in shared section and refreshes search_results controller
   // functions used:  $broadcast('data_shared') - search_results.js
   function updateClasses(cls){
-    // class_list = cls;
-    angular.forEach(cls, function(elem, i){
-      console.log(elem.subject, elem.course, elem.section)
-      class_list.push(cls[i])
-    })
+    class_list = cls;
+    // angular.forEach(cls, function(elem, i){
+    //   console.log(elem.subject, elem.course, elem.section)
+    //   class_list.push(cls[i])
+    // })
     console.log('sharing data')
     $rootScope.$broadcast('data_shared');
   }
@@ -222,7 +222,7 @@ app.factory('selectResults', function($rootScope, $http, userData){
       return 1;
     }
     else{
-      class_list.splice(index);
+      class_list.splice(index, 1);
       $rootScope.$broadcast('class_updated');
       userData.getProfile()
       .then(function(response){

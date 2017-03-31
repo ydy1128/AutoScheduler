@@ -57,6 +57,50 @@ app.run(function($rootScope, $location, authentication, adminAuthentication){
 // description:     controller for the whole app
 // commented out:   commented because the outside app does not need a controller yet
 app.controller('FrameItAppCtrl', function($http, $scope, $location, authentication, adminAuthentication){
+  $scope.classes = null;
+  $scope.filters = null;
+  $http.get('/class-data')
+  .then(
+      function(response){
+          $scope.classes = response.data;
+          $scope.filters = $scope.getFilters($scope.classes);
+      },
+      function(){
+          $scope.classes = [];
+          console.log('db connection error');
+      }
+  )
+  // description:     get all filters (subject, course, instructor, day)
+  // input:           data - the whole data
+  // return:          temp - filter titles
+  $scope.getFilters = function(data){
+      var result = {};
+      result.subject = [];
+      result.course = [];
+      result.instructor = [];
+      result.days = ['M', 'T', 'W', 'R', 'F'];
+      angular.forEach(data, function(item){
+        if(result.subject.indexOf(item.subject) == -1){
+          result.subject.push(item.subject)
+        }
+      });
+      angular.forEach(data, function(item){
+        if(result.course.indexOf(item.course) == -1){
+          result.course.push(item.course)
+        }
+      });
+      angular.forEach(data, function(item){
+        angular.forEach(item.instructor, function(ins){
+          if(result.instructor.indexOf(ins) == -1){
+            result.instructor.push(ins)
+          }
+        })
+      });
+
+
+      return result;
+  }
+
   $scope.logout = function(){
     console.log('logout called')
     authentication.logout()

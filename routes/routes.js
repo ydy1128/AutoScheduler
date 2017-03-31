@@ -53,7 +53,7 @@ router.get('/class-data', function(req, res){
 //CSCE^112^person1&&person2^M&&W
 //CSCE
 router.get('/search-course:conditions', function(req, res){
-    console.log(req.params.conditions);
+    // console.log(req.params.conditions);
     var cond = req.params.conditions.split("^");
     var subjects = cond[0].split("&&");
     var courses = cond[1].split("&&");

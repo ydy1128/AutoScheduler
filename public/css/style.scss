@@ -74,6 +74,17 @@ a{
 		}
 	}
 }
+.side-contents{
+	display: none;
+	height: 100%;
+	&.active{
+		display: block;
+	}
+
+	.select2{
+		width: 100% !important;
+	}
+}
 #underTopNav{
 	height: 50px;
 	width: 100%;
@@ -149,10 +160,6 @@ a{
 
 #searchResults, #selectedResults, #worksheets{
 	height: 100%;
-	.select2{
-		width: 100% !important;
-	}
-
 }
 .scroller {
     position: relative;

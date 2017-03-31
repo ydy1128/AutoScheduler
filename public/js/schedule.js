@@ -15,6 +15,9 @@ app.controller('scheduleCtrl', function($scope, $rootScope, selectResults){
 			if(i > 12){
 				time =  i-12 + ':00 PM';
 			}
+			else if (i == 12){
+				time = i + ':00 PM';
+			}
 			else{
 				time =  i + ':00 AM';
 			}
@@ -77,12 +80,13 @@ app.directive('scheduleItem', function(colorSelector){
 	    	let position_left = parseInt(scope.current.day) * 20;
 	    	let position_bottom = parseInt(scope.current.end[0]) - 7;
             let str = '-webkit-gradient(linear, 0% 0%, 0% 100%, from(';
+            console.log(scope.current.start)
             str += colorSelector.getColor(scope.current.session.split('-')[0])[0];
             str += '), to('+colorSelector.getColor(scope.current.session.split('-')[0])[1]+'))';
-	    	if(scope.current.start[2] == 'pm'){
+	    	if(scope.current.start[2] == 'pm' && scope.current.start[0] != 12){
 	    		position_top += 12;
 	    	}
-	    	if(scope.current.end[2] == 'pm'){
+	    	if(scope.current.end[2] == 'pm' && scope.current.end[0] != 12){
 	    		position_bottom += 12;
 	    	}
 	    	position_top = position_top * 60;
