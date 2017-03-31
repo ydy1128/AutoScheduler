@@ -61,6 +61,8 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
         var filter_selected = false;
         console.log($scope.selected_worksheet)
         angular.element('#engineBox li').removeClass('active');
+        console.log('searchSubmit start')
+        console.log('filtering')
     var filter_cond = "";
         if($scope.selected_subjects.length > 0){
             filter_selected = true;
@@ -104,16 +106,18 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
             passResults.updateClasses([])
         }
         else{
-            passResults.updateClasses(filtered_data);
-            navigator.navigate('result');
+            console.log('done filtering')
+            // passResults.updateClasses(filtered_data);
+            // navigator.navigate('result');
             // angular.element('#dummy').text(JSON.stringify(filtered_data))
             $http.get('/search-course'+filter_cond)
             .then(
                 function(response){
                     $scope.classes = response.data;
                     passResults.updateClasses(response.data);
-                    navigator.navigate('result');
                     $scope.initSelect2();
+                    console.log('got data')
+                    navigator.navigate('result');
                 },
                 function(){
                     $scope.classes = [];

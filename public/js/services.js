@@ -6,12 +6,19 @@ app.factory('passResults', function($rootScope){
   // description:     updates data in shared section and refreshes search_results controller
   // functions used:  $broadcast('data_shared') - search_results.js
   function updateClasses(cls){
-    class_list = cls;
+    // class_list = cls;
+    angular.forEach(cls, function(elem, i){
+      console.log(elem.subject, elem.course, elem.section)
+      class_list.push(cls[i])
+    })
+    console.log('sharing data')
     $rootScope.$broadcast('data_shared');
   }
   // description:     returns updated data
   // return:          list - current data list
   function getClasses(){
+      console.log('getting classes');
+      
       return class_list;
   }
   return{ 
@@ -57,6 +64,7 @@ app.factory('selectResults', function($rootScope, $http, userData){
       }
       else{
         let insert = classExists(key, cls);
+        var time = timeExists(cls);
         if(insert){
           return 1;
         }
@@ -98,6 +106,113 @@ app.factory('selectResults', function($rootScope, $http, userData){
         return false;
       }
     }
+  }
+  function timeExists(cls){
+    console.log('running')
+    for(var i = 0; i < class_list.length; i++){
+      console.log(class_list[i])
+      for(var j = 0; j < class_list[i].schedule.length; j++) {
+        var compare_days = class_list[i].schedule[j].days;
+        var compare_starttime = class_list[i].schedule[j].start_time;
+        var compare_endtime = class_list[i].schedule[j].end_time;
+        console.log(compare_days)
+        for(var k = 0; k < cls.schedule.length; k++) {
+          var input_days = cls.schedule[k].days;
+          var input_startime = cls.schedule[k].start_time;
+          var input_endtime = cls.schedule[k].end_time;
+          console.log(input_days)
+          console.log(input_startime)
+          for(var l = 0; l < compare_days.length; l++){
+            var check_days = input_days.indexOf(compare_days[l]);
+            var overlap_check = true;
+            console.log(check_days+"checkdays")
+            if(check_days == -1) {
+              return false;
+            }
+            else {
+              var time_compare_starttime = compare_starttime.split(" ");
+              var time_input_starttime = input_startime.split(" ");
+              var ampm_compare_starttime1;
+              var ampm_compare_starttime;
+
+              console.log(time_compare_starttime[0], time_compare_starttime[1])
+              console.log(time_input_starttime[0], time_input_starttime[1])
+              
+                if (time_compare_starttime[1] == "pm")
+                {
+                  ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
+                  ampm_compare_starttime = parseInt(ampm_compare_starttime1) + 1200;
+                  console.log(ampm_compare_starttime+"pm");
+                }
+                else if(time_compare_starttime[1] == "am")
+                {
+                  ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
+                  ampm_compare_starttime = parseInt(ampm_compare_starttime1);
+                  console.log(ampm_compare_starttime+"am");
+                }
+              
+              var time_compare_endtime = compare_endtime.split(" ");
+              var ampm_compare_endtime1;
+              var ampm_compare_endtime;
+                if (time_compare_endtime[1] == "pm")
+                {
+                  ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
+                  ampm_compare_endtime = parseInt(ampm_compare_endtime1) + 1200;
+                }                
+                else if(time_compare_endtime[1] == "am")
+                {
+                  ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
+                  ampm_compare_endtime = parseInt(ampm_compare_endtime1);                  
+                }
+
+              var time_input_starttime = input_startime.split(" ");
+              var ampm_input_starttime1;
+              var ampm_input_starttime;
+                if (time_input_starttime[1] == "pm")
+                {
+                  ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
+                  ampm_input_starttime = parseInt(ampm_input_starttime1) + 1200;
+                }                
+                else if(time_input_starttime[1] == "am")
+                {
+                  ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
+                  ampm_input_starttime = parseInt(ampm_input_starttime1);             
+                }              
+
+              var time_input_endtime = input_endtime.split(" ");
+              var ampm_input_endtime1;
+              var ampm_input_endtime;
+                if (time_input_endtime[1] == "pm")
+                {
+                  ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
+                  ampm_input_endtime = parseInt(ampm_input_endtime1) + 1200;
+                }                
+                else if(time_input_endtime[1] == "am")
+                {
+                  ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
+                  ampm_input_endtime = parseInt(ampm_input_endtime1);                  
+                }              
+                console.log(overlap_check);
+              if(ampm_compare_starttime < ampm_input_starttime && ampm_compare_endtime < ampm_input_endtime)
+                {}
+              else
+                {
+                  overlap_check = false;
+                }
+              console.log(overlap_check);
+              }
+
+            //M
+
+            //W
+            //F
+          }
+        }
+
+
+
+    }
+  }
   }
   // description:     updates data in shared section and refreshes search_results controller
   // functions used:  $broadcast('class_removed')
