@@ -54,7 +54,6 @@ app.factory('selectResults', function($rootScope, $http, userData){
               }
             }
               user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section})
-              console.log(user._id)
               userData.updateUser(user._id, user)
           }, function(){
             console.log('Unknown user error.')
@@ -64,9 +63,12 @@ app.factory('selectResults', function($rootScope, $http, userData){
       }
       else{
         let insert = classExists(key, cls);
-        var time = timeExists(cls);
+        let time = timeExists(cls);
         if(insert){
           return 1;
+        }
+        else if(time){
+          return 2;
         }
         else{
           class_list.push(cls);
@@ -74,7 +76,6 @@ app.factory('selectResults', function($rootScope, $http, userData){
           if(!silent){
             userData.getProfile()
             .then(function(response){
-              console.log(response.data)
               var user = response.data;
               for(let i = 0; i < user.schedules.length; i++){
                 if(user.schedules[i].name == current_schedule){
@@ -84,7 +85,6 @@ app.factory('selectResults', function($rootScope, $http, userData){
               }
               
               user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section})
-              console.log(response.data._id)
               userData.updateUser(response.data._id, user)
 
             }, function(){
@@ -108,111 +108,96 @@ app.factory('selectResults', function($rootScope, $http, userData){
     }
   }
   function timeExists(cls){
-    console.log('running')
     for(var i = 0; i < class_list.length; i++){
-      console.log(class_list[i])
       for(var j = 0; j < class_list[i].schedule.length; j++) {
         var compare_days = class_list[i].schedule[j].days;
         var compare_starttime = class_list[i].schedule[j].start_time;
         var compare_endtime = class_list[i].schedule[j].end_time;
-        console.log(compare_days)
         for(var k = 0; k < cls.schedule.length; k++) {
           var input_days = cls.schedule[k].days;
           var input_startime = cls.schedule[k].start_time;
           var input_endtime = cls.schedule[k].end_time;
-          console.log(input_days)
-          console.log(input_startime)
+
           for(var l = 0; l < compare_days.length; l++){
             var check_days = input_days.indexOf(compare_days[l]);
-            var overlap_check = true;
-            console.log(check_days+"checkdays")
-            if(check_days == -1) {
-              return false;
-            }
-            else {
+            var overlap_check = false;
+            if(check_days != -1) {
               var time_compare_starttime = compare_starttime.split(" ");
               var time_input_starttime = input_startime.split(" ");
               var ampm_compare_starttime1;
-              var ampm_compare_starttime;
-
-              console.log(time_compare_starttime[0], time_compare_starttime[1])
-              console.log(time_input_starttime[0], time_input_starttime[1])
-              
-                if (time_compare_starttime[1] == "pm")
-                {
-                  ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
-                  ampm_compare_starttime = parseInt(ampm_compare_starttime1) + 1200;
-                  console.log(ampm_compare_starttime+"pm");
-                }
-                else if(time_compare_starttime[1] == "am")
-                {
-                  ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
-                  ampm_compare_starttime = parseInt(ampm_compare_starttime1);
-                  console.log(ampm_compare_starttime+"am");
-                }
+              var ampm_compare_starttime;              
+              if(time_compare_starttime[1] == "am" || time_compare_starttime[0].includes('12:')){
+                ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
+                ampm_compare_starttime = parseInt(ampm_compare_starttime1);
+              }
+              else if (time_compare_starttime[1] == "pm"){
+                ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
+                ampm_compare_starttime = parseInt(ampm_compare_starttime1) + 1200;
+              }
               
               var time_compare_endtime = compare_endtime.split(" ");
               var ampm_compare_endtime1;
               var ampm_compare_endtime;
-                if (time_compare_endtime[1] == "pm")
-                {
-                  ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
-                  ampm_compare_endtime = parseInt(ampm_compare_endtime1) + 1200;
-                }                
-                else if(time_compare_endtime[1] == "am")
-                {
-                  ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
-                  ampm_compare_endtime = parseInt(ampm_compare_endtime1);                  
-                }
+              if(time_compare_endtime[1] == "am" || time_compare_endtime[0].includes('12:')){
+                ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
+                ampm_compare_endtime = parseInt(ampm_compare_endtime1);                  
+              }
+              else if (time_compare_endtime[1] == "pm"){
+                ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
+                ampm_compare_endtime = parseInt(ampm_compare_endtime1) + 1200;
+              }                
+               
 
               var time_input_starttime = input_startime.split(" ");
               var ampm_input_starttime1;
               var ampm_input_starttime;
-                if (time_input_starttime[1] == "pm")
-                {
-                  ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
-                  ampm_input_starttime = parseInt(ampm_input_starttime1) + 1200;
-                }                
-                else if(time_input_starttime[1] == "am")
-                {
-                  ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
-                  ampm_input_starttime = parseInt(ampm_input_starttime1);             
-                }              
+              if(time_input_starttime[1] == "am" || time_input_starttime[0].includes('12:')){
+                ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
+                ampm_input_starttime = parseInt(ampm_input_starttime1);             
+              }   
+              else if (time_input_starttime[1] == "pm"){
+                ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
+                ampm_input_starttime = parseInt(ampm_input_starttime1) + 1200;
+              }                
+                         
 
               var time_input_endtime = input_endtime.split(" ");
               var ampm_input_endtime1;
               var ampm_input_endtime;
-                if (time_input_endtime[1] == "pm")
-                {
-                  ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
-                  ampm_input_endtime = parseInt(ampm_input_endtime1) + 1200;
-                }                
-                else if(time_input_endtime[1] == "am")
-                {
-                  ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
-                  ampm_input_endtime = parseInt(ampm_input_endtime1);                  
-                }              
-                console.log(overlap_check);
-              if(ampm_compare_starttime < ampm_input_starttime && ampm_compare_endtime < ampm_input_endtime)
-                {}
-              else
-                {
-                  overlap_check = false;
+              if(time_input_endtime[1] == "am" || time_input_starttime[0].includes('12:')){
+                ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
+                ampm_input_endtime = parseInt(ampm_input_endtime1);                  
+              } 
+              else if (time_input_endtime[1] == "pm"){
+                ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
+                ampm_input_endtime = parseInt(ampm_input_endtime1) + 1200;
+              }                
+                 
+              if(ampm_input_starttime < ampm_compare_starttime){
+                if(ampm_input_endtime < ampm_compare_starttime){
+
                 }
-              console.log(overlap_check);
+                else{
+                  console.log('case 1')
+                  return true;
+                }
+              }    
+              else if(ampm_input_starttime < ampm_compare_starttime){
+                console.log('case 2')
+                return true;
+              }         
+              else{
+                if(ampm_input_starttime <= ampm_compare_endtime){
+                  console.log('case 3')
+                  return true;
+                }
               }
-
-            //M
-
-            //W
-            //F
+            }
           }
         }
-
-
-
+      }
     }
-  }
+    return overlap_check;
   }
   // description:     updates data in shared section and refreshes search_results controller
   // functions used:  $broadcast('class_removed')
@@ -237,7 +222,7 @@ app.factory('selectResults', function($rootScope, $http, userData){
         }
         for(let i = 0; i < user.schedules[index].courses.length; i++){
           let curr_course = user.schedules[index].courses[i]
-          let key = curr = cls.subject + '-' + cls.course + '-' + cls.section;
+          let key = curr = curr_course.subject + '-' + curr_course.course + '-' + curr_course.section;
           let match_key = cls.subject + '-' + cls.course + '-' + cls.section;
           if(key == match_key){
             remove_index = i;
