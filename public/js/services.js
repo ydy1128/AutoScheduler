@@ -178,17 +178,17 @@ app.factory('selectResults', function($rootScope, $http, userData){
 
                 }
                 else{
-                  console.log('case 1')
+                  // console.log('case 1')
                   return true;
                 }
               }    
               else if(ampm_input_starttime < ampm_compare_starttime){
-                console.log('case 2')
+                // console.log('case 2')
                 return true;
               }         
               else{
                 if(ampm_input_starttime <= ampm_compare_endtime){
-                  console.log('case 3')
+                  // console.log('case 3')
                   return true;
                 }
               }
