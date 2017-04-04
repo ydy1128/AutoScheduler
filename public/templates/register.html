@@ -43,7 +43,10 @@
         <input type="text" required placeholder="Last Name" class="form-control" ng-model="credentials.last_name"/>
       </div>
       <div id="classField" class="form-group col-md-12">
-        <input required placeholder="Classification" class="form-control" ng-model="credentials.classification"/>
+<!--         <input required placeholder="Classification" class="form-control" ng-model="credentials.classification"/> -->
+        <select required class="form-control" ng-model="credentials.classification">
+          <option ng-repeat="c in coptions" value="{{ c }}">{{ c }}</option>
+        </select>
       </div>
       <div class="col-md-12">
         <p >Already a member? Please <a href="/login">log in</a> instead.</p>

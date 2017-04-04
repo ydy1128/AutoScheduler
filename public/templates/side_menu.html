@@ -24,25 +24,25 @@
 	<div id="searchEngine" ng-controller="searchEngineCtrl" class="row">
 		<div id="selectsubject" class="search-section section-top col-md-12">
 			<label>Subject: </label>
-				<select class="col-md-12" ng-model="selected_subjects" ng-change="searchChange()" multiple>
+				<select class="col-md-12" ng-model="selected_subjects" ng-change="searchChange(); getSecondFilters(classes, selected_subjects)">
 					<option ng-repeat="x in filters.subject | orderBy: 'toString()'" value="{{ x }}">{{ x }}</option>
 				</select>
 		</div>
 		<div id="selectcourse" class="search-section section-top col-md-12">
 			<label>Course #: </label>
-			<select class="col-md-12" ng-model="selected_courses" ng-change="searchChange()" multiple>
+			<select class="col-md-12" ng-model="selected_courses" ng-change="searchChange()" multiple ng-disabled="filter_disabled">
 			    <option ng-repeat="x in filters.course | orderBy: 'toString()'">{{ x }}</option>
 			</select>
 		</div>
 		<div id="selectinstructor" class="search-section section-bottom col-md-12">
 			<label>Instructor: </label>
-			<select class="col-md-12" ng-model="selected_instructors" ng-change="searchChange()" multiple>
+			<select class="col-md-12" ng-model="selected_instructors" ng-change="searchChange()" multiple ng-disabled="filter_disabled">
 			    <option ng-repeat="x in filters.instructor" value="{{ x }}">{{ x }}</option>
 			</select>
 		</div>
 		<div id="selectday" class="search-section section-bottom col-md-12">
 			<label>Days: </label>
-			<select class="col-md-12" ng-model="selected_days" ng-change="searchChange()" multiple>
+			<select class="col-md-12" ng-model="selected_days" ng-change="searchChange()" multiple ng-disabled="filter_disabled">
 			    <option ng-repeat="x in filters.days" value="{{ x }}">{{ x }}</option>
 			</select>
 		</div>
