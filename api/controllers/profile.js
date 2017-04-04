@@ -23,6 +23,7 @@ module.exports.profileUpdate = function(req, res) {
     req.body
   )
   .exec(function(err, user) {
+    console.log(user)
     if (err){
       console.log(err)
     }

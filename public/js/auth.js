@@ -172,7 +172,7 @@ app.service('userData', function($http, authentication){
   };
   var updateUser = function(id, user){
     console.log('updateUser called')
-    if(id != undefined){
+    if(authentication.isLoggedIn() && id != undefined){
       $http.put('/api/user' + id, user);
     }
     else{

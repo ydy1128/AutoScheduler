@@ -1,8 +1,9 @@
 var app = angular.module('FrameItApp',['ui.router', 'ngScrollable'])
 
 // description:     app configuration for routing
-app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $qProvider) {
   $urlRouterProvider.otherwise('/');
+  $qProvider.errorOnUnhandledRejections(false);
   $stateProvider
   // description:     routing for home page
   .state('home', {

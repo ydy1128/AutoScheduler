@@ -42,7 +42,7 @@ router.get('/class-data', function(req, res){
     var query = Classes.find({});
     
     query.exec(function(err, cls){
-	console.log(cls);
+	// console.log(cls);
 	if(err)
 	    res.send(err);
 	else

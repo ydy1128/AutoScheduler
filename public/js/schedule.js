@@ -80,7 +80,6 @@ app.directive('scheduleItem', function(colorSelector){
 	    	let position_left = parseInt(scope.current.day) * 20;
 	    	let position_bottom = parseInt(scope.current.end[0]) - 7;
             let str = '-webkit-gradient(linear, 0% 0%, 0% 100%, from(';
-            console.log(scope.current.start)
             str += colorSelector.getColor(scope.current.session.split('-')[0])[0];
             str += '), to('+colorSelector.getColor(scope.current.session.split('-')[0])[1]+'))';
 	    	if(scope.current.start[2] == 'pm' && scope.current.start[0] != 12){
