@@ -1,47 +1,329 @@
-html{
-	width: 100%;
-	height: 100%;
-}
-body{
-	margin: 0;
-	padding: 0;
-	font-family: 'Titillium Web', sans-serif;
-	width: 100%;
-	height: 100%;
-}
+html {
+  width: 100%;
+  height: 100%; }
 
-#logo{
-	font-size: 24px;
-}
-#logo .caret{
-	border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-top: 7px solid;
-}
-.nav{
-	float: right;
-	font-size: 20px;
-}
-.container-fluid, .row{
-	margin: 0;
-	padding: 0;
-}
-.row{
-	width: 100%;
-	height: 100%;
-}
-#wrapper{
-	width: 100%;
-	height: 100%;
-}
-#main{
-	width: 100%;
-	height: 100%;
-}
-#main-back img{
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Titillium Web', sans-serif;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  color: #21213C; }
+
+a {
+  cursor: pointer; }
+
+.container-fluid, .row {
+  margin: 0;
+  padding: 0; }
+
+/*===============================Nav bar================================*/
+.navbar {
+  background-color: #21213C;
+  margin-bottom: 0;
+  height: 50px;
+  border-bottom: none; }
+  .navbar #nav-contents {
+    padding: 0 40px; }
+    .navbar #nav-contents #logo {
+      font-size: 24px; }
+    .navbar #nav-contents #logo .caret {
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 7px solid; }
+    .navbar #nav-contents .nav {
+      float: right;
+      font-size: 20px; }
+
+#side-nav {
+  float: left;
+  background-color: #5C5F9D;
+  height: calc(100% - 50px);
+  display: inline-block;
+  width: 60px; }
+  #side-nav li {
+    height: 60px;
+    margin: 0; }
+    #side-nav li a {
+      height: 60px;
+      line-height: 60px;
+      padding: 0;
+      text-align: center;
+      color: white;
+      font-size: 25px;
+      margin: 0; }
+      #side-nav li a:hover {
+        background-color: #d3d3d3;
+        color: #82b21e; }
+        #side-nav li a:hover i {
+          color: #82b21e; }
+      #side-nav li a.active {
+        background-color: #d3d3d3;
+        color: #21213C; }
+
+#underTopNav {
+  height: 50px;
+  width: 100%; }
+
+#wrapper {
+  height: 100%;
+  width: 100%; }
+
+.main {
+  width: 100%;
+  height: 100%;
+  background: url(../img/intro.png) no-repeat center center;
+  background-size: cover; }
+
+.admin {
+  height: 100%; }
+  .admin#adminLogin {
+    padding-top: 80px;
+    padding-left: 20px;
+    background-color: #ffffff; }
+    .admin#adminLogin h2 {
+      margin-bottom: 30px; }
+    .admin#adminLogin input {
+      width: 100%;
+      padding: 5px 10px;
+      border-radius: 5px; }
+    .admin#adminLogin .btn {
+      background-color: #82b21e;
+      color: #ffffff; }
+    .admin#adminLogin * {
+      margin-top: 20px;
+      display: block; }
+
+#contents {
+  float: left;
+  display: inline-block;
+  width: calc(100% - 60px);
+  height: calc(100% - 50px); }
+
+#sideContents {
+  height: 100%;
+  background-color: #d3d3d3; }
+  #sideContents .message-div {
+    text-align: center; }
+
+.section-btn {
+  width: calc(100% - 20px);
+  height: 35px;
+  line-height: 35px;
+  margin: 20px 10px 5px;
+  padding: 0;
+  background-color: #82b21e;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 16px; }
+
+.message-div {
+  color: #d64d61;
+  height: 25px;
+  margin-bottom: 10px;
+  font-size: 14px; }
+
+#searchResults, #selectedResults, #worksheets {
+  height: 100%; }
+  #searchResults .select2, #selectedResults .select2, #worksheets .select2 {
+    width: 100% !important; }
+
+.scroller {
+  position: relative; }
+
+.result-items {
+  height: calc(100% - 200px);
+  margin-top: 150px;
+  background-color: #E7E7F0;
+  border-radius: 5px;
+  overflow-y: auto; }
+  .result-items .result-item {
+    position: static;
+    padding: 2.5px 0;
+    margin: 5px 10px;
+    border-radius: 10px;
+    background: #82b21e;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#B4D178), to(#82b21e));
+    background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#B4D178), to(#82b21e));
+    background: -moz-linear-gradient(center top, #B4D178, #82b21e);
+    color: white; }
+    .result-items .result-item div {
+      padding: 0 0 0 10px; }
+    .result-items .result-item .fa {
+      font-size: 15px; }
+      .result-items .result-item .fa.fa-caret-up {
+        display: none; }
+    .result-items .result-item .fa-minus-circle, .result-items .result-item .fa-external-link-square {
+      font-size: 20px;
+      display: none; }
+      .result-items .result-item .fa-minus-circle.fa-minus-circle, .result-items .result-item .fa-external-link-square.fa-minus-circle {
+        color: #d64d61; }
+    .result-items .result-item .item-contents {
+      display: none;
+      background-color: white;
+      height: auto;
+      color: #21213C; }
+      .result-items .result-item .item-contents h5 {
+        margin: 5px 10px 5px 10px;
+        font-weight: 600; }
+      .result-items .result-item .item-contents label {
+        font-size: 14px;
+        font-weight: 300;
+        margin: 0px 10px 5px 10px; }
+      .result-items .result-item .item-contents ul {
+        font-size: 12px;
+        margin: 0px 10px 5px 10px;
+        padding-left: 20px; }
+      .result-items .result-item .item-contents .add-btn {
+        background-color: #d64d61;
+        color: #ffffff;
+        padding: 5px 10px;
+        margin: 10px 0; }
+  .result-items .scrollbar-dynamic {
+    max-height: 300px;
+    overflow: auto; }
+
+#mainContents {
+  height: 100%; }
+  #mainContents #scheduleDiv {
+    height: 100%;
+    padding: 0;
+    box-sizing: border-box; }
+    #mainContents #scheduleDiv #scheduleTitle {
+      height: 50px;
+      background-color: #82b21e; }
+      #mainContents #scheduleDiv #scheduleTitle h2 {
+        height: 50px;
+        padding-top: 8px;
+        margin: 0;
+        text-align: center;
+        color: #ffffff; }
+    #mainContents #scheduleDiv #scheduler {
+      height: calc(100% - 50px); }
+      #mainContents #scheduleDiv #scheduler div {
+        padding: 0; }
+      #mainContents #scheduleDiv #scheduler #scheduleHead {
+        width: 100%;
+        height: 40px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 600;
+        color: #696969; }
+        #mainContents #scheduleDiv #scheduler #scheduleHead td {
+          width: 20%;
+          padding: 5px 0;
+          border-bottom: 1px solid #d3d3d3;
+          border-left: 1px solid #d3d3d3;
+          background-color: #f1f1f1; }
+      #mainContents #scheduleDiv #scheduler #scheduleBody {
+        overflow-x: hidden;
+        height: calc(100% - 40px); }
+        #mainContents #scheduleDiv #scheduler #scheduleBody .row {
+          overflow-y: scroll;
+          height: 100%;
+          width: calc(100% + 16px); }
+        #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleTime {
+          width: 100%;
+          text-align: left;
+          font-size: 16px;
+          font-weight: 600;
+          color: #696969; }
+          #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleTime tr:first-child {
+            border-top: 1px solid #d3d3d3; }
+          #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleTime td {
+            width: 100%;
+            height: 30px;
+            padding: 0px 10px 0px;
+            border-bottom: 1px solid #d3d3d3;
+            border-right: 1px solid #d3d3d3;
+            background-color: #f1f1f1; }
+        #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleContents {
+          width: 100%; }
+          #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleContents td {
+            width: 20%;
+            height: 30px;
+            margin-left: 2px;
+            border-bottom: 1px solid #d3d3d3;
+            border-right: 1px solid #d3d3d3; }
+        #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleItemsDiv {
+          position: absolute;
+          width: 100%;
+          height: 100%; }
+          #mainContents #scheduleDiv #scheduler #scheduleBody #scheduleItemsDiv .schedule-item {
+            position: absolute;
+            width: calc(20% - .4%);
+            text-align: center;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer; }
+    #mainContents #scheduleDiv .null-title {
+      color: #9d9d9d;
+      text-align: center;
+      height: 60px;
+      margin-top: calc(45% - 30px); }
+
+#settingMenu ul {
+  list-style: none;
+  font-size: 18px;
+  padding: 0; }
+  #settingMenu ul li {
+    border-bottom: 2px solid #21213C;
+    padding: 10px 15px;
+    cursor: pointer; }
+    #settingMenu ul li .fa-chevron-right {
+      display: none;
+      float: right;
+      padding: 5px 10px 0 0; }
+    #settingMenu ul li:first-child .fa-chevron-right {
+      display: block; }
+    #settingMenu ul li:hover {
+      color: #82b21e; }
+    #settingMenu ul li.active .fa-chevron-right {
+      display: block; }
+
+.worksheet-btn {
+  background-color: #d64d61;
+  color: #ffffff; }
+  .worksheet-btn#addButton {
+    background-color: #82b21e; }
+  .worksheet-btn:hover {
+    color: #ffffff; }
+
+.screen-block-10 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  opacity: .7;
+  z-index: 10; }
+
+.floating-form {
+  position: absolute;
+  width: 40%;
+  left: 30%;
+  background-color: #ffffff;
+  border-radius: 5px;
+  z-index: 20;
+  padding: 0 20px; }
+  .floating-form#registerForm {
+    top: 20%; }
+  .floating-form#loginForm {
+    top: 35%; }
+  .floating-form h3 {
+    padding-bottom: 10px; }
+  .floating-form .form-control {
+    height: 40px;
+    line-height: 40px;
+    margin: 5px 0; }
+  .floating-form .btn {
+    margin: 5px 0 20px 0; }
+
+#notiDiv div.check-div {
+  margin-top: 10px; }
+  #notiDiv div.check-div label {
+    padding-top: 10px; }
+
+/*# sourceMappingURL=style.css.map */
