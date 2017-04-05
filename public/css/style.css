@@ -62,6 +62,14 @@ a {
         background-color: #d3d3d3;
         color: #21213C; }
 
+.side-contents {
+  display: none;
+  height: 100%; }
+  .side-contents.active {
+    display: block; }
+  .side-contents .select2 {
+    width: 100% !important; }
+
 #underTopNav {
   height: 50px;
   width: 100%; }
@@ -74,7 +82,24 @@ a {
   width: 100%;
   height: 100%;
   background: url(../img/intro.png) no-repeat center center;
+  background-color: rgba(255, 255, 255, 0.7);
   background-size: cover; }
+  .main h1 {
+    color: #ffffff;
+    text-align: center; }
+    .main h1.main-title {
+      font-size: 120px;
+      text-shadow: 4px 4px #151515;
+      padding-top: 150px;
+      padding-bottom: 10px; }
+  .main .main-divider {
+    width: 60%; }
+  .main .btns-div {
+    text-align: center;
+    padding-top: 10px; }
+    .main .btns-div .btn {
+      width: 150px;
+      margin: 0 10px; }
 
 .admin {
   height: 100%; }
@@ -126,8 +151,6 @@ a {
 
 #searchResults, #selectedResults, #worksheets {
   height: 100%; }
-  #searchResults .select2, #selectedResults .select2, #worksheets .select2 {
-    width: 100% !important; }
 
 .scroller {
   position: relative; }

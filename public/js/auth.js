@@ -66,7 +66,9 @@ app.service('authentication', function($http, $window, $location){
   };
 
   logout = function() {
+    console.log('auth logout called')
     $window.localStorage.removeItem('mean-token');
+    console.log('logout finished')
   };
 
   return {
@@ -172,7 +174,7 @@ app.service('userData', function($http, authentication){
   };
   var updateUser = function(id, user){
     console.log('updateUser called')
-    if(id != undefined){
+    if(authentication.isLoggedIn() && id != undefined){
       $http.put('/api/user' + id, user);
     }
     else{

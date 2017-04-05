@@ -1,7 +1,7 @@
 app.controller('sideMenuCtrl', function($scope, $http, navigator, $location, selectResults, userData){
 	$scope.title = 'Worksheets';
 	$scope.schedule_title = 'Account Setting';
-	$scope.template = "../templates/worksheets.html";
+	$scope.template = "../templates/side_menu.html";
 	$scope.schedule_template = "../templates/empty_schedule.html";
 	$scope.selected_worksheet = '';
 	$scope.worksheets = [];
@@ -46,7 +46,7 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, $location, sel
 	$scope.updateTemplate = function(value){
 		switch(value){
 			case 'worksheets':
-				$scope.template = "../templates/worksheets.html";
+				$scope.template = "../templates/side_menu.html";
 				if($scope.selected_worksheet == ''){
 					$scope.schedule_template = "../templates/empty_schedule.html";
 				}	
@@ -57,7 +57,7 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, $location, sel
 				$scope.title = 'Worksheets';
 				break;
 			case 'search':
-				$scope.template = "../templates/search_engine.html";
+				$scope.template = "../templates/side_menu.html";
 				if($scope.selected_worksheet == ''){
 					$scope.schedule_template = "../templates/empty_schedule.html";
 				}	
@@ -68,7 +68,7 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, $location, sel
 				$scope.title = 'Search';
 				break;
 			case 'result':
-				$scope.template = "../templates/search_result.html";
+				$scope.template = "../templates/side_menu.html";
 				if($scope.selected_worksheet == ''){
 					$scope.schedule_template = "../templates/empty_schedule.html";
 				}	
@@ -79,7 +79,7 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, $location, sel
 				$scope.title = 'Result';
 				break;
 			case 'selected':
-				$scope.template = "../templates/selected_result.html";
+				$scope.template = "../templates/side_menu.html";
 				if($scope.selected_worksheet == ''){
 					$scope.schedule_template = "../templates/empty_schedule.html";
 				}	
@@ -90,7 +90,7 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, $location, sel
 				$scope.title = 'Schedule';
 				break;
 			case 'setting':
-				$scope.template = "../templates/setting.html";
+				$scope.template = "../templates/side_menu.html";
 				$scope.schedule_template = "../templates/account.html";
 				$scope.title = 'Settings';
 				break;
@@ -146,9 +146,16 @@ app.directive('sheetMenu', function(navigator){
 		restrict: 'EA',
 		template: '<a class="active" ng-click="updateTemplate(\'worksheets\')"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
+			scope.setting_active = '';
 			element.bind('click', function(){
+				if(scope.setting_active != '' && scope.selected_worksheet.split(' ').join('_') != ''){
+					angular.element('#'+ scope.selected_worksheet.split(' ').join('_') ).find('.fa:last-child').trigger('click')
+					scope.setting_active = '';
+				}
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
+				angular.element('.side-contents').removeClass('active');
+				angular.element('#worksheets').addClass('active');
 			}),
 			scope.$on('navigate_menu', function(){
 				if(navigator.getCurrNav() == 'worksheets'){
@@ -164,8 +171,15 @@ app.directive('searchMenu', function(navigator){
 		template: '<a ng-click="updateTemplate(\'search\')"><i class="fa fa-search" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
 			element.bind('click', function(){
+				if(scope.setting_active != '' && scope.selected_worksheet.split(' ').join('_') != ''){
+					angular.element('#'+ scope.selected_worksheet.split(' ').join('_') ).find('.fa:last-child').trigger('click')
+					scope.setting_active = '';
+				}
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
+				angular.element('.side-contents').removeClass('active');
+				angular.element('#search').addClass('active');
+
 			}),
 			scope.$on('navigate_menu', function(){
 				if(navigator.getCurrNav() == 'search'){
@@ -181,8 +195,14 @@ app.directive('resultMenu', function(navigator){
 		template: '<a ng-click="updateTemplate(\'result\')"><i class="fa fa-list" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
 			element.bind('click', function(){
+				if(scope.setting_active != '' && scope.selected_worksheet.split(' ').join('_') != ''){
+					angular.element('#'+ scope.selected_worksheet.split(' ').join('_') ).find('.fa:last-child').trigger('click')
+					scope.setting_active = '';
+				}
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
+				angular.element('.side-contents').removeClass('active');
+				angular.element('#result').addClass('active');
 			}),
 			scope.$on('navigate_menu', function(){
 				if(navigator.getCurrNav() == 'result'){
@@ -198,8 +218,14 @@ app.directive('selectedMenu', function(navigator){
 		template: '<a ng-click="updateTemplate(\'selected\')"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
 			element.bind('click', function(){
+				if(scope.setting_active != '' && scope.selected_worksheet.split(' ').join('_') != ''){
+					angular.element('#'+ scope.selected_worksheet.split(' ').join('_') ).find('.fa:last-child').trigger('click')
+					scope.setting_active = '';
+				}
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
+				angular.element('.side-contents').removeClass('active');
+				angular.element('#selected').addClass('active');
 			}),
 			scope.$on('navigate_menu', function(){
 				if(navigator.getCurrNav() == 'selected'){
@@ -215,8 +241,11 @@ app.directive('settingMenu', function(navigator){
 		template: '<a ng-click="updateTemplate(\'setting\')"><i class="fa fa-cog" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
 			element.bind('click', function(){
+				scope.setting_active = 'active';
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
+				angular.element('.side-contents').removeClass('active');
+				angular.element('#settings').addClass('active');
 			}),
 			scope.$on('navigate_menu', function(){
 				if(navigator.getCurrNav() == 'settings'){
