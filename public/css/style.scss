@@ -97,7 +97,29 @@ a{
 	width: 100%;
 	height: 100%;
 	background: url(../img/intro.png) no-repeat center center;
+	background-color: rgba(255, 255, 255, .7);
 	background-size: cover;
+	h1{
+		color: $color-lightest;
+		text-align: center;
+		&.main-title{
+			font-size: 120px;
+			text-shadow: 4px 4px #151515;
+			padding-top: 150px;
+			padding-bottom: 10px;
+		}
+	}
+	.main-divider{
+		width: 60%;
+	}
+	.btns-div{
+		text-align: center;
+		padding-top: 10px;
+		.btn{
+			width: 150px;
+			margin: 0 10px;
+		}
+	}
 }
 .admin{
 	height: 100%;

@@ -146,6 +146,7 @@ app.directive('sheetMenu', function(navigator){
 		restrict: 'EA',
 		template: '<a class="active" ng-click="updateTemplate(\'worksheets\')"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
+			scope.setting_active = '';
 			element.bind('click', function(){
 				if(scope.setting_active != '' && scope.selected_worksheet.split(' ').join('_') != ''){
 					angular.element('#'+ scope.selected_worksheet.split(' ').join('_') ).find('.fa:last-child').trigger('click')
