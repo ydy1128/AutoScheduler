@@ -3,7 +3,6 @@ var app = angular.module('FrameItApp',['ui.router', 'ngScrollable'])
 // description:     app configuration for routing
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $qProvider) {
   $urlRouterProvider.otherwise('/');
-  $qProvider.errorOnUnhandledRejections(false);
   $stateProvider
   // description:     routing for home page
   .state('home', {
@@ -32,6 +31,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $qPro
     url: '/admin-home',
     templateUrl: 'templates/admin_home.html'     
   });
+  $qProvider.errorOnUnhandledRejections(false);
   $locationProvider.html5Mode(true);
 })
 
@@ -57,14 +57,15 @@ app.run(function($rootScope, $location, authentication, adminAuthentication){
 
 // description:     controller for the whole app
 // commented out:   commented because the outside app does not need a controller yet
-app.controller('FrameItAppCtrl', function($http, $scope, $location, authentication, adminAuthentication){
+app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, authentication, adminAuthentication){
   $scope.classes = null;
-  $scope.filters = null;
+  $scope.filters = {};
   $http.get('/class-data')
   .then(
       function(response){
           $scope.classes = response.data;
-          $scope.filters = $scope.getFilters($scope.classes);
+          // $scope.filters = $scope.getFilters($scope.classes);
+          $scope.getFilters($scope.classes)
       },
       function(){
           $scope.classes = [];
@@ -75,41 +76,64 @@ app.controller('FrameItAppCtrl', function($http, $scope, $location, authenticati
   // input:           data - the whole data
   // return:          temp - filter titles
   $scope.getFilters = function(data){
-      var result = {};
-      result.subject = [];
-      result.course = [];
-      result.instructor = [];
-      result.days = ['M', 'T', 'W', 'R', 'F'];
+      // var result = {};
+      console.log('getting filters')
+
+      $scope.filters.subject = [];
+      $scope.filters.subject.push('')
+      $scope.filters.days = ['M', 'T', 'W', 'R', 'F'];
+
       angular.forEach(data, function(item){
-        if(result.subject.indexOf(item.subject) == -1){
-          result.subject.push(item.subject)
+        if($scope.filters.subject.indexOf(item.subject) == -1){
+          $scope.filters.subject.push(item.subject)
+        }
+      });
+      $timeout(function(){
+        angular.element('#loadingPage').fadeOut(300);
+        console.log('hide loading')
+      }, 2000, true);
+      // console.log($scope.filters)
+      
+      // return $scope.filters;
+  }
+
+  $scope.getSecondFilters = function(data, subject){
+      // var result = {};
+      console.log('getting second filters')
+
+      // console.log(data, subject)
+      $scope.filters.course = [];
+      $scope.filters.instructor = [];
+      angular.forEach(data, function(item){
+        if(item.subject == subject && $scope.filters.course.indexOf(item.course) == -1){
+          $scope.filters.course.push(item.course)
         }
       });
       angular.forEach(data, function(item){
-        if(result.course.indexOf(item.course) == -1){
-          result.course.push(item.course)
+        if(item.subject == subject){
+          angular.forEach(item.instructor, function(ins){
+            if($scope.filters.instructor.indexOf(ins) == -1){
+              $scope.filters.instructor.push(ins)
+            }
+          })
         }
       });
-      angular.forEach(data, function(item){
-        angular.forEach(item.instructor, function(ins){
-          if(result.instructor.indexOf(ins) == -1){
-            result.instructor.push(ins)
-          }
-        })
-      });
+      
+      console.log('done')
 
-
-      return result;
+  }
+  $scope.hideLoading = function(){
+    
   }
 
   $scope.logout = function(){
     console.log('logout called')
     authentication.logout()
-    $location.path('/')
+    $state.go('home')
   }
   $scope.admin_logout = function(){
     console.log('adminlogout called')
     adminAuthentication.logout()
-    $location.path('/admin')
+    $state.go('admin')
   }
 });

@@ -66,7 +66,9 @@ app.service('authentication', function($http, $window, $location){
   };
 
   logout = function() {
+    console.log('auth logout called')
     $window.localStorage.removeItem('mean-token');
+    console.log('logout finished')
   };
 
   return {

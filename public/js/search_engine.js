@@ -1,10 +1,11 @@
 // description:     controller for search engine
 // functions used:  initSelect2() - search_engine.js
-app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResults, navigator){
-    $scope.selected_subjects = [];
+app.controller('searchEngineCtrl', function($scope, $rootScope, $http, $timeout, passResults, navigator){
+    $scope.selected_subjects = '';
     $scope.selected_courses = [];
     $scope.selected_instructors = [];
     $scope.selected_days = [];
+    $scope.filter_disabled = true;
     $scope.search_message = '';
     //retrieve all classes data from db
 
@@ -16,6 +17,14 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
     // description:     clears message when option is selected in any filters
     $scope.searchChange = function(){
         $scope.search_message = '';
+        console.log($scope.selected_subjects)
+        if($scope.selected_subjects == ''){
+            $scope.filter_disabled = true;
+        }
+        else{
+            $scope.filter_disabled = false;
+        }
+        console.log($scope.filter_disabled)
     }
     // description:     gives search result data to search_result controller and populates search message
     // functions used:  filterByElements() - search_engine.js
@@ -28,9 +37,9 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
         angular.element('#engineBox li').removeClass('active');
 
         var filter_cond = "";
-        if($scope.selected_subjects.length > 0){
+        if($scope.selected_subjects != ''){
             filter_selected = true;
-            filter_cond += $scope.selected_subjects[0];
+            filter_cond += $scope.selected_subjects;
             for (var i = 1; i < $scope.selected_subjects.length; i++){
                 filter_cond += "&&" + $scope.selected_subjects[i];
             }
@@ -77,14 +86,13 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
             $http.get('/search-course'+filter_cond)
             .then(
                 function(response){
-                    $scope.classes = response.data;
+                    // $scope.classes = response.data;
                     passResults.updateClasses(response.data);
                     $scope.initSelect2();
-                    console.log('got data')
                     navigator.navigate('result');
                 },
                 function(){
-                    $scope.classes = [];
+                    // $scope.classes = [];
                     console.log('db connection error');
                 }
             )

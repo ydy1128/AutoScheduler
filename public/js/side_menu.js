@@ -146,7 +146,12 @@ app.directive('sheetMenu', function(navigator){
 		restrict: 'EA',
 		template: '<a class="active" ng-click="updateTemplate(\'worksheets\')"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
+			scope.setting_active = '';
 			element.bind('click', function(){
+				if(scope.setting_active != '' && scope.selected_worksheet.split(' ').join('_') != ''){
+					angular.element('#'+ scope.selected_worksheet.split(' ').join('_') ).find('.fa:last-child').trigger('click')
+					scope.setting_active = '';
+				}
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
 				angular.element('.side-contents').removeClass('active');
@@ -166,10 +171,15 @@ app.directive('searchMenu', function(navigator){
 		template: '<a ng-click="updateTemplate(\'search\')"><i class="fa fa-search" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
 			element.bind('click', function(){
+				if(scope.setting_active != '' && scope.selected_worksheet.split(' ').join('_') != ''){
+					angular.element('#'+ scope.selected_worksheet.split(' ').join('_') ).find('.fa:last-child').trigger('click')
+					scope.setting_active = '';
+				}
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
 				angular.element('.side-contents').removeClass('active');
 				angular.element('#search').addClass('active');
+
 			}),
 			scope.$on('navigate_menu', function(){
 				if(navigator.getCurrNav() == 'search'){
@@ -185,6 +195,10 @@ app.directive('resultMenu', function(navigator){
 		template: '<a ng-click="updateTemplate(\'result\')"><i class="fa fa-list" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
 			element.bind('click', function(){
+				if(scope.setting_active != '' && scope.selected_worksheet.split(' ').join('_') != ''){
+					angular.element('#'+ scope.selected_worksheet.split(' ').join('_') ).find('.fa:last-child').trigger('click')
+					scope.setting_active = '';
+				}
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
 				angular.element('.side-contents').removeClass('active');
@@ -204,6 +218,10 @@ app.directive('selectedMenu', function(navigator){
 		template: '<a ng-click="updateTemplate(\'selected\')"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
 			element.bind('click', function(){
+				if(scope.setting_active != '' && scope.selected_worksheet.split(' ').join('_') != ''){
+					angular.element('#'+ scope.selected_worksheet.split(' ').join('_') ).find('.fa:last-child').trigger('click')
+					scope.setting_active = '';
+				}
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
 				angular.element('.side-contents').removeClass('active');
@@ -223,6 +241,7 @@ app.directive('settingMenu', function(navigator){
 		template: '<a ng-click="updateTemplate(\'setting\')"><i class="fa fa-cog" aria-hidden="true"></i></a>',
 		link: function(scope, element, attrs){
 			element.bind('click', function(){
+				scope.setting_active = 'active';
 				angular.element('.nav-stacked li a').removeClass('active')
 				element.find('a').addClass('active');
 				angular.element('.side-contents').removeClass('active');

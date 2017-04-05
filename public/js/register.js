@@ -1,4 +1,5 @@
 app.controller('registerCtrl', function($scope, $location, authentication){
+  $scope.coptions = ['U1','U2','U3','U4','U5'];
 	$scope.credentials = {
       first_name : "",
       last_name : "",
