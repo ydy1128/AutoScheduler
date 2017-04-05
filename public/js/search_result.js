@@ -82,6 +82,7 @@ app.controller('searchResultsCtrl', function($scope, passResults, selectResults,
                 var match_key = cls.subject+'-'+cls.course+'-'+cls.section;
                 if(match_key == key){
                     // run if all errorchecking pass
+                    //check if TBA and if TBA call addTBAClasses
                     var msg = selectResults.addClass($scope.filteredClasses[i]);
                     if(msg == 0){
                         navigator.navigate('selected');

@@ -100,3 +100,29 @@ app.directive('scheduleItem', function(colorSelector){
         }
     }
 })
+app.directive('tbaContents', function(){
+	return{
+		restrict: 'EA',
+		templateUrl: '../templates/tba.html',
+        link: function(scope, element, attrs){
+        	angular.element('#tbaOpener').bind('click',function(){
+        		if(angular.element('#tbaContents').hasClass('active')){
+        			angular.element('#tbaOpener .fa-caret-up').show();
+        			angular.element('#tbaOpener .fa-caret-down').hide();
+	        		angular.element('#tbaOpener').css('bottom', '0');
+	        		angular.element('#tba').css('height', '0');
+	        		angular.element('#tba').css('margin-top', '0');
+	        		angular.element('#tbaContents').removeClass('active');
+        		}
+        		else{
+        			angular.element('#tbaOpener .fa-caret-up').hide();
+        			angular.element('#tbaOpener .fa-caret-down').show();
+	        		angular.element('#tbaOpener').css('bottom', '150px');
+	        		angular.element('#tba').css('height', '150px');
+	        		angular.element('#tba').css('margin-top', '-150px');
+	        		angular.element('#tbaContents').addClass('active');
+        		}
+        	})
+        }
+	}
+})

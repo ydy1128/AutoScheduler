@@ -64,11 +64,16 @@ app.factory('selectResults', function($rootScope, $http, userData){
       else{
         let insert = classExists(key, cls);
         let time = timeExists(cls);
+        let cls_exists = courseSubject(cls);
+        console.log(cls_exists)
         if(insert){
           return 1;
         }
         else if(time){
           return 2;
+        }
+        else if(cls_exists){
+          return 1;
         }
         else{
           class_list.push(cls);
@@ -114,20 +119,15 @@ app.factory('selectResults', function($rootScope, $http, userData){
       var compare_course = class_list[i].course;
       var cls_subject = cls.subject;
       var cls_course = cls.course;
-      var error_check;
+      var error_check = false;
       console.log(class_list[i].subject)
       if (compare_subject == cls_subject){
         if(compare_course == cls_course){
-          error_check = false;
+          return true;
         }
-        else{
-          error_check = true;
-        }
-      }
-      else{
-        error_check = true;
       }
     }
+    return error_check;
   }
 
   function timeExists(cls){
@@ -337,7 +337,7 @@ app.factory('colorSelector', function($rootScope){
                     ['#34495e', '#2c3e50'], ['#f1c40f', '#f39c12'],
                     ['#e74c3c', '#c0392b'], ['#95a5a6', '#7f8c8d'],
                     ['#2ecc71', '#27ae60'], ['#9b59b6', '#8e44ad'],
-                    ['#e67e22', '#d35400'], ['#ecf0f1', '#bdc3c7']];
+                    ['#e67e22', '#d35400'], ['#bdc3c7', '#84888B']];
   function getColor(str){
     var num = 0;
     for(var i = 0; i < str.length; i++){
