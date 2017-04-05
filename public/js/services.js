@@ -107,6 +107,29 @@ app.factory('selectResults', function($rootScope, $http, userData){
       }
     }
   }
+  function courseSubject(cls){
+    console.log('running')
+    for(var i = 0; i < class_list.length; i++){
+      var compare_subject = class_list[i].subject;
+      var compare_course = class_list[i].course;
+      var cls_subject = cls.subject;
+      var cls_course = cls.course;
+      var error_check;
+      console.log(class_list[i].subject)
+      if (compare_subject == cls_subject){
+        if(compare_course == cls_course){
+          error_check = false;
+        }
+        else{
+          error_check = true;
+        }
+      }
+      else{
+        error_check = true;
+      }
+    }
+  }
+
   function timeExists(cls){
     for(var i = 0; i < class_list.length; i++){
       for(var j = 0; j < class_list[i].schedule.length; j++) {
