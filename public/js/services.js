@@ -64,7 +64,9 @@ app.factory('selectResults', function($rootScope, $http, userData){
       }
       else{
         let insert = classExists(key, cls);
-        var time = timeExists(cls);
+        let time = timeExists(cls);
+        // let time = courseSubject(cls);
+
         if(insert){
           return 1;
         }
@@ -75,7 +77,7 @@ app.factory('selectResults', function($rootScope, $http, userData){
             userData.getProfile()
             .then(function(response){
               console.log(response.data)
-              var user = response.data;
+              let user = response.data;
               for(let i = 0; i < user.schedules.length; i++){
                 if(user.schedules[i].name == current_schedule){
                   index = i;
@@ -114,20 +116,15 @@ app.factory('selectResults', function($rootScope, $http, userData){
       var compare_course = class_list[i].course;
       var cls_subject = cls.subject;
       var cls_course = cls.course;
-      var error_check;
+      var error_check = false;
       console.log(class_list[i].subject)
       if (compare_subject == cls_subject){
         if(compare_course == cls_course){
-          error_check = false;
+          return true;
         }
-        else{
-          error_check = true;
-        }
-      }
-      else{
-        error_check = true;
       }
     }
+    return error_check;
   }
 
   function timeExists(cls){
