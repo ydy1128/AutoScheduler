@@ -79,26 +79,58 @@ app.controller('searchResultsCtrl', function($scope, passResults, selectResults,
         if(action == 'Add'){
             $scope.add_messag = '';
             angular.forEach($scope.filteredClasses, function(cls, i){
-                var match_key = cls.subject+'-'+cls.course+'-'+cls.section;
+                let match_key = cls.subject+'-'+cls.course+'-'+cls.section;
                 if(match_key == key){
                     // run if all errorchecking pass
-                    var msg = selectResults.addClass($scope.filteredClasses[i]);
-                    if(msg == 0){
-                        navigator.navigate('selected');
+                    //check if TBA and if TBA call addTBAClasses
+                    let msg = selectResults.addClass($scope.filteredClasses[i]);
+                    switch(msg){
+                        case 0:
+                            navigator.navigate('selected');
+                            break;
+                        case -1:
+                            $scope.add_message = '* Please select a schedule first.';
+                            break;
+                        case 1:
+                            $scope.add_message = "* The course already exists in your schedule.";
+                            break;
+                        case 2:
+                            $scope.add_message = "* Current class has time conflict(s) in your schedule.";
+                            break;
+                        default:
+                            $scope.add_message = '* Unknown Insert Error: Please contact Admin.';
+                            break;
                     }
-                    else if(msg == -1){
-                        $scope.add_message = '* Please select a schedule first.';
-                    }
-                    else{
-                        $scope.add_message = "* The course already exists in your schedule.";
-                    }
+                    // if(msg == 0){
+                        
+                    // }
+                    // else if(msg == -1){
+                        
+                    // }
+                    // else if(msg == 1){
+                        
+                    // }
+                    // else if(msg == 2){
+                        
+                    // }
+                    // else{
+                        
+                    // }
                 }
             })
         }
     }
     $scope.clearMessage = function(){
-        console.log('called')
         $scope.add_message = '';
+    }
+    $scope.tbaCheck = function(cls){
+        for(let i = 0; i < cls.schedule.length; i++){
+            if(cls.schedule[i].end_time == undefined){
+                console.log('tba found')
+                return true;
+            }
+        }
+        return false;
     }
     $scope.initSelect2();
 })

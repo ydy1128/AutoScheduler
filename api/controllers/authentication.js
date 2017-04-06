@@ -59,7 +59,6 @@ module.exports.login = function(req, res) {
 
 };
 
-
 module.exports.adminregister = function(req, res) {
   var admin = new Admin();
 
