@@ -88,40 +88,7 @@ app.factory('selectResults', function($rootScope, $http, userData){
       } 
     }
   }
-  function addTbaClass(cls, silent=false){
-    let cls_exists = courseSubject(cls);
-    if(current_schedule == ''){
-      console.log('schedule not selected');
-      return -1;
-    }
-    else{
-      if(cls_exists){
-        return 1;
-      } 
-      else{
-        tba_class_list.push(cls);
-        $rootScope.$broadcast('class_updated');
-        if(!silent){
-          userData.getProfile()
-          .then(function(response){
-            var user = response.data;
-            for(let i = 0; i < user.schedules.length; i++){
-              if(user.schedules[i].name == current_schedule){
-                index = i;
-                break;
-              }
-            }
-            
-            user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section, 'tba': true})
-            userData.updateUser(response.data._id, user)
 
-          }, function(){
-            console.log('Unknown user error.')
-          })
-        }
-      }
-    }
-  }
   function classExists(key, cls){
     for(var i = 0; i < class_list.length; i++){
       var match_key = class_list[i].subject+'-'+class_list[i].course+'-'+class_list[i].section;
@@ -145,6 +112,7 @@ app.factory('selectResults', function($rootScope, $http, userData){
           return true;
         }
       }
+    }
     for(var i = 0; i < tba_class_list.length; i++){
       var compare_subject = tba_class_list[i].subject;
       var compare_course = tba_class_list[i].course;
@@ -290,49 +258,11 @@ app.factory('selectResults', function($rootScope, $http, userData){
     }
     // $rootScope.$broadcast('class_removed');
   }
-  function removeTbaClass(cls){
-    var index = tba_class_list.indexOf(cls);
-    if(index == -1){
-      return 1;
-    }
-    else{
-      tba_class_list.splice(index, 1);
-      $rootScope.$broadcast('class_updated');
-      userData.getProfile()
-      .then(function(response){
-        console.log(response.data)
-        let user = response.data;
-        let remove_index = -1;
-        for(let i = 0; i < user.schedules.length; i++){
-          if(user.schedules[i].name == current_schedule){
-            index = i;
-            break;
-          }
-        }
-        for(let i = 0; i < user.schedules[index].courses.length; i++){
-          let curr_course = user.schedules[index].courses[i]
-          let key = curr = curr_course.subject + '-' + curr_course.course + '-' + curr_course.section;
-          let match_key = cls.subject + '-' + cls.course + '-' + cls.section;
-          if(key == match_key){
-            remove_index = i;
-            break;
-          }
-        }
-        user.schedules[index].courses.splice(remove_index, 1)
-        userData.updateUser(user._id, user)
-      }, function(){
-        console.log('Unknown user error.')
-      })
-      return 0;
-    }
-  }
+
   // description:     returns updated data
   // return:          list - current data list
   function getClasses(){
       return class_list;
-  }
-  function getTbaClasses(){
-      return tba_class_list;
   }
   function selectSchedule(name){
     class_list = [];
@@ -379,11 +309,8 @@ app.factory('selectResults', function($rootScope, $http, userData){
   }
   return{ 
       addClass: addClass,
-      addTbaClass: addTbaClass,
       removeClass: removeClass,
-      removeTbaClass: removeTbaClass,
       getClasses: getClasses,
-      getTbaClasses: getTbaClasses,
       selectSchedule: selectSchedule,
       unselectSchedule: unselectSchedule
   }
