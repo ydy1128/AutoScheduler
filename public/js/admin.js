@@ -2,7 +2,7 @@ app.controller('adminCtrl', function($scope, $location, adminAuthentication){
     $scope.credentials = {
       email : "",
       password : ""
-    };
+    }
     var first_cred = {
     	email: "frameit-admin",
     	password : "kaddev-frameit",
@@ -14,7 +14,9 @@ app.controller('adminCtrl', function($scope, $location, adminAuthentication){
 
 });
 app.controller('adminHomeCtrl', function($scope, $http){
+    $scope.pushedClasses = [];
     $scope.getClassesInJSON = function () {
+      console.log('pushing')
       $http.post('/create-classdb').
       then(function(){
         console.log('success')
@@ -23,5 +25,26 @@ app.controller('adminHomeCtrl', function($scope, $http){
 
       })
     };
+    $scope.getAllClasses = function(){
+      angular.forEach($scope.classes, function(cls){
+        $scope.pushedClasses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section, 'instructor': cls.instructor[0], 'crn': cls.crn})
+      })
+    }
+    $scope.removeAllClasses = function(){
+      let c = confirm('are you sure')
+      if(c){
+        console.log('delete')
+        $http.delete('/delete-all-class-data')
+        .then(function(){
+          console.log('success')
+        },
+        function(){
+
+        })
+      }
+      else{
+        console.log('cancelled')
+      }
+    }
 
 });

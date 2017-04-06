@@ -1,4 +1,4 @@
-app.controller('accountCtrl', function($scope, userData){
+app.controller('accountCtrl', function($scope, $http, userData){
 	$scope.user = {};
 	$scope.account_message = '';
 	$scope.new_password = '';
@@ -25,7 +25,17 @@ app.controller('accountCtrl', function($scope, userData){
 	}
 	$scope.pwSubmit = function(){
 		if($scope.new_password.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)){
-			$scope.account_message = 'Password changed.';
+			userData.updatePassword($scope.user._id, $scope.new_password)
+			.then(function(response){
+				if(response.data.answer == 'success'){
+					$scope.account_message = 'Password changed.';
+				}
+				else{
+					$scope.account_message ='Network Connection Error.';
+				}
+			}, function(){
+				$scope.account_message ='Network Connection Error.';
+			})			
 		}
 		else{
 			$scope.account_message = 'A password must: \n • Contain at least 8 characters \n • Contain at least 1 number \n • Contain at least 1 lowercase character (a-z) \n • Contain at least 1 uppercase character (A-Z) \n • Contain at least 1 special character';

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var crypto = require('crypto');
 var User = mongoose.model('User');
 
 module.exports.profileRead = function(req, res) {
@@ -28,31 +29,26 @@ module.exports.profileUpdate = function(req, res) {
     if (err){
       console.log(err)
     }
+    else{
+      res.status(200).json({'answer': 'success'})
+    }
   });
 };
 
 module.exports.passwordUpdate = function(req, res) {
-  // user.setPassword(req.body.password);
-  var current_user = null;
+  var new_salt = crypto.randomBytes(16).toString('hex');
+  var new_hash = crypto.pbkdf2Sync(req.body.password, new_salt, 1000, 64).toString('hex');
+  var update = {'hash': new_hash, 'salt': new_salt};
+  delete req.body.password
   User
-    .findById(req.body._id)
-    .exec(function(err, user) {
-      console.log(user)
-      current_user = user;
-
-      user.setPassword(req.body.password)
-      delete req.body.password;
-      User.update(
-        {_id: req.body._id},
-        req.body
-      )
-      .exec(function(err, user) {
-        if (err){
-          console.log(err)
-        }
-      });
-    });
-
+    .findByIdAndUpdate(req.body.id, update, {}, function(err, user){
+      if (err){
+        console.log(err)
+      }
+      else{
+        res.status(200).json({'answer': 'success'})
+      }
+    })
 }
 
 
@@ -71,3 +67,4 @@ module.exports.adminprofileRead = function(req, res) {
   }
 
 };
+
