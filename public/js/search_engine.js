@@ -35,7 +35,6 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, $timeout,
         var filter_selected = false;
         console.log($scope.selected_worksheet)
         angular.element('#engineBox li').removeClass('active');
-
         var filter_cond = "";
         if($scope.selected_subjects != ''){
             filter_selected = true;
