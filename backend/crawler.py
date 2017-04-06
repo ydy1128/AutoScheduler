@@ -143,7 +143,11 @@ for option in optionsList:
         class_data['section'] = item[3]
         class_data['credit'] = item[4].strip('.000')
         class_data['title'] = item[5]
-        class_data['instructor'] = [i.strip(' ').strip(' (P)') for i in item[6].split(',')]
+        ins_list = []
+        for ins in [i.strip(' ').strip(' (P)') for i in item[6].split(',')]:
+            if ins not in ins_list:
+                ins_list.append(ins)
+        class_data['instructor'] = ins_list
         date = item[7][0][4].split(' - ')
         if len(date) == 2:
             class_data['date'] = {'start_date':date[0], 'end_date':date[1]}

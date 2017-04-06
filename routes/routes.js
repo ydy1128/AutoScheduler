@@ -101,7 +101,7 @@ router.get('/search-course:conditions', function(req, res){
     if (subjects[0] != '') query = query.where('subject').in(subjects);
     if (courses[0] != '') query = query.where('course').in(courses);
     if (instructors[0] != '') query = query.where('instructor').in(instructors);
-    if (days[0] != '') query = query.where({'schedule': {'$elemMatch': {'days': days}}});
+    if (days[0] != '') query = query.where({'schedule': {'$elemMatch': {'days': {'$in':days}}}});
     query.exec(function(err, cls){
 	console.log(cls);
  	if(err)
