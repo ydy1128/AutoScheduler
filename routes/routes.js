@@ -75,27 +75,35 @@ router.get('/class-data', function(req, res){
     var query = Classes.find({});
     
     query.exec(function(err, cls){
-	//console.log(cls);
+		if(err)
+		    res.send(err);
+		else
+		    res.json(cls);
+    })
+});
+router.delete('/delete-all-class-data', function(req, res){
+    var query = Classes.remove({});
+    query.exec(function(err, cls){
+	// console.log(cls);
 	if(err)
 	    res.send(err);
 	else
 	    res.json(cls);
     })
-});
-
+})
 //CSCE^112^person1&&person2^M&&W
 //CSCE
 router.get('/search-course:conditions', function(req, res){
-    console.log(req.params.conditions);
+    // console.log(req.params.conditions);
     var cond = req.params.conditions.split("^");
     var subjects = cond[0].split("&&");
     var courses = cond[1].split("&&");
     var instructors = cond[2].split("&&");
     var days = cond[3].split("&&");
-    console.log(subjects);
-    console.log(courses);
-    console.log(instructors);
-    console.log(days);
+    // console.log(subjects);
+    // console.log(courses);
+    // console.log(instructors);
+    // console.log(days);
     
     var query = Classes.find({});//.where('subject').in(subjects);
     if (subjects[0] != '') query = query.where('subject').in(subjects);
@@ -103,7 +111,7 @@ router.get('/search-course:conditions', function(req, res){
     if (instructors[0] != '') query = query.where('instructor').in(instructors);
     if (days[0] != '') query = query.where({'schedule': {'$elemMatch': {'days': {'$in':days}}}});
     query.exec(function(err, cls){
-	console.log(cls);
+	// console.log(cls);
  	if(err)
  	    res.send(err);
  	else

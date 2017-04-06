@@ -16,6 +16,14 @@ body{
 a{
 	cursor: pointer;
 }
+pre{
+	padding: 0;
+	background-color: $color-lightest;
+	border: none;
+	border-radius: 0;
+	overflow: initial;
+	color: $color-active;
+}
 .container-fluid, .row{
 	margin: 0;
 	padding: 0;
@@ -74,6 +82,17 @@ a{
 		}
 	}
 }
+.side-contents{
+	display: none;
+	height: 100%;
+	&.active{
+		display: block;
+	}
+
+	.select2{
+		width: 100% !important;
+	}
+}
 #underTopNav{
 	height: 50px;
 	width: 100%;
@@ -86,7 +105,29 @@ a{
 	width: 100%;
 	height: 100%;
 	background: url(../img/intro.png) no-repeat center center;
+	background-color: rgba(255, 255, 255, .7);
 	background-size: cover;
+	h1{
+		color: $color-lightest;
+		text-align: center;
+		&.main-title{
+			font-size: 120px;
+			text-shadow: 4px 4px #151515;
+			padding-top: 150px;
+			padding-bottom: 10px;
+		}
+	}
+	.main-divider{
+		width: 60%;
+	}
+	.btns-div{
+		text-align: center;
+		padding-top: 10px;
+		.btn{
+			width: 150px;
+			margin: 0 10px;
+		}
+	}
 }
 .admin{
 	height: 100%;
@@ -149,10 +190,6 @@ a{
 
 #searchResults, #selectedResults, #worksheets{
 	height: 100%;
-	.select2{
-		width: 100% !important;
-	}
-
 }
 .scroller {
     position: relative;
@@ -170,9 +207,9 @@ a{
 		border-radius: 10px;
 		background: $color-vibrant;
 		// background: #0079FF;
-		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#B4D178), to($color-vibrant));
-		background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#B4D178), to($color-vibrant));
-		background: -moz-linear-gradient(center top, #B4D178, $color-vibrant);
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($color-vibrant-light), to($color-vibrant));
+		background: -webkit-linear-gradient(0% 0%, 0% 100%, from($color-vibrant-light), to($color-vibrant));
+		background: -moz-linear-gradient(center top, $color-vibrant-light, $color-vibrant);
 		color: white;
 		div{
 			padding: 0 0 0 10px;
@@ -228,6 +265,8 @@ a{
 		height: 100%;
 		padding: 0;
 		box-sizing: border-box;
+			overflow: hidden;
+
 		#scheduleTitle{
 			height: 50px;
 			background-color: $color-vibrant;
@@ -241,7 +280,6 @@ a{
 		}
 		#scheduler{
 			height: calc(100% - 50px);
-
 			div{
 				padding: 0;
 			}
@@ -311,11 +349,73 @@ a{
 				}
 			}
 		}
+		#tbaOpener{
+			position: absolute;
+			bottom: 0;
+			height: 20px;
+			background-color: $color-main;
+			color: $color-lightest;
+			text-align: center;
+			font-size: 18px;
+			cursor: pointer;
+			transition: linear .4s;
+
+			&:hover{
+				color: $color-vibrant;
+			}
+			.fa{
+				vertical-align: top;
+			}
+			.fa-caret-down{
+				display: none;
+			}
+		}
+		#tba{
+			position: absolute;
+			height: 0px;
+			width: 100%;
+			bottom: 0;
+			transition: linear .4s;
+			#tbaTitle{
+				height: 30px;
+				line-height: 30px;
+				font-size: $h4-size;
+				text-align: center;
+				color: $color-stroke-regular;
+				background-color: $color-stroke-lightest;
+				border-bottom: 1px solid $color-stroke-light;
+			}
+			#tbaScheduler{
+				height: 100px;
+				background-color: $color-lightest; 
+				border-bottom: 1px solid $color-stroke-light;
+				white-space: nowrap;
+				.tba-item{
+					width: 16.6%;
+					height: 70px;
+					margin: 10px 10px 20px;
+					display: inline-block;
+					text-align: center;
+					color: $color-lightest;
+					border-radius: 5px;
+					cursor: pointer;
+				}
+			}
+		}
 		.null-title{
 			color: $color-deem;
 			text-align: center;
 			height: 60px;
 			margin-top: calc(45% - 30px);
+		}
+	}
+	.schedule-contents{
+		.schedule-title{
+			line-height: 18px;
+		}
+		.schedule-time{
+			font-size: 12px;
+			line-height: 14px;
 		}
 	}
 }
@@ -368,7 +468,7 @@ a{
 	top: 0;
 	left: 0;
 	background-color: #000000;
-	opacity: .7;
+	opacity: .5;
 	z-index: 10;
 }
 
@@ -390,6 +490,9 @@ a{
 	h3{
 		padding-bottom: 10px;
 	}
+	#registerMessageDiv{
+		height: 30px;
+	}
 	.form-control{
 		height: 40px;
 		line-height: 40px;
@@ -406,5 +509,36 @@ a{
 		label{
 			padding-top: 10px;
 		}
+	}
+}
+
+.menu-tasks{
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 8000;
+	background-color: rgba(0,0,0,.7);
+	.close-button{
+		position: absolute;
+		top: 20px;
+		right: 40px;
+		color: $color-lightest;
+		font-size: 40px;
+		cursor: pointer;
+		&:hover{
+			color: $color-vibrant;
+		}
+	}
+	.task-contents{
+		position: absolute;
+		top: 30%;
+		left: 20%;
+		width: 60%;
+		height: 40%;
+		background-color: $color-lightest;
+		border-radius: 5px;
+		color: $color-darkest;
+		text-align: center;
 	}
 }
