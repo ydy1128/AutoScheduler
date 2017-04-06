@@ -9,10 +9,12 @@ var ClassSchema = new Schema({
   credit : Number,
   title : String,
   schedule : [{
-    days : String,
+    days : [String],
     start_time : String, 
     end_time : String, 
-    location : String
+    location : String,
+    class_type : String,
+    date : String
   }],
   instructor : [String],
   date : { 
