@@ -1,6 +1,6 @@
 <div id="scheduleDiv" class="col-md-9" ng-controller="scheduleCtrl">
   <div id="scheduleTitle"><h2>{{ selected_worksheet }}</h2></div>
-  <div id="scheduler" class="row">
+  <div id="scheduler"  class="row" ng-scrollable="{scrollX:'none',scrollY:'right'}">
     <div class="row">
       <div class="col-md-2">
       </div>
@@ -35,12 +35,7 @@
       </div>
     </div>
   </div>
-<!--   <div id="tba" class="row">
-    <div id="tbaTitle" class="row">
-      
-    </div>
-    <div id="tbaScheduler" class="row">
-      
-    </div>
-  </div> -->
+  <div id="tbaContents" tba_contents class="row">
+
+  </div>
 </div>

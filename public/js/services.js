@@ -30,70 +30,99 @@ app.factory('passResults', function($rootScope){
 // description:     app service for exchanging data between search_results and selected_results
 app.factory('selectResults', function($rootScope, $http, userData){
   var class_list = [];
+  var tba_class_list = [];
   var current_schedule = '';
   // description:     add class to the shared service
   // functions used:  $broadcast('class_added')
   function addClass(cls, silent=false){
     var key = cls.subject+'-'+cls.course+'-'+cls.section;
     if(current_schedule == ''){
-      console.log('schedule not selected');
       return -1;
     }
     else{
-      if(class_list.length == 0){
+      let insert = false;
+      let time = false;
+      let cls_exists = false;
+
+      let tba_flag = false;
+
+      for(var i = 0; i < cls.schedule.length; i++){
+        if(cls.schedule[i].start_time.includes('TBA') || cls.schedule[i].end_time == undefined){
+          tba_flag = true;
+        }
+      }
+
+      if(class_list.length != 0){
+        insert = classExists(key, cls);
+        time = timeExists(cls);
+        cls_exists = courseSubject(cls);
+      }
+      if(insert){
+        return 1;
+      }
+      else if(time){
+        return 2;
+      }
+      else if(cls_exists){
+        return 1;
+      }
+      else{
         class_list.push(cls);
         $rootScope.$broadcast('class_updated');
         if(!silent){
           userData.getProfile()
           .then(function(response){
-            let user = response.data;
+            var user = response.data;
             for(let i = 0; i < user.schedules.length; i++){
               if(user.schedules[i].name == current_schedule){
                 index = i;
                 break;
               }
             }
-              user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section})
-              userData.updateUser(user._id, user)
+            
+            user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section, 'tba': tba_flag})
+            userData.updateUser(response.data._id, user)
+
           }, function(){
             console.log('Unknown user error.')
           })
         }
-        return 0;
-      }
+        return 0
+      } 
+    }
+  }
+  function addTbaClass(cls, silent=false){
+    let cls_exists = courseSubject(cls);
+    if(current_schedule == ''){
+      console.log('schedule not selected');
+      return -1;
+    }
+    else{
+      if(cls_exists){
+        return 1;
+      } 
       else{
-        let insert = classExists(key, cls);
-        let time = timeExists(cls);
-        if(insert){
-          return 1;
-        }
-        else if(time){
-          return 2;
-        }
-        else{
-          class_list.push(cls);
-          $rootScope.$broadcast('class_updated');
-          if(!silent){
-            userData.getProfile()
-            .then(function(response){
-              var user = response.data;
-              for(let i = 0; i < user.schedules.length; i++){
-                if(user.schedules[i].name == current_schedule){
-                  index = i;
-                  break;
-                }
+        tba_class_list.push(cls);
+        $rootScope.$broadcast('class_updated');
+        if(!silent){
+          userData.getProfile()
+          .then(function(response){
+            var user = response.data;
+            for(let i = 0; i < user.schedules.length; i++){
+              if(user.schedules[i].name == current_schedule){
+                index = i;
+                break;
               }
-              
-              user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section})
-              userData.updateUser(response.data._id, user)
+            }
+            
+            user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section, 'tba': true})
+            userData.updateUser(response.data._id, user)
 
-            }, function(){
-              console.log('Unknown user error.')
-            })
-          }
-          return 0
+          }, function(){
+            console.log('Unknown user error.')
+          })
         }
-      }   
+      }
     }
   }
   function classExists(key, cls){
@@ -107,6 +136,33 @@ app.factory('selectResults', function($rootScope, $http, userData){
       }
     }
   }
+  function courseSubject(cls){
+    var error_check = false;
+    for(var i = 0; i < class_list.length; i++){
+      var compare_subject = class_list[i].subject;
+      var compare_course = class_list[i].course;
+      var cls_subject = cls.subject;
+      var cls_course = cls.course;
+      if (compare_subject == cls_subject){
+        if(compare_course == cls_course){
+          return true;
+        }
+      }
+    }
+    for(var i = 0; i < tba_class_list.length; i++){
+      var compare_subject = tba_class_list[i].subject;
+      var compare_course = tba_class_list[i].course;
+      var cls_subject = cls.subject;
+      var cls_course = cls.course;
+      if (compare_subject == cls_subject){
+        if(compare_course == cls_course){
+          return true;
+        }
+      }
+    }
+    return error_check;
+  }
+
   function timeExists(cls){
     for(var i = 0; i < class_list.length; i++){
       for(var j = 0; j < class_list[i].schedule.length; j++) {
@@ -238,14 +294,53 @@ app.factory('selectResults', function($rootScope, $http, userData){
     }
     // $rootScope.$broadcast('class_removed');
   }
+  function removeTbaClass(cls){
+    var index = tba_class_list.indexOf(cls);
+    if(index == -1){
+      return 1;
+    }
+    else{
+      tba_class_list.splice(index, 1);
+      $rootScope.$broadcast('class_updated');
+      userData.getProfile()
+      .then(function(response){
+        console.log(response.data)
+        let user = response.data;
+        let remove_index = -1;
+        for(let i = 0; i < user.schedules.length; i++){
+          if(user.schedules[i].name == current_schedule){
+            index = i;
+            break;
+          }
+        }
+        for(let i = 0; i < user.schedules[index].courses.length; i++){
+          let curr_course = user.schedules[index].courses[i]
+          let key = curr = curr_course.subject + '-' + curr_course.course + '-' + curr_course.section;
+          let match_key = cls.subject + '-' + cls.course + '-' + cls.section;
+          if(key == match_key){
+            remove_index = i;
+            break;
+          }
+        }
+        user.schedules[index].courses.splice(remove_index, 1)
+        userData.updateUser(user._id, user)
+      }, function(){
+        console.log('Unknown user error.')
+      })
+      return 0;
+    }
+  }
   // description:     returns updated data
   // return:          list - current data list
   function getClasses(){
       return class_list;
   }
+  function getTbaClasses(){
+      return tba_class_list;
+  }
   function selectSchedule(name){
     class_list = [];
-      $rootScope.$broadcast('class_updated');
+    $rootScope.$broadcast('class_updated');
 
     userData.getProfile()
     .then(function(response){
@@ -280,12 +375,21 @@ app.factory('selectResults', function($rootScope, $http, userData){
     function(){
       console.log('Unknown User Error.');
     })
+
+  }
+  function unselectSchedule(){
+    current_schedule = '';
+    class_list = [];
   }
   return{ 
       addClass: addClass,
+      addTbaClass: addTbaClass,
       removeClass: removeClass,
+      removeTbaClass: removeTbaClass,
       getClasses: getClasses,
-      selectSchedule: selectSchedule
+      getTbaClasses: getTbaClasses,
+      selectSchedule: selectSchedule,
+      unselectSchedule: unselectSchedule
   }
 })
 // description:     app service for navigating between the side menu
@@ -314,7 +418,7 @@ app.factory('colorSelector', function($rootScope){
                     ['#34495e', '#2c3e50'], ['#f1c40f', '#f39c12'],
                     ['#e74c3c', '#c0392b'], ['#95a5a6', '#7f8c8d'],
                     ['#2ecc71', '#27ae60'], ['#9b59b6', '#8e44ad'],
-                    ['#e67e22', '#d35400'], ['#ecf0f1', '#bdc3c7']];
+                    ['#e67e22', '#d35400'], ['#bdc3c7', '#84888B']];
   function getColor(str){
     var num = 0;
     for(var i = 0; i < str.length; i++){

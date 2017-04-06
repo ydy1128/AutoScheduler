@@ -38,7 +38,7 @@ a {
 
 #side-nav {
   float: left;
-  background-color: #5C5F9D;
+  background-color: #500000;
   height: calc(100% - 50px);
   display: inline-block;
   width: 60px; }
@@ -55,9 +55,9 @@ a {
       margin: 0; }
       #side-nav li a:hover {
         background-color: #d3d3d3;
-        color: #82b21e; }
+        color: #4183D7; }
         #side-nav li a:hover i {
-          color: #82b21e; }
+          color: #4183D7; }
       #side-nav li a.active {
         background-color: #d3d3d3;
         color: #21213C; }
@@ -114,7 +114,7 @@ a {
       padding: 5px 10px;
       border-radius: 5px; }
     .admin#adminLogin .btn {
-      background-color: #82b21e;
+      background-color: #4183D7;
       color: #ffffff; }
     .admin#adminLogin * {
       margin-top: 20px;
@@ -138,7 +138,7 @@ a {
   line-height: 35px;
   margin: 20px 10px 5px;
   padding: 0;
-  background-color: #82b21e;
+  background-color: #4183D7;
   border-radius: 5px;
   color: #ffffff;
   font-size: 16px; }
@@ -166,10 +166,10 @@ a {
     padding: 2.5px 0;
     margin: 5px 10px;
     border-radius: 10px;
-    background: #82b21e;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#B4D178), to(#82b21e));
-    background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#B4D178), to(#82b21e));
-    background: -moz-linear-gradient(center top, #B4D178, #82b21e);
+    background: #4183D7;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#96BBE9), to(#4183D7));
+    background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#96BBE9), to(#4183D7));
+    background: -moz-linear-gradient(center top, #96BBE9, #4183D7);
     color: white; }
     .result-items .result-item div {
       padding: 0 0 0 10px; }
@@ -212,10 +212,11 @@ a {
   #mainContents #scheduleDiv {
     height: 100%;
     padding: 0;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    overflow: hidden; }
     #mainContents #scheduleDiv #scheduleTitle {
       height: 50px;
-      background-color: #82b21e; }
+      background-color: #4183D7; }
       #mainContents #scheduleDiv #scheduleTitle h2 {
         height: 50px;
         padding-top: 8px;
@@ -280,11 +281,60 @@ a {
             color: #ffffff;
             border-radius: 5px;
             cursor: pointer; }
+    #mainContents #scheduleDiv #tbaOpener {
+      position: absolute;
+      bottom: 0;
+      height: 20px;
+      background-color: #500000;
+      color: #ffffff;
+      text-align: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: linear .4s; }
+      #mainContents #scheduleDiv #tbaOpener:hover {
+        color: #4183D7; }
+      #mainContents #scheduleDiv #tbaOpener .fa {
+        vertical-align: top; }
+      #mainContents #scheduleDiv #tbaOpener .fa-caret-down {
+        display: none; }
+    #mainContents #scheduleDiv #tba {
+      position: absolute;
+      height: 0px;
+      width: 100%;
+      bottom: 0;
+      transition: linear .4s; }
+      #mainContents #scheduleDiv #tba #tbaTitle {
+        height: 30px;
+        line-height: 30px;
+        font-size: 20px;
+        text-align: center;
+        color: #696969;
+        background-color: #f1f1f1;
+        border-bottom: 1px solid #d3d3d3; }
+      #mainContents #scheduleDiv #tba #tbaScheduler {
+        height: 100px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #d3d3d3;
+        white-space: nowrap; }
+        #mainContents #scheduleDiv #tba #tbaScheduler .tba-item {
+          width: 16.6%;
+          height: 70px;
+          margin: 10px 10px 20px;
+          display: inline-block;
+          text-align: center;
+          color: #ffffff;
+          border-radius: 5px;
+          cursor: pointer; }
     #mainContents #scheduleDiv .null-title {
       color: #9d9d9d;
       text-align: center;
       height: 60px;
       margin-top: calc(45% - 30px); }
+  #mainContents .schedule-contents .schedule-title {
+    line-height: 18px; }
+  #mainContents .schedule-contents .schedule-time {
+    font-size: 12px;
+    line-height: 14px; }
 
 #settingMenu ul {
   list-style: none;
@@ -301,7 +351,7 @@ a {
     #settingMenu ul li:first-child .fa-chevron-right {
       display: block; }
     #settingMenu ul li:hover {
-      color: #82b21e; }
+      color: #4183D7; }
     #settingMenu ul li.active .fa-chevron-right {
       display: block; }
 
@@ -309,7 +359,7 @@ a {
   background-color: #d64d61;
   color: #ffffff; }
   .worksheet-btn#addButton {
-    background-color: #82b21e; }
+    background-color: #4183D7; }
   .worksheet-btn:hover {
     color: #ffffff; }
 
@@ -320,7 +370,7 @@ a {
   top: 0;
   left: 0;
   background-color: #000000;
-  opacity: .7;
+  opacity: .5;
   z-index: 10; }
 
 .floating-form {

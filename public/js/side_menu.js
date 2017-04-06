@@ -125,14 +125,15 @@ app.controller('sideMenuCtrl', function($scope, $http, navigator, $location, sel
 				break;
 			}
 		}
-		// console.log(db_remove_index)
-
 		$scope.worksheets.splice(remove_index, 1);
 		$scope.user.schedules.splice(db_remove_index, 1);
-
+		$scope.setting_active = '';
+		$scope.selected_worksheet = '';
 		// $scope.user.schedules.push(new_schedule)
 		userData.updateUser($scope.user._id, $scope.user)
 		$scope.schedule_template = "../templates/empty_schedule.html";
+		selectResults.unselectSchedule();
+
 	}
 	$scope.loadWorksheet = function(item){
 		let remove_index = $scope.worksheets.indexOf(item);
