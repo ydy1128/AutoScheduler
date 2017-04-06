@@ -9,7 +9,8 @@ import time
 
 f = open('output', 'w')
 classes = []
-j = open('../routes/classes.json', 'w')
+#j = open('../routes/classes.json', 'w')
+j = open('./classes.json', 'w')
 
 capabilities = webdriver.DesiredCapabilities().FIREFOX
 capabilities['acceptSslCerts'] = True
@@ -18,7 +19,7 @@ driver.get('https://compass-ssb.tamu.edu/pls/PROD/bwckschd.p_disp_dyn_sched')
 print driver.title
 
 select = Select(driver.find_element_by_name('p_term'))
-select.select_by_value('201711')
+select.select_by_value('201731')
 driver.find_element_by_xpath("/html/body/div[@class='pagebodydiv']/form/input[2]").click()
 
 try:
@@ -62,8 +63,15 @@ for option in optionsList:
     for item in titles:
         print(item)
         items = str(item.find('a').get_text()).split(' - ')
-
-        if (items[1].isdigit()):
+        
+        if (items[2].isdigit()):
+            class_names.append(items[0] + '-' + items[1])
+            crns.append(items[2])
+            sc = items[3].split(' ')
+            subjects.append(sc[0])
+            courses.append(sc[1])
+            sections.append(items[4])
+        elif (items[1].isdigit()):
             class_names.append(items[0])
             crns.append(items[1])
             sc = items[2].split(' ')
@@ -135,7 +143,7 @@ for option in optionsList:
         class_data['section'] = item[3]
         class_data['credit'] = item[4].strip('.000')
         class_data['title'] = item[5]
-        class_data['instructor'] = [i.strip(' ') for i in item[6].split(',')]
+        class_data['instructor'] = [i.strip(' ').strip(' (P)') for i in item[6].split(',')]
         date = item[7][0][4].split(' - ')
         if len(date) == 2:
             class_data['date'] = {'start_date':date[0], 'end_date':date[1]}
@@ -150,9 +158,10 @@ for option in optionsList:
                 sch_dict['end_time'] = elem[1].split(' - ')[1]
             else:
                 sch_dict['start_time'] = 'TBA'
-                sch_dict['start_time'] = 'TBA'
+                sch_dict['end_time'] = 'TBA'
             sch_dict['location'] = elem[3]
-            sch_dict['type'] = elem[0]
+            sch_dict['class_type'] = elem[0]
+            sch_dict['date'] = elem[4]
             schedule.append(sch_dict)
         class_data['schedule'] = schedule
         classes.append(class_data)

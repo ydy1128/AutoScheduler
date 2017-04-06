@@ -39,10 +39,43 @@ router.post('/create-classdb', function(req, res){
 });
 
 router.get('/class-data', function(req, res){
+    /*
+    var local = fs.readFileSync(
+	path.join(__dirname, '../backend/classes.json'), 'utf8');
+	   
+    var courses = JSON.parse(local, (key, value) => {
+	return value;
+    });
+
+    for (var i = 0; i < courses.length; i++) {
+
+	var classes = new Classes();
+	classes.subject = courses[i].subject;
+	classes.course = courses[i].course;
+	classes.crn = courses[i].crn;
+	classes.section = courses[i].section;
+	classes.credit = courses[i].credit;
+	classes.title = courses[i].title;
+	classes.schedule = courses[i].schedule;
+	console.log(classes.schedule);
+	classes.instructor = courses[i].instructor;
+	if (courses[i].date == "TBA"){
+	    classes.date.start_date = "TBA";
+	    classes.date.end_date = "TBA";
+	}
+	else
+	    classes.date = courses[i].date;
+	
+	classes.save(function(err) {
+	    if (err)
+		console.log(err);
+	});
+    }
+    */
     var query = Classes.find({});
     
     query.exec(function(err, cls){
-	console.log(cls);
+	//console.log(cls);
 	if(err)
 	    res.send(err);
 	else
@@ -68,7 +101,7 @@ router.get('/search-course:conditions', function(req, res){
     if (subjects[0] != '') query = query.where('subject').in(subjects);
     if (courses[0] != '') query = query.where('course').in(courses);
     if (instructors[0] != '') query = query.where('instructor').in(instructors);
-    if (days[0] != '') query = query.where('day').in(days);
+    if (days[0] != '') query = query.where({'schedule': {'$elemMatch': {'days': days}}});
     query.exec(function(err, cls){
 	console.log(cls);
  	if(err)

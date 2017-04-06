@@ -104,7 +104,7 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, passResul
             passResults.updateClasses([])
         }
         else{
-            passResults.updateClasses(filtered_data);
+            //passResults.updateClasses(filtered_data);
             navigator.navigate('result');
             // angular.element('#dummy').text(JSON.stringify(filtered_data))
             $http.get('/search-course'+filter_cond)
