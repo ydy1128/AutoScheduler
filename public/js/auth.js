@@ -172,13 +172,7 @@ app.service('userData', function($http, authentication){
     });
   };
   var updatePassword = function(id, password){
-    // if(authentication.isLoggedIn() && id != undefined){
-      // var obj = {'id': id, 'password': password}
       return $http.put('/api//password-change' + id, {'id': id, 'password': password}, {headers: {Authorization: 'Bearer '+ authentication.getToken()}});
-    // }
-    // else{
-      // console.log('user connection error')
-    // }
   }
   var updateUser = function(id, user){
     if(authentication.isLoggedIn() && id != undefined){
