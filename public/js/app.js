@@ -60,6 +60,7 @@ app.run(function($rootScope, $location, authentication, adminAuthentication){
 app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, $location, authentication, adminAuthentication){
   $scope.classes = null;
   $scope.filters = {};
+  $scope.task_title = '';
   $http.get('/class-data')
   .then(
       function(response){
@@ -91,10 +92,7 @@ app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, $loca
   }
 
   $scope.getSecondFilters = function(data, subject){
-      // var result = {};
       console.log('getting second filters')
-
-      // console.log(data, subject)
       $scope.filters.course = [];
       $scope.filters.instructor = [];
       angular.forEach(data, function(item){
@@ -114,6 +112,16 @@ app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, $loca
       
       console.log('done')
 
+  }
+
+  $scope.openMenuTask = function(id){
+    angular.element('#'+id.toLowerCase()+'Task').slideDown(300);
+    $scope.task_title = id;
+  }
+
+  $scope.closeMenuTask = function(id){
+    angular.element('#'+id.toLowerCase()+'Task').slideUp(300);
+    $scope.task_title = '';
   }
 
   $scope.logout = function(){

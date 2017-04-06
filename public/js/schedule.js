@@ -39,7 +39,15 @@ app.controller('scheduleCtrl', function($scope, $rootScope, selectResults){
 			let session = cls.subject+'-'+cls.course+'-'+cls.section
 			angular.forEach(cls.schedule, function(cs){
 		        if(cs.start_time.includes('TBA') || cs.end_time == undefined){
-		          $scope.tba_sessions.push({'session': session, 'instructors': cls.instructor, 'time': 'TBA'})
+		        	let insert = true;
+		        	angular.forEach($scope.tba_sessions, function(s){
+		        		if(s.session == session){
+		        			insert = false;
+		        		}
+		        	})
+		        	if(insert){
+						$scope.tba_sessions.push({'session': session, 'instructors': cls.instructor, 'time': 'TBA'})
+		        	}
 		        }	
 		        else{
 					let start_time = cs.start_time.split(' ')[0].split(':');

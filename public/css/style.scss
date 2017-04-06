@@ -511,3 +511,34 @@ pre{
 		}
 	}
 }
+
+.menu-tasks{
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 8000;
+	background-color: rgba(0,0,0,.7);
+	.close-button{
+		position: absolute;
+		top: 20px;
+		right: 40px;
+		color: $color-lightest;
+		font-size: 40px;
+		cursor: pointer;
+		&:hover{
+			color: $color-vibrant;
+		}
+	}
+	.task-contents{
+		position: absolute;
+		top: 30%;
+		left: 20%;
+		width: 60%;
+		height: 40%;
+		background-color: $color-lightest;
+		border-radius: 5px;
+		color: $color-darkest;
+		text-align: center;
+	}
+}
