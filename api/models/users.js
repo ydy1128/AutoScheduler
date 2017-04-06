@@ -26,7 +26,8 @@ var userSchema = new mongoose.Schema({
       courses: [{
         subject: String,
         course: String,
-        section: String
+        section: String,
+        tba: Boolean
       }]
     }
   ],
