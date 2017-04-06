@@ -8,7 +8,9 @@
   <div id="tbaTitle" class="row">
     <label>Time not specified</label>
   </div>
-  <div id="tbaScheduler" class="row">
-    
+  <div id="tbaScheduler" ng-scrollable="{scrollX:'bottom',scrollY:'none'}" class="row">
+    <div class="tba-item" tba_item ng-repeat="x in tba_sessions" current="x">
+      
+    </div>
   </div>
 </div>

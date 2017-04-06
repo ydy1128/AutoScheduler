@@ -18,12 +18,13 @@ module.exports.profileRead = function(req, res) {
 };
 
 module.exports.profileUpdate = function(req, res) {
+  console.log('update profile')
   User.update(
     {_id: req.body._id},
     req.body
   )
   .exec(function(err, user) {
-    console.log(user)
+    // console.log(user)
     if (err){
       console.log(err)
     }

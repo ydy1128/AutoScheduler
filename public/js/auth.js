@@ -173,9 +173,14 @@ app.service('userData', function($http, authentication){
     });
   };
   var updateUser = function(id, user){
-    console.log('updateUser called')
     if(authentication.isLoggedIn() && id != undefined){
-      $http.put('/api/user' + id, user);
+      $http.put('/api/user' + id, user)
+      .toPromise()
+      .then(function(response){
+        console.log(response)
+      }, function(err){
+        console.log(err)
+      });
     }
     else{
       console.log('user not found')
