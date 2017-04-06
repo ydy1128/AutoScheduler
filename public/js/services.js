@@ -145,7 +145,6 @@ app.factory('selectResults', function($rootScope, $http, userData){
           return true;
         }
       }
-    }
     for(var i = 0; i < tba_class_list.length; i++){
       var compare_subject = tba_class_list[i].subject;
       var compare_course = tba_class_list[i].course;
