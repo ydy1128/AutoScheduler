@@ -35,7 +35,6 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, $timeout,
         var filter_selected = false;
         console.log($scope.selected_worksheet)
         angular.element('#engineBox li').removeClass('active');
-
         var filter_cond = "";
         if($scope.selected_subjects != ''){
             filter_selected = true;
@@ -44,29 +43,29 @@ app.controller('searchEngineCtrl', function($scope, $rootScope, $http, $timeout,
                 filter_cond += "&&" + $scope.selected_subjects[i];
             }
         }
-    filter_cond += "^";
+	filter_cond += "^";
         if($scope.selected_courses.length > 0){
             filter_selected = true;
-        filter_cond += $scope.selected_courses[0];
+            filter_cond += $scope.selected_courses[0];
             for (var i = 1; i < $scope.selected_courses.length; i++){
-        filter_cond += "&&" + $scope.selected_courses[i];
+		filter_cond += "&&" + $scope.selected_courses[i];
+            }
         }
-        }
-    filter_cond += "^";
+	filter_cond += "^";
         if($scope.selected_instructors.length > 0){
             filter_selected = true;
-        filter_cond += $scope.selected_instructors[0];
+            filter_cond += $scope.selected_instructors[0];
             for (var i = 1; i < $scope.selected_instructors.length; i++){
-        filter_cond += "&&" + $scope.selected_instructors[i];
+		filter_cond += "&&" + $scope.selected_instructors[i];
+            }
         }
-        }
-    filter_cond += "^";
+	filter_cond += "^";
         if($scope.selected_days.length > 0){
             filter_selected = true;
-        filter_cond += $scope.selected_days[0];
+            filter_cond += $scope.selected_days[0];
             for (var i = 1; i < $scope.selected_days.length; i++){
-        filter_cond += "&&" + $scope.selected_days[i];
-        }
+		filter_cond += "&&" + $scope.selected_days[i];
+            }
         }
 
         if(!filter_selected){
