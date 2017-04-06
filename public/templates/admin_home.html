@@ -10,7 +10,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a id="logo" class="navbar-brand dropdown-toggle" id="dropdownMenu1" aria-haspopup="true" href="/admin">FrameIt - Admin</a>
+            <a id="logo" class="navbar-brand dropdown-toggle" id="dropdownMenu1" aria-haspopup="true" href="/admin">TAMS - Admin</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -26,9 +26,23 @@
     <div class="col-md-12"></div>
   </div>
   <div class="row">
-    <h2>FrameIt Admin</h2>
     <div class="col-md-12">
+      <h2>TAMS Admin</h2>
       <div class="btn btn-default" ng-click="getClassesInJSON()">push classes</div>
+      <!-- <div class="btn btn-default" ng-click="getAllClasses()">get classes</div> -->
+      <div class="btn btn-default" ng-click="removeAllClasses()">delete classes</div>
     </div>
+<!--     <div id="classTable" class="col-md-12">
+      <table>
+        <tr></tr>
+        <tr ng-repeat="x in pushedClasses | orderBy:['subject', 'course', 'section']">
+          <td>{{ x.subject }}</td>
+          <td>{{ x.course }}</td>
+          <td>{{ x.section }}</td>
+          <td>{{ x.instructor }}</td>
+          <td>{{ x.crn }}</td>
+        </tr>
+      </table>
+    </div> -->
   </div>
 </div>

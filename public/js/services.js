@@ -6,19 +6,16 @@ app.factory('passResults', function($rootScope){
   // description:     updates data in shared section and refreshes search_results controller
   // functions used:  $broadcast('data_shared') - search_results.js
   function updateClasses(cls){
-    // class_list = cls;
-    angular.forEach(cls, function(elem, i){
-      console.log(elem.subject, elem.course, elem.section)
-      class_list.push(cls[i])
-    })
-    console.log('sharing data')
+    class_list = cls;
+    // angular.forEach(cls, function(elem, i){
+    //   console.log(elem.subject, elem.course, elem.section)
+    //   class_list.push(cls[i])
+    // })
     $rootScope.$broadcast('data_shared');
   }
   // description:     returns updated data
   // return:          list - current data list
-  function getClasses(){
-      console.log('getting classes');
-      
+  function getClasses(){      
       return class_list;
   }
   return{ 
@@ -30,72 +27,99 @@ app.factory('passResults', function($rootScope){
 // description:     app service for exchanging data between search_results and selected_results
 app.factory('selectResults', function($rootScope, $http, userData){
   var class_list = [];
+  var tba_class_list = [];
   var current_schedule = '';
   // description:     add class to the shared service
   // functions used:  $broadcast('class_added')
   function addClass(cls, silent=false){
     var key = cls.subject+'-'+cls.course+'-'+cls.section;
     if(current_schedule == ''){
-      console.log('schedule not selected');
       return -1;
     }
     else{
-      if(class_list.length == 0){
+      let insert = false;
+      let time = false;
+      let cls_exists = false;
+
+      let tba_flag = false;
+
+      for(var i = 0; i < cls.schedule.length; i++){
+        if(cls.schedule[i].start_time.includes('TBA') || cls.schedule[i].end_time == undefined){
+          tba_flag = true;
+        }
+      }
+
+      if(class_list.length != 0){
+        insert = classExists(key, cls);
+        time = timeExists(cls);
+        cls_exists = courseSubject(cls);
+      }
+      if(insert){
+        return 1;
+      }
+      else if(time){
+        return 2;
+      }
+      else if(cls_exists){
+        return 1;
+      }
+      else{
         class_list.push(cls);
         $rootScope.$broadcast('class_updated');
         if(!silent){
           userData.getProfile()
           .then(function(response){
-            let user = response.data;
+            var user = response.data;
             for(let i = 0; i < user.schedules.length; i++){
               if(user.schedules[i].name == current_schedule){
                 index = i;
                 break;
               }
             }
-              user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section})
-              console.log(user._id)
-              userData.updateUser(user._id, user)
+            
+            user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section, 'tba': tba_flag})
+            userData.updateUser(response.data._id, user)
+
           }, function(){
             console.log('Unknown user error.')
           })
         }
-        return 0;
-      }
+        return 0
+      } 
+    }
+  }
+  function addTbaClass(cls, silent=false){
+    let cls_exists = courseSubject(cls);
+    if(current_schedule == ''){
+      console.log('schedule not selected');
+      return -1;
+    }
+    else{
+      if(cls_exists){
+        return 1;
+      } 
       else{
-        let insert = classExists(key, cls);
-        let time = timeExists(cls);
-        // let time = courseSubject(cls);
-
-        if(insert){
-          return 1;
-        }
-        else{
-          class_list.push(cls);
-          $rootScope.$broadcast('class_updated');
-          if(!silent){
-            userData.getProfile()
-            .then(function(response){
-              console.log(response.data)
-              let user = response.data;
-              for(let i = 0; i < user.schedules.length; i++){
-                if(user.schedules[i].name == current_schedule){
-                  index = i;
-                  break;
-                }
+        tba_class_list.push(cls);
+        $rootScope.$broadcast('class_updated');
+        if(!silent){
+          userData.getProfile()
+          .then(function(response){
+            var user = response.data;
+            for(let i = 0; i < user.schedules.length; i++){
+              if(user.schedules[i].name == current_schedule){
+                index = i;
+                break;
               }
-              
-              user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section})
-              console.log(response.data._id)
-              userData.updateUser(response.data._id, user)
+            }
+            
+            user.schedules[index].courses.push({'subject': cls.subject, 'course': cls.course, 'section': cls.section, 'tba': true})
+            userData.updateUser(response.data._id, user)
 
-            }, function(){
-              console.log('Unknown user error.')
-            })
-          }
-          return 0
+          }, function(){
+            console.log('Unknown user error.')
+          })
         }
-      }   
+      }
     }
   }
   function classExists(key, cls){
@@ -110,14 +134,22 @@ app.factory('selectResults', function($rootScope, $http, userData){
     }
   }
   function courseSubject(cls){
-    console.log('running')
+    var error_check = false;
     for(var i = 0; i < class_list.length; i++){
       var compare_subject = class_list[i].subject;
       var compare_course = class_list[i].course;
       var cls_subject = cls.subject;
       var cls_course = cls.course;
-      var error_check = false;
-      console.log(class_list[i].subject)
+      if (compare_subject == cls_subject){
+        if(compare_course == cls_course){
+          return true;
+        }
+      }
+    for(var i = 0; i < tba_class_list.length; i++){
+      var compare_subject = tba_class_list[i].subject;
+      var compare_course = tba_class_list[i].course;
+      var cls_subject = cls.subject;
+      var cls_course = cls.course;
       if (compare_subject == cls_subject){
         if(compare_course == cls_course){
           return true;
@@ -128,111 +160,96 @@ app.factory('selectResults', function($rootScope, $http, userData){
   }
 
   function timeExists(cls){
-    console.log('running')
     for(var i = 0; i < class_list.length; i++){
-      console.log(class_list[i])
       for(var j = 0; j < class_list[i].schedule.length; j++) {
         var compare_days = class_list[i].schedule[j].days;
         var compare_starttime = class_list[i].schedule[j].start_time;
         var compare_endtime = class_list[i].schedule[j].end_time;
-        console.log(compare_days)
         for(var k = 0; k < cls.schedule.length; k++) {
           var input_days = cls.schedule[k].days;
           var input_startime = cls.schedule[k].start_time;
           var input_endtime = cls.schedule[k].end_time;
-          console.log(input_days)
-          console.log(input_startime)
+
           for(var l = 0; l < compare_days.length; l++){
             var check_days = input_days.indexOf(compare_days[l]);
-            var overlap_check = true;
-            console.log(check_days+"checkdays")
-            if(check_days == -1) {
-              return false;
-            }
-            else {
+            var overlap_check = false;
+            if(check_days != -1) {
               var time_compare_starttime = compare_starttime.split(" ");
               var time_input_starttime = input_startime.split(" ");
               var ampm_compare_starttime1;
-              var ampm_compare_starttime;
-
-              console.log(time_compare_starttime[0], time_compare_starttime[1])
-              console.log(time_input_starttime[0], time_input_starttime[1])
-              
-                if (time_compare_starttime[1] == "pm")
-                {
-                  ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
-                  ampm_compare_starttime = parseInt(ampm_compare_starttime1) + 1200;
-                  console.log(ampm_compare_starttime+"pm");
-                }
-                else if(time_compare_starttime[1] == "am")
-                {
-                  ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
-                  ampm_compare_starttime = parseInt(ampm_compare_starttime1);
-                  console.log(ampm_compare_starttime+"am");
-                }
+              var ampm_compare_starttime;              
+              if(time_compare_starttime[1] == "am" || time_compare_starttime[0].includes('12:')){
+                ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
+                ampm_compare_starttime = parseInt(ampm_compare_starttime1);
+              }
+              else if (time_compare_starttime[1] == "pm"){
+                ampm_compare_starttime1 = time_compare_starttime[0].split(":").join("");
+                ampm_compare_starttime = parseInt(ampm_compare_starttime1) + 1200;
+              }
               
               var time_compare_endtime = compare_endtime.split(" ");
               var ampm_compare_endtime1;
               var ampm_compare_endtime;
-                if (time_compare_endtime[1] == "pm")
-                {
-                  ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
-                  ampm_compare_endtime = parseInt(ampm_compare_endtime1) + 1200;
-                }                
-                else if(time_compare_endtime[1] == "am")
-                {
-                  ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
-                  ampm_compare_endtime = parseInt(ampm_compare_endtime1);                  
-                }
+              if(time_compare_endtime[1] == "am" || time_compare_endtime[0].includes('12:')){
+                ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
+                ampm_compare_endtime = parseInt(ampm_compare_endtime1);                  
+              }
+              else if (time_compare_endtime[1] == "pm"){
+                ampm_compare_endtime1 = time_compare_endtime[0].split(":").join("");
+                ampm_compare_endtime = parseInt(ampm_compare_endtime1) + 1200;
+              }                
+               
 
               var time_input_starttime = input_startime.split(" ");
               var ampm_input_starttime1;
               var ampm_input_starttime;
-                if (time_input_starttime[1] == "pm")
-                {
-                  ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
-                  ampm_input_starttime = parseInt(ampm_input_starttime1) + 1200;
-                }                
-                else if(time_input_starttime[1] == "am")
-                {
-                  ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
-                  ampm_input_starttime = parseInt(ampm_input_starttime1);             
-                }              
+              if(time_input_starttime[1] == "am" || time_input_starttime[0].includes('12:')){
+                ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
+                ampm_input_starttime = parseInt(ampm_input_starttime1);             
+              }   
+              else if (time_input_starttime[1] == "pm"){
+                ampm_input_starttime1 = time_input_starttime[0].split(":").join("");
+                ampm_input_starttime = parseInt(ampm_input_starttime1) + 1200;
+              }                
+                         
 
               var time_input_endtime = input_endtime.split(" ");
               var ampm_input_endtime1;
               var ampm_input_endtime;
-                if (time_input_endtime[1] == "pm")
-                {
-                  ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
-                  ampm_input_endtime = parseInt(ampm_input_endtime1) + 1200;
-                }                
-                else if(time_input_endtime[1] == "am")
-                {
-                  ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
-                  ampm_input_endtime = parseInt(ampm_input_endtime1);                  
-                }              
-                console.log(overlap_check);
-              if(ampm_compare_starttime < ampm_input_starttime && ampm_compare_endtime < ampm_input_endtime)
-                {}
-              else
-                {
-                  overlap_check = false;
+              if(time_input_endtime[1] == "am" || time_input_starttime[0].includes('12:')){
+                ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
+                ampm_input_endtime = parseInt(ampm_input_endtime1);                  
+              } 
+              else if (time_input_endtime[1] == "pm"){
+                ampm_input_endtime1 = time_input_endtime[0].split(":").join("");
+                ampm_input_endtime = parseInt(ampm_input_endtime1) + 1200;
+              }                
+                 
+              if(ampm_input_starttime < ampm_compare_starttime){
+                if(ampm_input_endtime < ampm_compare_starttime){
+
                 }
-              console.log(overlap_check);
+                else{
+                  // console.log('case 1')
+                  return true;
+                }
+              }    
+              else if(ampm_input_starttime < ampm_compare_starttime){
+                // console.log('case 2')
+                return true;
+              }         
+              else{
+                if(ampm_input_starttime <= ampm_compare_endtime){
+                  // console.log('case 3')
+                  return true;
+                }
               }
-
-            //M
-
-            //W
-            //F
+            }
           }
         }
-
-
-
+      }
     }
-  }
+    return overlap_check;
   }
   // description:     updates data in shared section and refreshes search_results controller
   // functions used:  $broadcast('class_removed')
@@ -242,7 +259,7 @@ app.factory('selectResults', function($rootScope, $http, userData){
       return 1;
     }
     else{
-      class_list.splice(index);
+      class_list.splice(index, 1);
       $rootScope.$broadcast('class_updated');
       userData.getProfile()
       .then(function(response){
@@ -257,7 +274,7 @@ app.factory('selectResults', function($rootScope, $http, userData){
         }
         for(let i = 0; i < user.schedules[index].courses.length; i++){
           let curr_course = user.schedules[index].courses[i]
-          let key = curr = cls.subject + '-' + cls.course + '-' + cls.section;
+          let key = curr = curr_course.subject + '-' + curr_course.course + '-' + curr_course.section;
           let match_key = cls.subject + '-' + cls.course + '-' + cls.section;
           if(key == match_key){
             remove_index = i;
@@ -273,14 +290,53 @@ app.factory('selectResults', function($rootScope, $http, userData){
     }
     // $rootScope.$broadcast('class_removed');
   }
+  function removeTbaClass(cls){
+    var index = tba_class_list.indexOf(cls);
+    if(index == -1){
+      return 1;
+    }
+    else{
+      tba_class_list.splice(index, 1);
+      $rootScope.$broadcast('class_updated');
+      userData.getProfile()
+      .then(function(response){
+        console.log(response.data)
+        let user = response.data;
+        let remove_index = -1;
+        for(let i = 0; i < user.schedules.length; i++){
+          if(user.schedules[i].name == current_schedule){
+            index = i;
+            break;
+          }
+        }
+        for(let i = 0; i < user.schedules[index].courses.length; i++){
+          let curr_course = user.schedules[index].courses[i]
+          let key = curr = curr_course.subject + '-' + curr_course.course + '-' + curr_course.section;
+          let match_key = cls.subject + '-' + cls.course + '-' + cls.section;
+          if(key == match_key){
+            remove_index = i;
+            break;
+          }
+        }
+        user.schedules[index].courses.splice(remove_index, 1)
+        userData.updateUser(user._id, user)
+      }, function(){
+        console.log('Unknown user error.')
+      })
+      return 0;
+    }
+  }
   // description:     returns updated data
   // return:          list - current data list
   function getClasses(){
       return class_list;
   }
+  function getTbaClasses(){
+      return tba_class_list;
+  }
   function selectSchedule(name){
     class_list = [];
-      $rootScope.$broadcast('class_updated');
+    $rootScope.$broadcast('class_updated');
 
     userData.getProfile()
     .then(function(response){
@@ -315,12 +371,21 @@ app.factory('selectResults', function($rootScope, $http, userData){
     function(){
       console.log('Unknown User Error.');
     })
+
+  }
+  function unselectSchedule(){
+    current_schedule = '';
+    class_list = [];
   }
   return{ 
       addClass: addClass,
+      addTbaClass: addTbaClass,
       removeClass: removeClass,
+      removeTbaClass: removeTbaClass,
       getClasses: getClasses,
-      selectSchedule: selectSchedule
+      getTbaClasses: getTbaClasses,
+      selectSchedule: selectSchedule,
+      unselectSchedule: unselectSchedule
   }
 })
 // description:     app service for navigating between the side menu
@@ -349,7 +414,7 @@ app.factory('colorSelector', function($rootScope){
                     ['#34495e', '#2c3e50'], ['#f1c40f', '#f39c12'],
                     ['#e74c3c', '#c0392b'], ['#95a5a6', '#7f8c8d'],
                     ['#2ecc71', '#27ae60'], ['#9b59b6', '#8e44ad'],
-                    ['#e67e22', '#d35400'], ['#ecf0f1', '#bdc3c7']];
+                    ['#e67e22', '#d35400'], ['#bdc3c7', '#84888B']];
   function getColor(str){
     var num = 0;
     for(var i = 0; i < str.length; i++){

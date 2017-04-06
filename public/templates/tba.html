@@ -1,0 +1,16 @@
+<div id="tbaOpener" class="col-md-12">
+  <div class="item-expander col-md-12">
+    <i class="fa fa-caret-down" aria-hidden="true"></i>
+    <i class="fa fa-caret-up" aria-hidden="true"></i>
+  </div>
+</div>
+<div id="tba" class="row">
+  <div id="tbaTitle" class="row">
+    <label>Time not specified</label>
+  </div>
+  <div id="tbaScheduler" ng-scrollable="{scrollX:'bottom',scrollY:'none'}" class="row">
+    <div class="tba-item" tba_item ng-repeat="x in tba_sessions" current="x">
+      
+    </div>
+  </div>
+</div>
