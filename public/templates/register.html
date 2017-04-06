@@ -36,17 +36,23 @@
       <div class="col-md-12">
         <div class="col-md-2"></div><hr class="col-md-8"/><div class="col-md-2"></div>
       </div>
-      <div id="firstNameField" class="form-group col-md-12">
+      <div id="firstNameField" class="form-group hide-later col-md-12">
         <input type="text" required placeholder="First Name" class="form-control" ng-model="credentials.first_name"/>
       </div>
-      <div id="lastNameField" class="form-group col-md-12">
+      <div id="lastNameField" class="form-group hide-later col-md-12">
         <input type="text" required placeholder="Last Name" class="form-control" ng-model="credentials.last_name"/>
       </div>
-      <div id="classField" class="form-group col-md-12">
-        <input required placeholder="Classification" class="form-control" ng-model="credentials.classification"/>
+      <div id="classField" class="form-group hide-later col-md-12">
+<!--         <input required placeholder="Classification" class="form-control" ng-model="credentials.classification"/> -->
+        <select required class="form-control" ng-model="credentials.classification">
+          <option ng-repeat="c in coptions" value="{{ c }}">{{ c }}</option>
+        </select>
       </div>
-      <div class="col-md-12">
+      <div class="hide-later col-md-12">
         <p >Already a member? Please <a href="/login">log in</a> instead.</p>
+      </div>
+      <div id="registerMessageDiv" class="col-md-12">
+        <pre>{{ register_message }}</pre>
       </div>
       <div class="col-md-3">
         <button type="submit" id="submitButton" class="btn btn-default">Submit</button>

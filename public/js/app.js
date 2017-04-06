@@ -1,7 +1,7 @@
 var app = angular.module('FrameItApp',['ui.router', 'ngScrollable'])
 
 // description:     app configuration for routing
-app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $qProvider) {
   $urlRouterProvider.otherwise('/');
   $stateProvider
   // description:     routing for home page
@@ -31,6 +31,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     url: '/admin-home',
     templateUrl: 'templates/admin_home.html'     
   });
+  $qProvider.errorOnUnhandledRejections(false);
   $locationProvider.html5Mode(true);
 })
 
@@ -56,15 +57,81 @@ app.run(function($rootScope, $location, authentication, adminAuthentication){
 
 // description:     controller for the whole app
 // commented out:   commented because the outside app does not need a controller yet
-app.controller('FrameItAppCtrl', function($http, $scope, $location, authentication, adminAuthentication){
+app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, $location, authentication, adminAuthentication){
+  $scope.classes = null;
+  $scope.filters = {};
+  $scope.task_title = '';
+  $http.get('/class-data')
+  .then(
+      function(response){
+          $scope.classes = response.data;
+          // $scope.filters = $scope.getFilters($scope.classes);
+          $scope.getFilters($scope.classes)
+      },
+      function(){
+          $scope.classes = [];
+          console.log('db connection error');
+      }
+  )
+  // description:     get all filters (subject, course, instructor, day)
+  // input:           data - the whole data
+  // return:          temp - filter titles
+  $scope.getFilters = function(data){
+      // var result = {};
+      console.log('getting filters')
+
+      $scope.filters.subject = [];
+      $scope.filters.subject.push('')
+      $scope.filters.days = ['M', 'T', 'W', 'R', 'F'];
+
+      angular.forEach(data, function(item){
+        if($scope.filters.subject.indexOf(item.subject) == -1){
+          $scope.filters.subject.push(item.subject)
+        }
+      });
+  }
+
+  $scope.getSecondFilters = function(data, subject){
+      console.log('getting second filters')
+      $scope.filters.course = [];
+      $scope.filters.instructor = [];
+      angular.forEach(data, function(item){
+        if(item.subject == subject && $scope.filters.course.indexOf(item.course) == -1){
+          $scope.filters.course.push(item.course)
+        }
+      });
+      angular.forEach(data, function(item){
+        if(item.subject == subject){
+          angular.forEach(item.instructor, function(ins){
+            if($scope.filters.instructor.indexOf(ins) == -1){
+              $scope.filters.instructor.push(ins)
+            }
+          })
+        }
+      });
+      
+      console.log('done')
+
+  }
+
+  $scope.openMenuTask = function(id){
+    angular.element('#'+id.toLowerCase()+'Task').slideDown(300);
+    $scope.task_title = id;
+  }
+
+  $scope.closeMenuTask = function(id){
+    angular.element('#'+id.toLowerCase()+'Task').slideUp(300);
+    $scope.task_title = '';
+  }
+
   $scope.logout = function(){
     console.log('logout called')
     authentication.logout()
-    $location.path('/')
+    $state.go('home')
   }
   $scope.admin_logout = function(){
     console.log('adminlogout called')
     adminAuthentication.logout()
-    $location.path('/admin')
+    $state.go('admin')
   }
 });

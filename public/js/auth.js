@@ -52,7 +52,6 @@ app.service('authentication', function($http, $window, $location){
     return $http.post('/api/login', user)
     .then(
       function(response){
-        console.log('login successful')
         saveToken(response.data.token);
         $location.path('/documents')
       },
@@ -66,7 +65,9 @@ app.service('authentication', function($http, $window, $location){
   };
 
   logout = function() {
+    console.log('auth logout called')
     $window.localStorage.removeItem('mean-token');
+    console.log('logout finished')
   };
 
   return {
@@ -170,10 +171,18 @@ app.service('userData', function($http, authentication){
       }
     });
   };
+  var updatePassword = function(id, password){
+      return $http.put('/api//password-change' + id, {'id': id, 'password': password}, {headers: {Authorization: 'Bearer '+ authentication.getToken()}});
+  }
   var updateUser = function(id, user){
-    console.log('updateUser called')
-    if(id != undefined){
-      $http.put('/api/user' + id, user);
+    if(authentication.isLoggedIn() && id != undefined){
+      $http.put('/api/user' + id, user, {headers: {Authorization: 'Bearer '+ authentication.getToken()}})
+      .then(function(response){
+        console.log(response.data.answer)
+      },
+      function(){
+        console.log('user db error')
+      });
     }
     else{
       console.log('user not found')
@@ -181,7 +190,8 @@ app.service('userData', function($http, authentication){
   }
   return {
     getProfile : getProfile,
-    updateUser : updateUser
+    updateUser : updateUser,
+    updatePassword : updatePassword
   };
 })
 
