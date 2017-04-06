@@ -16,6 +16,7 @@ var auth = jwt({
 // profile
 router.get('/profile', auth, ctrlProfile.profileRead);
 router.put('/user:id', ctrlProfile.profileUpdate);
+router.put('/userpw:id', ctrlProfile.passwordUpdate);
 router.get('/adminprofile', auth, ctrlProfile.adminprofileRead);
 
 // authentication

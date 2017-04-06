@@ -52,7 +52,6 @@ app.service('authentication', function($http, $window, $location){
     return $http.post('/api/login', user)
     .then(
       function(response){
-        console.log('login successful')
         saveToken(response.data.token);
         $location.path('/documents')
       },
@@ -172,15 +171,17 @@ app.service('userData', function($http, authentication){
       }
     });
   };
+  var updatePassword = function(id, user){
+    if(authentication.isLoggedIn() && id != undefined){
+      $http.put('/api/userpw' + id, user);
+    }
+    else{
+      console.log('user not found')
+    }
+  }
   var updateUser = function(id, user){
     if(authentication.isLoggedIn() && id != undefined){
-      $http.put('/api/user' + id, user)
-      .toPromise()
-      .then(function(response){
-        console.log(response)
-      }, function(err){
-        console.log(err)
-      });
+      $http.put('/api/user' + id, user);
     }
     else{
       console.log('user not found')
@@ -188,7 +189,8 @@ app.service('userData', function($http, authentication){
   }
   return {
     getProfile : getProfile,
-    updateUser : updateUser
+    updateUser : updateUser,
+    updatePassword : updatePassword
   };
 })
 

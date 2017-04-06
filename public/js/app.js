@@ -57,7 +57,7 @@ app.run(function($rootScope, $location, authentication, adminAuthentication){
 
 // description:     controller for the whole app
 // commented out:   commented because the outside app does not need a controller yet
-app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, authentication, adminAuthentication){
+app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, $location, authentication, adminAuthentication){
   $scope.classes = null;
   $scope.filters = {};
   $http.get('/class-data')
@@ -88,13 +88,6 @@ app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, authe
           $scope.filters.subject.push(item.subject)
         }
       });
-      $timeout(function(){
-        angular.element('#loadingPage').fadeOut(300);
-        console.log('hide loading')
-      }, 2000, true);
-      // console.log($scope.filters)
-      
-      // return $scope.filters;
   }
 
   $scope.getSecondFilters = function(data, subject){
@@ -121,9 +114,6 @@ app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, authe
       
       console.log('done')
 
-  }
-  $scope.hideLoading = function(){
-    
   }
 
   $scope.logout = function(){

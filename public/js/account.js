@@ -1,6 +1,7 @@
 app.controller('accountCtrl', function($scope, userData){
 	$scope.user = {};
 	$scope.account_message = '';
+	$scope.new_password = '';
 	$scope.notis = [{id: 'noti1', label: 'Night before registration',checked: 'chedked'},
 					{id: 'noti2', label: '5 minutes before Registration',checked: 'chedked'}];
 	$scope.init = function(){
@@ -21,6 +22,14 @@ app.controller('accountCtrl', function($scope, userData){
 	$scope.accountSubmit = function(){
 		userData.updateUser($scope.user._id, $scope.user);
 		$scope.account_message = 'Account Updated.';
+	}
+	$scope.pwSubmit = function(){
+		if($scope.new_password.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)){
+			$scope.account_message = 'Password changed.';
+		}
+		else{
+			$scope.account_message = 'A password must: \n • Contain at least 8 characters \n • Contain at least 1 number \n • Contain at least 1 lowercase character (a-z) \n • Contain at least 1 uppercase character (A-Z) \n • Contain at least 1 special character';
+		}
 	}
 	$scope.init();
 });
