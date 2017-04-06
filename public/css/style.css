@@ -14,6 +14,14 @@ body {
 a {
   cursor: pointer; }
 
+pre {
+  padding: 0;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 0;
+  overflow: initial;
+  color: #d64d61; }
+
 .container-fluid, .row {
   margin: 0;
   padding: 0; }
@@ -387,6 +395,8 @@ a {
     top: 35%; }
   .floating-form h3 {
     padding-bottom: 10px; }
+  .floating-form #registerMessageDiv {
+    height: 30px; }
   .floating-form .form-control {
     height: 40px;
     line-height: 40px;
@@ -398,5 +408,32 @@ a {
   margin-top: 10px; }
   #notiDiv div.check-div label {
     padding-top: 10px; }
+
+.menu-tasks {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 8000;
+  background-color: rgba(0, 0, 0, 0.7); }
+  .menu-tasks .close-button {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: #ffffff;
+    font-size: 40px;
+    cursor: pointer; }
+    .menu-tasks .close-button:hover {
+      color: #4183D7; }
+  .menu-tasks .task-contents {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    width: 60%;
+    height: 40%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    color: #21213C;
+    text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

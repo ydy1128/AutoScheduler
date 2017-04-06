@@ -16,6 +16,14 @@ body{
 a{
 	cursor: pointer;
 }
+pre{
+	padding: 0;
+	background-color: $color-lightest;
+	border: none;
+	border-radius: 0;
+	overflow: initial;
+	color: $color-active;
+}
 .container-fluid, .row{
 	margin: 0;
 	padding: 0;
@@ -482,6 +490,9 @@ a{
 	h3{
 		padding-bottom: 10px;
 	}
+	#registerMessageDiv{
+		height: 30px;
+	}
 	.form-control{
 		height: 40px;
 		line-height: 40px;
@@ -498,5 +509,36 @@ a{
 		label{
 			padding-top: 10px;
 		}
+	}
+}
+
+.menu-tasks{
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 8000;
+	background-color: rgba(0,0,0,.7);
+	.close-button{
+		position: absolute;
+		top: 20px;
+		right: 40px;
+		color: $color-lightest;
+		font-size: 40px;
+		cursor: pointer;
+		&:hover{
+			color: $color-vibrant;
+		}
+	}
+	.task-contents{
+		position: absolute;
+		top: 30%;
+		left: 20%;
+		width: 60%;
+		height: 40%;
+		background-color: $color-lightest;
+		border-radius: 5px;
+		color: $color-darkest;
+		text-align: center;
 	}
 }

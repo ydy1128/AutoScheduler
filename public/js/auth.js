@@ -52,7 +52,6 @@ app.service('authentication', function($http, $window, $location){
     return $http.post('/api/login', user)
     .then(
       function(response){
-        console.log('login successful')
         saveToken(response.data.token);
         $location.path('/documents')
       },
@@ -172,14 +171,17 @@ app.service('userData', function($http, authentication){
       }
     });
   };
+  var updatePassword = function(id, password){
+      return $http.put('/api//password-change' + id, {'id': id, 'password': password}, {headers: {Authorization: 'Bearer '+ authentication.getToken()}});
+  }
   var updateUser = function(id, user){
     if(authentication.isLoggedIn() && id != undefined){
-      $http.put('/api/user' + id, user)
-      .toPromise()
+      $http.put('/api/user' + id, user, {headers: {Authorization: 'Bearer '+ authentication.getToken()}})
       .then(function(response){
-        console.log(response)
-      }, function(err){
-        console.log(err)
+        console.log(response.data.answer)
+      },
+      function(){
+        console.log('user db error')
       });
     }
     else{
@@ -188,7 +190,8 @@ app.service('userData', function($http, authentication){
   }
   return {
     getProfile : getProfile,
-    updateUser : updateUser
+    updateUser : updateUser,
+    updatePassword : updatePassword
   };
 })
 

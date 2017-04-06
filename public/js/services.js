@@ -11,14 +11,11 @@ app.factory('passResults', function($rootScope){
     //   console.log(elem.subject, elem.course, elem.section)
     //   class_list.push(cls[i])
     // })
-    console.log('sharing data')
     $rootScope.$broadcast('data_shared');
   }
   // description:     returns updated data
   // return:          list - current data list
-  function getClasses(){
-      console.log('getting classes');
-      
+  function getClasses(){      
       return class_list;
   }
   return{ 

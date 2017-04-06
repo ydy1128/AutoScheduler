@@ -42,14 +42,22 @@ router.get('/class-data', function(req, res){
     var query = Classes.find({});
     
     query.exec(function(err, cls){
+		if(err)
+		    res.send(err);
+		else
+		    res.json(cls);
+    })
+});
+router.delete('/delete-all-class-data', function(req, res){
+    var query = Classes.remove({});
+    query.exec(function(err, cls){
 	// console.log(cls);
 	if(err)
 	    res.send(err);
 	else
 	    res.json(cls);
     })
-});
-
+})
 //CSCE^112^person1&&person2^M&&W
 //CSCE
 router.get('/search-course:conditions', function(req, res){
