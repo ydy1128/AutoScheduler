@@ -26,7 +26,7 @@
 		<label>Schedule</label>
 		<ul>
 			<li ng-repeat="y in current.schedule">
-				{{y.days}} ({{y.type}}): <br /> {{y.start_time}} - {{y.end_time}}
+				{{y.days.join('')}} ({{y.class_type}}): <br /> {{y.start_time}} - {{y.end_time}}
 			</li>
 		</ul>
 	</div>
