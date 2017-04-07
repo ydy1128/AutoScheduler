@@ -19,8 +19,7 @@ app.use(methodOverride());
 
 
 // DB------------------------------------------------------
-var uristring = process.env.MONGOLAB_URI ||
-			    process.env.MONGOHQ_URL ||
+var uristring = process.env.MONGODB_URI ||
 			    "mongodb://localhost/frameitdb";
 mongoose.connect(uristring);
 var db = mongoose.connection;
