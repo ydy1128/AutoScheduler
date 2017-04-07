@@ -21,8 +21,8 @@ app.use(methodOverride());
 // DB------------------------------------------------------
 var uristring = process.env.MONGODB_URI ||
 				process.env.MONGOLAB_URI ||
-			    "mongodb://localhost/frameitdb";
-mongoose.connect('mongodb://heroku_d4bw5531:vRT_PXeeeUkcUZkVSrT4jhVmkU6OQvyp@ds117899.mlab.com:17899/heroku_d4bw5531/db');
+			    "mongodb://localhost/heroku_d4bw5531";
+mongoose.connect(uristring);
 
 var db = mongoose.connection;
 db.once('open', function(){
