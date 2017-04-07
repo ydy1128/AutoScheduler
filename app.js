@@ -17,9 +17,8 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 app.use(methodOverride());
 
-
 // DB------------------------------------------------------
-mongoose.connect("mongodb://localhost/frameitdb");
+mongoose.connect("mongodb://heroku_d4bw5531:heroku_d4bw5531@ds117899.mlab.com:17899/heroku_d4bw5531");
 var db = mongoose.connection;
 db.once('open', function(){
 	console.log('DB Connected');
