@@ -22,7 +22,7 @@ app.use(methodOverride());
 var uristring = process.env.MONGODB_URI ||
 				process.env.MONGOLAB_URI ||
 			    "mongodb://localhost/frameitdb";
-mongoose.connect(uristring);
+mongoose.connect('mongodb://heroku_d4bw5531:vRT_PXeeeUkcUZkVSrT4jhVmkU6OQvyp@ds117899.mlab.com:17899/heroku_d4bw5531');
 var db = mongoose.connection;
 db.once('open', function(){
 	console.log('DB Connected');
