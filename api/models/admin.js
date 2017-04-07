@@ -24,13 +24,14 @@ adminSchema.methods.validPassword = function(password) {
 
 adminSchema.methods.generateJwt = function() {
   var expiry = new Date();
+  var secret = process.env.SECRET || "MY_SECRET";
   expiry.setDate(expiry.getDate() + 120);
 
   return jwt.sign({
     _id: this._id,
     email: this.email,
     exp: parseInt(expiry.getTime() / 1000),
-  }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
+  }, secret);
 };
 
 mongoose.model('Admin', adminSchema);

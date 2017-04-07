@@ -55,7 +55,7 @@ userSchema.methods.validPassword = function(password) {
 
 userSchema.methods.generateJwt = function() {
   var expiry = new Date();
-  var secret = process.env.MONGOLAB_URI || "MY_SECRET"
+  var secret = process.env.SECRET || "MY_SECRET";
   expiry.setDate(expiry.getDate() + 120);
 
   return jwt.sign({
@@ -64,7 +64,7 @@ userSchema.methods.generateJwt = function() {
     first_name: this.first_name,
     last_name: this.last_name,
     exp: parseInt(expiry.getTime() / 1000),
-  }, secret); // DO NOT KEEP YOUR SECRET IN THE CODE!
+  }, secret);
 };
 
 mongoose.model('User', userSchema);
