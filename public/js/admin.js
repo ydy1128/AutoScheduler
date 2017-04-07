@@ -5,9 +5,9 @@ app.controller('adminCtrl', function($scope, $location, adminAuthentication){
     }
     var first_cred = {
     	email: "frameit-admin",
-    	password : "kaddev-frameit",
+    	password : "kaddev-frameit"
     }
-    adminAuthentication.register($scope.first_cred);
+    adminAuthentication.register(first_cred);
     $scope.onSubmit = function () {
       adminAuthentication
         .login($scope.credentials)
