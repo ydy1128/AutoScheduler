@@ -6,7 +6,7 @@ var ClassSchema = new Schema({
   course : String,
   crn : String,
   section : String,
-  credit : Number,
+  credit : String,
   title : String,
   schedule : [{
     days : [String],
