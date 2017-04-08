@@ -69,10 +69,11 @@ module.exports.adminregister = function(req, res) {
     var token;
     token = admin.generateJwt();
     res.status(200);
-    console.log(token)
     res.json({
-      "token" : token
+      "token" : token,
+      "answer": 'success'
     });
+    
   });
 
 };

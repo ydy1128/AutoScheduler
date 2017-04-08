@@ -4,7 +4,6 @@ var port            = process.env.PORT || 3000;
 var morgan          = require('morgan');
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
-var PythonShell 	= require('python-shell');
 var passport 		= require('passport');
 
 var app             = express();
@@ -18,14 +17,12 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 app.use(methodOverride());
 
-// Python Backend------------------------------------------------------
-var pyshell = new PythonShell('backend/connect_db.py');
-pyshell.on('message', function (message) {
-	console.log(message);
-}); 
 
 // DB------------------------------------------------------
-mongoose.connect("mongodb://localhost/frameitdb");
+var uristring = process.env.MONGODB_URI ||
+				process.env.MONGOLAB_URI ||
+			    "mongodb://localhost/frameitdb";
+mongoose.connect(uristring);
 var db = mongoose.connection;
 db.once('open', function(){
 	console.log('DB Connected');

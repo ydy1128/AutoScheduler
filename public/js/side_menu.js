@@ -1,4 +1,4 @@
-app.controller('sideMenuCtrl', function($scope, $http, $timeout, navigator, $location, selectResults, userData){
+app.controller('sideMenuCtrl', function($scope, $rootScope, $http, $timeout, navigator, $location, selectResults, userData){
 	$scope.title = 'Worksheets';
 	$scope.schedule_title = 'Account Setting';
 	$scope.template = "../templates/side_menu.html";
@@ -9,10 +9,13 @@ app.controller('sideMenuCtrl', function($scope, $http, $timeout, navigator, $loc
     $scope.worksheet_counter = 0;
     $scope.user = {};
 
-	$timeout(function(){
-	  angular.element('#loadingPage').fadeOut(300);
-	  console.log('hide loading')
-	}, 2000, true);
+    $scope.$on('filters_processed', function(){
+		$timeout(function(){
+		  angular.element('#loadingPage').fadeOut(300);
+		  console.log('hide loading')
+		}, 2000, true);	
+    })
+
 
 	userData.getProfile()
 	.then(

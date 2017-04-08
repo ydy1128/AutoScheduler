@@ -57,7 +57,7 @@ app.run(function($rootScope, $location, authentication, adminAuthentication){
 
 // description:     controller for the whole app
 // commented out:   commented because the outside app does not need a controller yet
-app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, $location, authentication, adminAuthentication){
+app.controller('FrameItAppCtrl', function($http, $scope, $rootScope, $state, $timeout, $location, authentication, adminAuthentication){
   $scope.classes = null;
   $scope.filters = {};
   $scope.task_title = '';
@@ -65,7 +65,6 @@ app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, $loca
   .then(
       function(response){
           $scope.classes = response.data;
-          // $scope.filters = $scope.getFilters($scope.classes);
           $scope.getFilters($scope.classes)
       },
       function(){
@@ -84,9 +83,13 @@ app.controller('FrameItAppCtrl', function($http, $scope, $state, $timeout, $loca
       $scope.filters.subject.push('')
       $scope.filters.days = ['M', 'T', 'W', 'R', 'F'];
 
-      angular.forEach(data, function(item){
+      angular.forEach(data, function(item, index){
         if($scope.filters.subject.indexOf(item.subject) == -1){
           $scope.filters.subject.push(item.subject)
+        }
+        if(index == data.length-1){
+          console.log('finished getting filters');
+          $scope.$broadcast('filters_processed');
         }
       });
   }
