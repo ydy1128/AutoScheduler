@@ -36,7 +36,7 @@ for option in options:
     optionsList.append(option.get_attribute("value"))
 
 for option in optionsList:
-    print option
+    #print option
 
     select2 = Select(driver.find_element_by_id('subj_id'))
     select2.deselect_all()
@@ -92,6 +92,10 @@ for option in optionsList:
     instructors = []
     credit = []
     for info in infos:
+        #print(info)
+        #print()
+        if 'Levels' in info.get_text() and 'Instructors:' not in info.get_text():
+            info_list.append('Instructors: TBA')
         for line in info.get_text().split('\n'):
             if line != '':
                 if flag == True:
@@ -102,19 +106,17 @@ for option in optionsList:
                 elif line.strip(' ') == 'Instructors:':
                     flag = True
                     combined = line
-                else:
+                elif 'Credits' in line:
                     info_list.append(line)
 
+    #print(info_list)
+        
     for info in info_list:
         if 'Instructors:' in info:
-            instructors.append(str(info.replace('Instructors:',''))[1:])
-        else:
-            instructors.append('TBA')
+            instructors.append(str(info.replace('Instructors:','').replace('  ',' '))[1:])
         if 'Credits' in info:
             credit.append(str(info.strip(' '))[:5])
-        else:
-            credit.append('0')
-    
+        
     info_list = []
     item_infos = []
     class_infos = []
