@@ -115,7 +115,7 @@ for option in optionsList:
         if 'Instructors:' in info:
             instructors.append(str(info.replace('Instructors:','').replace('  ',' '))[1:])
         if 'Credits' in info:
-            credit.append(str(info.strip(' '))[:5])
+            credit.append(str(info.strip(' '))[:-8])
         
     info_list = []
     item_infos = []
@@ -146,10 +146,10 @@ for option in optionsList:
         class_data['course'] = item[1]
         class_data['crn'] = item[2]
         class_data['section'] = item[3]
-        class_data['credit'] = item[4].strip('.000')
+        class_data['credit'] = item[4].replace('.000','').replace(' ','').replace('TO','-')
         class_data['title'] = item[5]
         ins_list = []
-        for ins in [i.strip(' ').strip(' (P)') for i in item[6].split(',')]:
+        for ins in [i.strip(' ').replace(' (P)','') for i in item[6].split(',')]:
             if ins not in ins_list:
                 ins_list.append(ins)
         class_data['instructor'] = ins_list

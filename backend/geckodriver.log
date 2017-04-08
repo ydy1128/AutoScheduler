@@ -3968,3 +3968,239 @@ exports.makeInfallible/<@resource://gre/modules/commonjs/toolkit/loader.js -> re
 (firefox:24108): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
 
 (firefox:24108): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+1491686818368	geckodriver	INFO	Listening on 127.0.0.1:39228
+1491686819450	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.yKqDICVgSozM
+1491686819451	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1491686819454	geckodriver::marionette	INFO	Connecting to Marionette on localhost:40357
+
+(firefox:26988): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1491686820853	Marionette	INFO	Listening on port 40357
+1491686822317	Marionette	INFO	startBrowser 4d0aa210-21ef-44ea-85f5-7eb8158a5c1e
+
+(firefox:26988): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:26988): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:26988): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:26988): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:26988): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:26988): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x400003,name=PCompositable::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x400003,name=PCompositable::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x400003,name=PCompositable::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x400003,name=PCompositable::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x400003,name=PCompositable::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x400003,name=PCompositable::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xFA0005,name=PTexture::Msg_Destroy) Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x400003,name=PCompositable::Msg_Destroy) Channel error: cannot send/recv
+
+[Child 27062] ###!!! ABORT: Aborting on channel error.: file /home/abuild/rpmbuild/BUILD/mozilla/ipc/glue/MessageChannel.cpp, line 2052
+[Child 27062] ###!!! ABORT: Aborting on channel error.: file /home/abuild/rpmbuild/BUILD/mozilla/ipc/glue/MessageChannel.cpp, line 2052
+1491686906484	geckodriver	INFO	Listening on 127.0.0.1:46717
+1491686907571	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.lvMwbz5A7Dvs
+1491686907572	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1491686907574	geckodriver::marionette	INFO	Connecting to Marionette on localhost:34290
+
+(firefox:27148): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1491686908949	Marionette	INFO	Listening on port 34290
+1491686919648	geckodriver	INFO	Listening on 127.0.0.1:54279
+1491686920732	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.nzoIF8RN7s7a
+1491686920734	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1491686920736	geckodriver::marionette	INFO	Connecting to Marionette on localhost:42677
+
+(firefox:27229): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1491686922152	Marionette	INFO	Listening on port 42677
+1491686923473	Marionette	INFO	startBrowser 3c2fe2a7-3f4e-45d3-b690-62b70188bfdb
+
+(firefox:27229): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27229): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27229): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27229): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27229): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27229): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+[Child 27301] ###!!! ABORT: Aborting on channel error.: file /home/abuild/rpmbuild/BUILD/mozilla/ipc/glue/MessageChannel.cpp, line 2052
+[Child 27301] ###!!! ABORT: Aborting on channel error.: file /home/abuild/rpmbuild/BUILD/mozilla/ipc/glue/MessageChannel.cpp, line 2052
+1491686978088	geckodriver	INFO	Listening on 127.0.0.1:45298
+1491686979180	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.L9u5piwL3WtM
+1491686979181	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1491686979184	geckodriver::marionette	INFO	Connecting to Marionette on localhost:42246
+
+(firefox:27378): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1491686980739	Marionette	INFO	Listening on port 42246
+1491686982319	Marionette	INFO	startBrowser aee94408-b645-4544-9a6c-8890cfea90cf
+
+(firefox:27378): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27378): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27378): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27378): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27378): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27378): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+1491687284877	geckodriver	INFO	Listening on 127.0.0.1:55235
+1491687285961	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.BvSIYlJsUV1a
+1491687285962	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1491687285965	geckodriver::marionette	INFO	Connecting to Marionette on localhost:33754
+
+(firefox:27673): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1491687287339	Marionette	INFO	Listening on port 33754
+1491687288725	Marionette	INFO	startBrowser 61c5d512-b046-42d4-b2d3-0cb4cfbc86ed
+
+(firefox:27673): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27673): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27673): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27673): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27673): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27673): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+1491687513297	geckodriver	INFO	Listening on 127.0.0.1:50957
+1491687513425	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.OJP7pTXnpsDv
+1491687513425	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1491687513428	geckodriver::marionette	INFO	Connecting to Marionette on localhost:42389
+
+(firefox:27858): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1491687515030	Marionette	INFO	Listening on port 42389
+1491687516368	Marionette	INFO	startBrowser cde3b69a-c545-4f79-b0a8-148191983e7c
+
+(firefox:27858): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27858): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27858): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27858): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27858): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:27858): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+1491688286819	geckodriver	INFO	Listening on 127.0.0.1:36033
+1491688287903	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.Phn48o17vY7f
+1491688287904	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1491688287906	geckodriver::marionette	INFO	Connecting to Marionette on localhost:42098
+
+(firefox:28512): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1491688289286	Marionette	INFO	Listening on port 42098
+1491688290598	Marionette	INFO	startBrowser a4fe3c1a-d036-4b15-a707-c9f2af2f32ae
+
+(firefox:28512): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:28512): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:28512): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:28512): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:28512): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:28512): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+1491688635732	geckodriver	INFO	Listening on 127.0.0.1:40839
+1491688636819	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.27yPuwqr4EdB
+1491688636819	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1491688636821	geckodriver::marionette	INFO	Connecting to Marionette on localhost:38915
+
+(firefox:2386): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1491689368936	Marionette	INFO	Listening on port 38915
+1491689370174	Marionette	INFO	startBrowser 401b7644-950d-4afd-b239-829656e0184b
+Connecting to deprecated signal QDBusConnectionInterface::serviceOwnerChanged(QString,QString,QString)
+kbuildsycoca4 running...
+
+(firefox:2386): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:2386): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:2386): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:2386): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:2386): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:2386): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+[Child 2474] WARNING: pipe error (3): Connection reset by peer: file /home/abuild/rpmbuild/BUILD/mozilla/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 316
+[Child 2474] ###!!! ABORT: Aborting on channel error.: file /home/abuild/rpmbuild/BUILD/mozilla/ipc/glue/MessageChannel.cpp, line 2052
+[Child 2474] ###!!! ABORT: Aborting on channel error.: file /home/abuild/rpmbuild/BUILD/mozilla/ipc/glue/MessageChannel.cpp, line 2052
+1491690447550	geckodriver	INFO	Listening on 127.0.0.1:48316
+1491690448634	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.ED6FUKGPmBFn
+1491690448635	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox
+1491690448637	geckodriver::marionette	INFO	Connecting to Marionette on localhost:38624
+
+(firefox:3504): Gtk-WARNING **: Theme directory base/ of theme oxygen has no size field
+
+1491690449992	Marionette	INFO	Listening on port 38624
+1491690451369	Marionette	INFO	startBrowser b6c51573-3df1-4490-9c77-e60fb37abab3
+
+(firefox:3504): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:3504): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:3504): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:3504): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:3504): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
+
+(firefox:3504): GLib-GObject-CRITICAL **: g_type_add_interface_static: assertion 'g_type_parent (interface_type) == G_TYPE_INTERFACE' failed
