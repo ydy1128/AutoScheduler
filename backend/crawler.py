@@ -35,7 +35,6 @@ optionsList = []
 for option in options:
     optionsList.append(option.get_attribute("value"))
 
-
 for option in optionsList:
     print option
 
@@ -109,8 +108,12 @@ for option in optionsList:
     for info in info_list:
         if 'Instructors:' in info:
             instructors.append(str(info.replace('Instructors:',''))[1:])
+        else:
+            instructors.append('TBA')
         if 'Credits' in info:
             credit.append(str(info.strip(' '))[:5])
+        else:
+            credit.append('0')
     
     info_list = []
     item_infos = []
