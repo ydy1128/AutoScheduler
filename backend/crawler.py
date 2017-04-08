@@ -35,9 +35,8 @@ optionsList = []
 for option in options:
     optionsList.append(option.get_attribute("value"))
 
-
 for option in optionsList:
-    print option
+    #print option
 
     select2 = Select(driver.find_element_by_id('subj_id'))
     select2.deselect_all()
@@ -93,6 +92,10 @@ for option in optionsList:
     instructors = []
     credit = []
     for info in infos:
+        #print(info)
+        #print()
+        if 'Levels' in info.get_text() and 'Instructors:' not in info.get_text():
+            info_list.append('Instructors: TBA')
         for line in info.get_text().split('\n'):
             if line != '':
                 if flag == True:
@@ -103,15 +106,17 @@ for option in optionsList:
                 elif line.strip(' ') == 'Instructors:':
                     flag = True
                     combined = line
-                else:
+                elif 'Credits' in line:
                     info_list.append(line)
 
+    #print(info_list)
+        
     for info in info_list:
         if 'Instructors:' in info:
-            instructors.append(str(info.replace('Instructors:',''))[1:])
+            instructors.append(str(info.replace('Instructors:','').replace('  ',' '))[1:])
         if 'Credits' in info:
-            credit.append(str(info.strip(' '))[:5])
-    
+            credit.append(str(info.strip(' '))[:-8])
+        
     info_list = []
     item_infos = []
     class_infos = []
@@ -141,9 +146,13 @@ for option in optionsList:
         class_data['course'] = item[1]
         class_data['crn'] = item[2]
         class_data['section'] = item[3]
-        class_data['credit'] = item[4].strip('.000')
+        class_data['credit'] = item[4].replace('.000','').replace(' ','').replace('TO','-')
         class_data['title'] = item[5]
-        class_data['instructor'] = [i.strip(' ').strip(' (P)') for i in item[6].split(',')]
+        ins_list = []
+        for ins in [i.strip(' ').replace(' (P)','') for i in item[6].split(',')]:
+            if ins not in ins_list:
+                ins_list.append(ins)
+        class_data['instructor'] = ins_list
         date = item[7][0][4].split(' - ')
         if len(date) == 2:
             class_data['date'] = {'start_date':date[0], 'end_date':date[1]}
