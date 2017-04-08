@@ -57,11 +57,11 @@ app.factory('selectResults', function($rootScope, $http, userData){
       if(insert){
         return 1;
       }
-      else if(time){
-        return 2;
-      }
       else if(cls_exists){
         return 1;
+      }
+      else if(time){
+        return 2;
       }
       else{
         class_list.push(cls);

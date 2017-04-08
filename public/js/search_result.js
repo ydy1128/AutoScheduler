@@ -3,9 +3,12 @@ app.controller('searchResultsCtrl', function($scope, passResults, selectResults,
     $scope.sort_options = [{id: 'Subject', value:'Subject'}, {id:'Course', value: 'Course #'}, {id: 'Section', value: 'Section'}];
 	$scope.button_type = 'Add';
     $scope.add_message = '';
+    $scope.sort_by = '0';
+
     $scope.$on('data_shared', function(){
 		$scope.filteredClasses = passResults.getClasses();
-        $scope.sort_by = '0';
+        $scope.sort_by = {id: 'Subject', value:'Subject'};
+        $scope.sortClasses($scope.sort_by)
         // $('#dummy').text(JSON.stringify($scope.filteredClasses))
 	});
     // description:     initiate select2 library
